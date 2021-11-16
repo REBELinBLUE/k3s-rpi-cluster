@@ -89,17 +89,17 @@ spec:
 #         - alertmanager.cluster.rebelinblue.com
 #       secretName: alertmanager-tls
 # ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    k8s-app: alertmanager
-  name: alertmanager
-  namespace: monitoring
-spec:
-  endpoints:
-    - interval: 30s
-      port: web
-  selector:
-    matchLabels:
-      alertmanager: main
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   labels:
+#     k8s-app: alertmanager
+#   name: alertmanager
+#   namespace: monitoring
+# spec:
+#   endpoints:
+#     - interval: 30s
+#       port: web
+#   selector:
+#     matchLabels:
+#       alertmanager: main
