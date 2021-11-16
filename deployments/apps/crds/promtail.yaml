@@ -1,15 +1,15 @@
-apiVersion: forecastle.stakater.com/v1alpha1
-kind: ForecastleApp
-metadata:
-  name: promtail
-  namespace: logging
-spec:
-  name: Promtail
-  group: Logging
-  icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
-  networkRestricted: true
-  properties:
-    Version: 0.4.0
-  urlFrom:
-    ingressRef:
-      name: promtail
+# apiVersion: forecastle.stakater.com/v1alpha1
+# kind: ForecastleApp
+# metadata:
+#   name: promtail
+#   namespace: logging
+# spec:
+#   name: Promtail
+#   group: Logging
+#   icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+#   networkRestricted: true
+#   properties:
+#     Version: 0.4.0
+#   urlFrom:
+#     ingressRef:
+#       name: promtail
