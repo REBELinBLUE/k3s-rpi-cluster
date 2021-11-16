@@ -93,7 +93,7 @@ items:
     kind: RoleBinding
     metadata:
       name: prometheus-k8s
-      namespace: flux
+      namespace: flux-system
     roleRef:
       apiGroup: rbac.authorization.k8s.io
       kind: Role
@@ -223,7 +223,7 @@ items:
     kind: Role
     metadata:
       name: prometheus-k8s
-      namespace: flux
+      namespace: flux-system
     rules:
       - apiGroups:
           - ""
