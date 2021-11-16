@@ -1,0 +1,36 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: metrics-server
+  namespace: kube-system
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: metrics-server
+  interval: 5m
+  chart:
+    spec:
+      chart: metrics-server
+      sourceRef:
+        kind: HelmRepository
+        name: stable
+        namespace: flux-system
+      version: 2.11.1
+  values:
+    image:
+      repository: k8s.gcr.io/metrics-server-arm
+      tag: v0.3.6
+
+    args:
+      - --kubelet-insecure-tls
+      - --kubelet-preferred-address-types=InternalIP
+
+    service:
+      labels:
+        kubernetes.io/cluster-service: "true"
+        kubernetes.io/name: "Metrics-Server"
+
+    podAnnotations:
+      scheduler.alpha.kubernetes.io/critical-pod: ''
+
+    priorityClassName: system-node-critical

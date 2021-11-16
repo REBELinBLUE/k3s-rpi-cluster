@@ -1,0 +1,26 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: eventrouter
+  namespace: kube-system
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: eventrouter
+  interval: 5m
+  chart:
+    spec:
+      chart: eventrouter
+      sourceRef:
+        kind: HelmRepository
+        name: stable
+        namespace: flux-system
+      version: 0.2.3
+  values:
+    image:
+      repository: rebelinblue/eventrouter
+      tag: 0.3
+
+    sink: stdout
+
+    enablePrometheus: false # true
