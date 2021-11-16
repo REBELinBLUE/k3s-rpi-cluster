@@ -1,0 +1,33 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nfs-client-provisioner
+  namespace: infra
+  annotations:
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: nfs-client-provisioner
+  interval: 5m
+  chart:
+    spec:
+      chart: nfs-client-provisioner
+      sourceRef:
+        kind: HelmRepository
+        name: stable
+        namespace: flux-system
+      version: 1.2.8
+  values:
+    provisionerName: nfs-provisioner/nfs-hdd
+
+    image:
+      repository: quay.io/external_storage/nfs-client-provisioner-arm
+      tag: v3.1.0-k8s1.11
+      pullPolicy: Always
+
+    nfs:
+      server: 10.0.0.1
+      path: /media/usb
+
+    storageClass:
+      name: nfs-hdd
+      defaultClass: false
