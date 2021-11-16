@@ -1,0 +1,81 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: traefik-ingress-controller
+  namespace: infra
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: traefik-ingress-controller
+  interval: 5m
+  chart:
+    spec:
+      chart: traefik
+      sourceRef:
+        kind: HelmRepository
+        name: stable
+        namespace: flux-system
+      version: 1.85.0
+  values:
+    image: traefik
+    imageTag: 1.7.20
+
+    serviceType: NodePort
+
+    ssl:
+      enabled: false #true
+      enforced: false #true
+      permanentRedirect: true
+      generateTLS: false
+
+    accessLogs:
+      enabled: true
+
+    tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+
+    nodeSelector:
+      beta.kubernetes.io/arch: arm
+      node-role.kubernetes.io/control-plane: "true"
+
+    metrics:
+      prometheus:
+        enabled: false #true
+      serviceMonitor:
+        enabled: false #true
+
+    cpuRequest: 25m
+    memoryRequest: 128Mi
+    cpuLimit: 200m
+    memoryLimit: 384Mi
+
+    deployment:
+      hostPort:
+        httpEnabled: 80
+        httpsEnabled: 443
+        dashboardEnabled: 8080
+
+    rbac:
+      enabled: true
+
+    kubernetes:
+      ingressEndpoint:
+        ip: 192.168.1.18
+
+    dashboard:
+      enabled: false #true
+      domain: traefik.cluster.rebelinblue.com
+      ingress:
+        annotations:
+          kubernetes.io/ingress.class: traefik
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          ingress.kubernetes.io/auth-type: forward
+          ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+          ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+        tls:
+          - hosts:
+              - traefik.cluster.rebelinblue.com
+            secretName: traefik-tls
+
