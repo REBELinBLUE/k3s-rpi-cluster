@@ -1,0 +1,65 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: blackbox-exporter
+  namespace: monitoring
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: blackbox-exporter
+  interval: 5m
+  chart:
+    spec:
+      chart: prometheus-blackbox-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: stable
+        namespace: flux-system
+      version: 1.6.0
+  values:
+    fullnameOverride: blackbox-exporter
+
+    image:
+      repository: prom/blackbox-exporter
+      tag: v0.17.0
+
+      podDisruptionBudget:
+        enabled: false
+
+      config:
+        modules:
+          http_2xx:
+            prober: http
+            timeout: 5s
+            http:
+              no_follow_redirects: true
+              preferred_ip_protocol: ip4
+              valid_http_versions:
+                - HTTP/1.1
+                - HTTP/2
+              valid_status_codes:
+                - 200
+                - 301
+                - 303
+                - 307
+                - 401
+                - 403
+
+      ingress:
+        enabled: false
+        # hosts:
+        #   - blackbox.cluster.rebelinblue.com
+        # annotations:
+        #   kubernetes.io/ingress.class: traefik
+        #   kubernetes.io/tls-acme: "true"
+        #   cert-manager.io/cluster-issuer: letsencrypt-prod
+        #   ingress.kubernetes.io/auth-type: forward
+        #   ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+        #   ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+        # tls:
+        #   - hosts:
+        #       - blackbox.cluster.rebelinblue.com
+        #     secretName: blackbox-exporter-tls
+
+      serviceMonitor:
+        enabled: false
