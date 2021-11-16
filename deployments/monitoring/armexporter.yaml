@@ -110,25 +110,25 @@ spec:
   selector:
     k8s-app: arm-exporter
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    app: arm-exporter
-  name: arm-exporter
-  namespace: monitoring
-spec:
-  endpoints:
-    - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-      interval: 30s
-      port: https
-      scheme: https
-      tlsConfig:
-        insecureSkipVerify: true
-  jobLabel: arm-exporter-exporter
-  namespaceSelector:
-    matchNames:
-      - monitoring
-  selector:
-    matchLabels:
-      k8s-app: arm-exporter
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   labels:
+#     app: arm-exporter
+#   name: arm-exporter
+#   namespace: monitoring
+# spec:
+#   endpoints:
+#     - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+#       interval: 30s
+#       port: https
+#       scheme: https
+#       tlsConfig:
+#         insecureSkipVerify: true
+#   jobLabel: arm-exporter-exporter
+#   namespaceSelector:
+#     matchNames:
+#       - monitoring
+#   selector:
+#     matchLabels:
+#       k8s-app: arm-exporter
