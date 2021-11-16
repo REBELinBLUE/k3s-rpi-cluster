@@ -15,3 +15,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://grafana.github.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: velero
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://vmware-tanzu.github.io/helm-charts
