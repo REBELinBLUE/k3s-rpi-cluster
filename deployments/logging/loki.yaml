@@ -13,11 +13,14 @@ spec:
       chart: loki
       sourceRef:
         kind: HelmRepository
-        name: loki
+        name: grafana
         namespace: flux-system
-      version: 0.29.0
+      version: 2.8.1
   values:
     fullnameOverride: loki
+
+    ingress:
+      enabled: false
 
     image:
       repository: grafana/loki

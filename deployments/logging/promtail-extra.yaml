@@ -15,30 +15,30 @@
 #  selector:
 #    app: promtail
 ---
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: promtail
-  namespace: logging
-  labels:
-    app: promtail
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/auth-type: forward
-    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-spec:
-  rules:
-    - host: promtail.cluster.rebelinblue.com
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: promtail-headless
-              servicePort: 3101
-  tls:
-    - hosts:
-        - promtail.cluster.rebelinblue.com
-      secretName: promtail-tls
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: promtail
+#   namespace: logging
+#   labels:
+#     app: promtail
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     kubernetes.io/tls-acme: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+#     ingress.kubernetes.io/auth-type: forward
+#     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+#     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+# spec:
+#   rules:
+#     - host: promtail.cluster.rebelinblue.com
+#       http:
+#         paths:
+#           - path: /
+#             backend:
+#               serviceName: promtail-headless
+#               servicePort: 3101
+#   tls:
+#     - hosts:
+#         - promtail.cluster.rebelinblue.com
+#       secretName: promtail-tls

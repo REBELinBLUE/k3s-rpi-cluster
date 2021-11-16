@@ -13,9 +13,9 @@ spec:
       chart: promtail
       sourceRef:
         kind: HelmRepository
-        name: loki
+        name: grafana
         namespace: flux-system
-      version: 0.23.0
+      version: 3.9.1
   values:
     fullnameOverride: promtail
 
