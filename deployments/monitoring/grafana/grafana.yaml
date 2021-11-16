@@ -289,41 +289,41 @@ spec:
   selector:
     app: grafana
 ---
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: grafana
-  namespace: monitoring
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/auth-type: forward
-    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-spec:
-  rules:
-    - host: grafana.cluster.rebelinblue.com
-      http:
-        paths:
-          - backend:
-              serviceName: grafana
-              servicePort: http
-            path: /
-  tls:
-    - hosts:
-        - grafana.cluster.rebelinblue.com
-      secretName: grafana-tls
----
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  name: grafana
-  namespace: monitoring
-spec:
-  endpoints:
-    - interval: 15s
-      port: http
-  selector:
-    matchLabels:
-      app: grafana
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: grafana
+#   namespace: monitoring
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     kubernetes.io/tls-acme: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+#     ingress.kubernetes.io/auth-type: forward
+#     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+#     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+# spec:
+#   rules:
+#     - host: grafana.cluster.rebelinblue.com
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: grafana
+#               servicePort: http
+#             path: /
+#   tls:
+#     - hosts:
+#         - grafana.cluster.rebelinblue.com
+#       secretName: grafana-tls
+# ---
+# apiVersion: monitoring.coreos.com/v1
+# kind: ServiceMonitor
+# metadata:
+#   name: grafana
+#   namespace: monitoring
+# spec:
+#   endpoints:
+#     - interval: 15s
+#       port: http
+#   selector:
+#     matchLabels:
+#       app: grafana
