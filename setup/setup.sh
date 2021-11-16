@@ -39,7 +39,7 @@ message "Installing NFS Provisioner"
 kubectl create namespace infra
 helm upgrade --install nfs-client-provisioner --values ./deployments/infra/nfs-client-provisioner/nfs-client-provisioner-values.yaml --namespace infra stable/nfs-client-provisioner
 
-#kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.1/cert-manager.crds.yaml
+kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml
 
 FLUX_READY=1
 while [ ${FLUX_READY} != 0 ]; do
