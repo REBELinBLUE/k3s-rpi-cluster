@@ -10,8 +10,8 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
-  name: stable
-  namespace: grafana
+  name: grafana
+  namespace: flux-system
 spec:
   interval: 10m0s
   url: https://grafana.github.io/helm-charts
