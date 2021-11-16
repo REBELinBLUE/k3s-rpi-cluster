@@ -1,0 +1,15 @@
+apiVersion: forecastle.stakater.com/v1alpha1
+kind: ForecastleApp
+metadata:
+  name: dashboard
+  namespace: kubernetes-dashboard
+spec:
+  name: Kubernetes Dashboard
+  group: Infrastructure
+  icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/kubernetes.png
+  networkRestricted: true
+  properties:
+    Version: 2.0.0-rc2
+  urlFrom:
+    ingressRef:
+      name: kubernetes-dashboard

@@ -1,0 +1,79 @@
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: kubeview
+#   namespace: apps
+#   annotations:
+#     fluxcd.io/automated: "false"
+# spec:
+#   releaseName: kubeview
+#   chart:
+#     git: git@github.com:REBELinBLUE/kubeview.git
+#     path: deployments/helm/kubeview
+#     ref: master
+#   values:
+#     replicaCount: 1
+
+#     image:
+#       repository: rebelinblue/kubeview-arm
+#       tag: 0.1.14
+#       pullPolicy: Always
+
+#     nameOverride: kubeview
+
+#     ingress:
+#       enabled: true
+#       annotations:
+#         kubernetes.io/ingress.class: traefik
+#         kubernetes.io/tls-acme: "true"
+#         cert-manager.io/cluster-issuer: letsencrypt-prod
+#         ingress.kubernetes.io/auth-type: forward
+#         ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+#         ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+#       hosts:
+#         - host: kubeview.cluster.rebelinblue.com
+#           paths: ["/"]
+#       tls:
+#         - hosts:
+#             - kubeview.cluster.rebelinblue.com
+#           secretName: kubeview-tls
+
+#     resources:
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
+#       requests:
+#         cpu: 100m
+#         memory: 128Mi
+
+# ---
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: kubeview-images
+#   namespace: apps
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     kubernetes.io/tls-acme: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+# spec:
+#   rules:
+#     - host: kubeview.cluster.rebelinblue.com
+#       http:
+#         paths:
+#           - path: /img
+#             backend:
+#               serviceName: kubeview
+#               servicePort: 80
+#           - path: /css
+#             backend:
+#               serviceName: kubeview
+#               servicePort: 80
+#           - path: /js
+#             backend:
+#               serviceName: kubeview
+#               servicePort: 80
+#   tls:
+#     - hosts:
+#         - kubeview.cluster.rebelinblue.com
+#       secretName: kubeview-tls

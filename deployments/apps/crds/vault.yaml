@@ -1,0 +1,15 @@
+# apiVersion: forecastle.stakater.com/v1alpha1
+# kind: ForecastleApp
+# metadata:
+#   name: vault
+#   namespace: vault
+# spec:
+#   name: Vault
+#   group: Secrets
+#   icon: https://cdn.freebiesupply.com/logos/large/2x/vault-enterprise-logo-png-transparent.png
+#   networkRestricted: false
+#   properties:
+#     Version: 1.2.3
+#   urlFrom:
+#     ingressRef:
+#       name: vault-ui

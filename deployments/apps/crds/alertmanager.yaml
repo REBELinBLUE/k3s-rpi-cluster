@@ -1,0 +1,15 @@
+# apiVersion: forecastle.stakater.com/v1alpha1
+# kind: ForecastleApp
+# metadata:
+#   name: alertmanager
+#   namespace: monitoring
+# spec:
+#   name: Alert Manager
+#   group: Monitoring
+#   icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/alert-manager.png
+#   networkRestricted: true
+#   properties:
+#     Version: 0.19.0
+#   urlFrom:
+#     ingressRef:
+#       name: alertmanager-main

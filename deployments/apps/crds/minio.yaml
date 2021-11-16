@@ -1,0 +1,14 @@
+# apiVersion: forecastle.stakater.com/v1alpha1
+# kind: ForecastleApp
+# metadata:
+#   name: minio
+#   namespace: infra
+# spec:
+#   name: Minio
+#   group: Storage
+#   icon: https://blog.alexellis.io/content/images/2017/01/minio_light_cir_sm-1.png
+#   networkRestricted: false
+#   urlFrom:
+#     ingressRef:
+#       name: minio
+
