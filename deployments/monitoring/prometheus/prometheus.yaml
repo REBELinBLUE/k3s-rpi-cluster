@@ -388,29 +388,29 @@ spec:
     prometheus: k8s
   sessionAffinity: ClientIP
 ---
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: prometheus-k8s
-  namespace: monitoring
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/auth-type: forward
-    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-spec:
-  rules:
-    - host: prometheus.cluster.rebelinblue.com
-      http:
-        paths:
-          - backend:
-              serviceName: prometheus-k8s
-              servicePort: web
-            path: /
-  tls:
-    - hosts:
-        - prometheus.cluster.rebelinblue.com
-      secretName: prometheus-tls
+# apiVersion: networking.k8s.io/v1beta1
+# kind: Ingress
+# metadata:
+#   name: prometheus-k8s
+#   namespace: monitoring
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     kubernetes.io/tls-acme: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+#     ingress.kubernetes.io/auth-type: forward
+#     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+#     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+# spec:
+#   rules:
+#     - host: prometheus.cluster.rebelinblue.com
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: prometheus-k8s
+#               servicePort: web
+#             path: /
+#   tls:
+#     - hosts:
+#         - prometheus.cluster.rebelinblue.com
+#       secretName: prometheus-tls
 
