@@ -43,7 +43,7 @@ spec:
   interval: 10m0s
   ref:
     branch: master
-  url: ssh://git@github.com/REBELinBLUE/kubeview
+  url: https://github.com/REBELinBLUE/kubeview.git
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: GitRepository
@@ -54,4 +54,4 @@ spec:
   interval: 10m0s
   ref:
     branch: master
-  url: ssh://git@github.com/stakater/Forecastle
+  url: https://github.com/stakater/Forecastle.git
