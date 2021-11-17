@@ -23,8 +23,8 @@ spec:
     serviceType: NodePort
 
     ssl:
-      enabled: false #true
-      enforced: false #true
+      enabled: true
+      enforced: true
       permanentRedirect: true
       generateTLS: false
 
@@ -41,9 +41,9 @@ spec:
 
     metrics:
       prometheus:
-        enabled: false #true
+        enabled: true
       serviceMonitor:
-        enabled: false #true
+        enabled: true
 
     cpuRequest: 25m
     memoryRequest: 128Mi
@@ -64,18 +64,34 @@ spec:
         ip: 192.168.1.18
 
     dashboard:
-      enabled: false #true
-      domain: traefik.cluster.rebelinblue.com
-      ingress:
-        annotations:
-          kubernetes.io/ingress.class: traefik
-          kubernetes.io/tls-acme: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-          ingress.kubernetes.io/auth-type: forward
-          ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-          ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-        tls:
-          - hosts:
-              - traefik.cluster.rebelinblue.com
-            secretName: traefik-tls
+      enabled: false
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-forward-auth-ingress
+  namespace: infra
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/auth-type: forward
+    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+spec:
+  rules:
+    - host: traefik.cluster.rebelinblue.com
+      http:
+       paths:
+          - backend:
+              service:
+                name: traefik-ingress-controller
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - traefik.cluster.rebelinblue.com
+      secretName: traefik-tls
 
