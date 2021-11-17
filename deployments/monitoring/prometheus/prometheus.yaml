@@ -412,6 +412,8 @@ spec:
                 port:
                   name: web
             path: /
+
+            pathType: ImplementationSpecific
   tls:
     - hosts:
         - prometheus.cluster.rebelinblue.com
