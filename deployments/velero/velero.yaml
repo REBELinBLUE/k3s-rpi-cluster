@@ -91,7 +91,7 @@ spec:
 
     metrics:
       serviceMonitor:
-        enabled: false #true
+        enabled: true
 
     configMaps:
       aws:
