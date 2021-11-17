@@ -124,15 +124,29 @@ spec:
 
       ingress:
         enabled: false
-        # annotations:
-        #   kubernetes.io/ingress.class: traefik
-        #   kubernetes.io/tls-acme: "true"
-        #   cert-manager.io/cluster-issuer: letsencrypt-prod
-        # hosts:
-        #   - host: launchpad.cluster.rebelinblue.com
-        #     paths:
-        #       - /
-        # tls:
-        #   - hosts:
-        #       - launchpad.cluster.rebelinblue.com
-        #     secretName: forecastle-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubeview
+  namespace: apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: launchpad.cluster.rebelinblue.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: forecastle
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - launchpad.cluster.rebelinblue.com
+      secretName: forecastle-tls

@@ -1,15 +1,15 @@
-# apiVersion: forecastle.stakater.com/v1alpha1
-# kind: ForecastleApp
-# metadata:
-#   name: kubeview
-#   namespace: apps
-# spec:
-#   name: KubeView
-#   group: Infrastructure
-#   icon: https://raw.githubusercontent.com/benc-uk/kubeview/master/web/client/src/assets/logo.png
-#   networkRestricted: true
-#   properties:
-#     Version: 0.1.8
-#   urlFrom:
-#     ingressRef:
-#       name: kubeview
+apiVersion: forecastle.stakater.com/v1alpha1
+kind: ForecastleApp
+metadata:
+  name: kubeview
+  namespace: apps
+spec:
+  name: KubeView
+  group: Infrastructure
+  icon: https://raw.githubusercontent.com/benc-uk/kubeview/master/web/client/src/assets/logo.png
+  networkRestricted: true
+  properties:
+    Version: 0.1.8
+  urlFrom:
+    ingressRef:
+      name: kubeview
