@@ -41,15 +41,15 @@ helm upgrade --install nfs-client-provisioner --values $REPO_ROOT/deployments/in
 
 kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml
 
-FLUX_READY=1
-while [ ${FLUX_READY} != 0 ]; do
-    echo "Waiting for flux pod to be fully ready..."
-    kubectl -n flux wait --for condition=available deployment/flux
-    FLUX_READY="$?"
-    sleep 5
-done
+# FLUX_READY=1
+# while [ ${FLUX_READY} != 0 ]; do
+#     echo "Waiting for flux pod to be fully ready..."
+#     kubectl -n flux wait --for condition=available deployment/flux
+#     FLUX_READY="$?"
+#     sleep 5
+# done
 
-kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
+kubectl -n flux-system get secrets flux-system -o json | jq -r '.data."identity.pub"' | base64 -d
 
 kubectl delete crd helmcharts.helm.cattle.io
 #kubectl delete apiservice v1beta1.metrics.k8s.io
