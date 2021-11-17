@@ -19,6 +19,15 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://helm.traefik.io/traefik
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
   name: velero
   namespace: flux-system
 spec:

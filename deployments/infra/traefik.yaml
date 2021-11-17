@@ -13,23 +13,25 @@ spec:
       chart: traefik
       sourceRef:
         kind: HelmRepository
-        name: stable
+        name: traefik
         namespace: flux-system
-      version: 1.85.0
+      version: 10.6.2
   values:
-    image: traefik
-    imageTag: 1.7.33
+    providers:
+      kubernetesCRD:
+        enabled: false
 
-    serviceType: NodePort
+      kubernetesIngress:
+        enabled: true
 
-    ssl:
-      enabled: true
-      enforced: true
-      permanentRedirect: true
-      generateTLS: false
+    service:
+      type: NodePort
+      externalIPs:
+        - 192.168.1.18
 
-    accessLogs:
-      enabled: true
+    logs:
+      access:
+        enabled: true
 
     tolerations:
       - effect: NoSchedule
@@ -39,59 +41,75 @@ spec:
       beta.kubernetes.io/arch: arm
       node-role.kubernetes.io/control-plane: "true"
 
-    metrics:
-      prometheus:
-        enabled: true
-      serviceMonitor:
-        enabled: true
+    requests:
+      cpu: 25m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      meomry: 384Mi
 
-    cpuRequest: 25m
-    memoryRequest: 128Mi
-    cpuLimit: 200m
-    memoryLimit: 384Mi
+    ports:
+      traefik:
+        hostPort: 8080
+      web:
+        hostPort: 80
+      websecure:
+        hostPort: 443
 
-    deployment:
-      hostPort:
-        httpEnabled: 80
-        httpsEnabled: 443
-        dashboardEnabled: 8080
+    ingressRoute:
+      dashboard:
+        enabled: false
 
-    rbac:
-      enabled: true
+    # ssl:
+    #   enabled: true
+    #   enforced: true
+    #   permanentRedirect: true
+    #   generateTLS: false
 
-    kubernetes:
-      ingressEndpoint:
-        ip: 192.168.1.18
+    # metrics:
+    #   prometheus:
+    #     enabled: true
+    #   serviceMonitor:
+    #     enabled: true
 
-    dashboard:
-      enabled: false
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: traefik-dashboard
-  namespace: infra
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/auth-type: forward
-    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-spec:
-  rules:
-    - host: traefik.cluster.rebelinblue.com
-      http:
-       paths:
-          - backend:
-              service:
-                name: traefik-ingress-controller
-                port:
-                  number: 80
-            path: /
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - traefik.cluster.rebelinblue.com
-      secretName: traefik-tls
+    # dashboard:
+    #   enabled: false
+
+
+    # deployment:
+    #   hostPort:
+    #     httpEnabled: 80
+    #     httpsEnabled: 443
+    #     dashboardEnabled: 8080
+
+
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: traefik-dashboard
+#   namespace: infra
+#   annotations:
+#     kubernetes.io/ingress.class: traefik
+#     kubernetes.io/tls-acme: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-prod
+#     ingress.kubernetes.io/auth-type: forward
+#     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+#     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+# spec:
+#   rules:
+#     - host: traefik.cluster.rebelinblue.com
+#       http:
+#        paths:
+#           - backend:
+#               service:
+#                 name: traefik-ingress-controller
+#                 port:
+#                   number: 80
+#             path: /
+#             pathType: ImplementationSpecific
+#   tls:
+#     - hosts:
+#         - traefik.cluster.rebelinblue.com
+#       secretName: traefik-tls
 
