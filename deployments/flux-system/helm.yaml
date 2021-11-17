@@ -33,3 +33,25 @@ metadata:
 spec:
   interval: 10m0s
   url: https://charts.jetstack.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: kubeview
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  ref:
+    branch: master
+  url: ssh://git@github.com/REBELinBLUE/kubeview
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: GitRepository
+metadata:
+  name: forecastle
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  ref:
+    branch: master
+  url: ssh://git@github.com/stakater/Forecastle
