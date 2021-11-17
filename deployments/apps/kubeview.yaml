@@ -1,50 +1,55 @@
-# apiVersion: helm.toolkit.fluxcd.io/v2beta1
-# kind: HelmRelease
-# metadata:
-#   name: kubeview
-#   namespace: apps
-#   annotations:
-#     fluxcd.io/automated: "false"
-# spec:
-#   releaseName: kubeview
-#   chart:
-#     git: git@github.com:REBELinBLUE/kubeview.git
-#     path: deployments/helm/kubeview
-#     ref: master
-#   values:
-#     replicaCount: 1
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kubeview
+  namespace: apps
+  annotations:
+    fluxcd.io/automated: "false"
+spec:
+  releaseName: kubeview
+  interval: 5m
+  chart:
+    spec:
+      chart: kubeview
+      sourceRef:
+        kind: HelmRepository
+        name: kubeview
+        namespace: flux-system
+      version: 0.1.13
+  values:
+    replicaCount: 1
 
-#     image:
-#       repository: rebelinblue/kubeview-arm
-#       tag: 0.1.14
-#       pullPolicy: Always
+    image:
+      repository: rebelinblue/kubeview-arm
+      tag: 0.1.14
+      pullPolicy: Always
 
-#     nameOverride: kubeview
+    nameOverride: kubeview
 
-#     ingress:
-#       enabled: true
-#       annotations:
-#         kubernetes.io/ingress.class: traefik
-#         kubernetes.io/tls-acme: "true"
-#         cert-manager.io/cluster-issuer: letsencrypt-prod
-#         ingress.kubernetes.io/auth-type: forward
-#         ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-#         ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-#       hosts:
-#         - host: kubeview.cluster.rebelinblue.com
-#           paths: ["/"]
-#       tls:
-#         - hosts:
-#             - kubeview.cluster.rebelinblue.com
-#           secretName: kubeview-tls
+    ingress:
+      enabled: false
+      # annotations:
+      #   kubernetes.io/ingress.class: traefik
+      #   kubernetes.io/tls-acme: "true"
+      #   cert-manager.io/cluster-issuer: letsencrypt-prod
+      #   ingress.kubernetes.io/auth-type: forward
+      #   ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+      #   ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+      # hosts:
+      #   - host: kubeview.cluster.rebelinblue.com
+      #     paths: ["/"]
+      # tls:
+      #   - hosts:
+      #       - kubeview.cluster.rebelinblue.com
+      #     secretName: kubeview-tls
 
-#     resources:
-#       limits:
-#         cpu: 100m
-#         memory: 128Mi
-#       requests:
-#         cpu: 100m
-#         memory: 128Mi
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
 
 # ---
 # apiVersion: networking.k8s.io/v1beta1
