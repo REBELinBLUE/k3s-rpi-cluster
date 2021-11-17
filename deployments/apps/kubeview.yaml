@@ -10,9 +10,9 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: kubeview
+      chart: ./deployments/helm/kubeview
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: kubeview
         namespace: flux-system
       version: 0.1.13
