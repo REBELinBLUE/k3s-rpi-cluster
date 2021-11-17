@@ -35,8 +35,8 @@ spec:
         tag: v1.6.1
 
     prometheus:
-      enabled: false #true
+      enabled: true
       servicemonitor:
-        enabled: false #true
+        enabled: true
 
     installCRDs: false
