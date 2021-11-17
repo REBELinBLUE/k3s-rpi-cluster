@@ -37,11 +37,12 @@ spec:
         ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
       hosts:
         - host: kubeview.cluster.rebelinblue.com
-          paths: ["/"]
+          paths:
+            - "/"
       tls:
-        - hosts:
-          - kubeview.cluster.rebelinblue.com
-        secretName: kubeview-tls
+        - secretName: kubeview-tls
+          hosts:
+            - kubeview.cluster.rebelinblue.com
 
     resources:
       limits:
