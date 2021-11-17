@@ -39,7 +39,8 @@ spec:
             backend:
               service:
                 name: promtail-headless
-                port: 3101
+                port:
+                  number: 3101
   tls:
     - hosts:
         - promtail.cluster.rebelinblue.com
