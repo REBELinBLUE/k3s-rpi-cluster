@@ -23,4 +23,4 @@ spec:
 
     sink: stdout
 
-    enablePrometheus: false # true
+    enablePrometheus: true
