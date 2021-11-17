@@ -18,7 +18,7 @@ spec:
       version: 1.85.0
   values:
     image: traefik
-    imageTag: 1.7.20
+    imageTag: 1.7.33
 
     serviceType: NodePort
 
