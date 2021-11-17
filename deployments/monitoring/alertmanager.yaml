@@ -63,32 +63,35 @@ spec:
     app: alertmanager
   sessionAffinity: ClientIP
 ---
-# apiVersion: networking.k8s.io/v1beta1
-# kind: Ingress
-# metadata:
-#   name: alertmanager-main
-#   namespace: monitoring
-#   annotations:
-#     kubernetes.io/ingress.class: traefik
-#     kubernetes.io/tls-acme: "true"
-#     cert-manager.io/cluster-issuer: letsencrypt-prod
-#     ingress.kubernetes.io/auth-type: forward
-#     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-#     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-# spec:
-#   rules:
-#     - host: alertmanager.cluster.rebelinblue.com
-#       http:
-#         paths:
-#           - backend:
-#               serviceName: alertmanager-main
-#               servicePort: web
-#             path: /
-#   tls:
-#     - hosts:
-#         - alertmanager.cluster.rebelinblue.com
-#       secretName: alertmanager-tls
-# ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: alertmanager-main
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/auth-type: forward
+    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+spec:
+  rules:
+    - host: alertmanager.cluster.rebelinblue.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: alertmanager-main
+                port:
+                  name: web
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - alertmanager.cluster.rebelinblue.com
+      secretName: alertmanager-tls
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
