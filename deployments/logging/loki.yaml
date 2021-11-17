@@ -32,4 +32,4 @@ spec:
       storageClassName: nfs-hdd
 
     serviceMonitor:
-      enabled: false # true
+      enabled: true

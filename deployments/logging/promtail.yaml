@@ -33,7 +33,7 @@ spec:
       serviceScheme: http
 
     serviceMonitor:
-      enabled: false #true
+      enabled: true
 
     volumes:
       - name: containers
