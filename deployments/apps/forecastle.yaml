@@ -83,7 +83,7 @@ spec:
     spec:
       chart: ./deployments/kubernetes/chart/forecastle
       sourceRef:
-        kind: GitRepositoryg
+        kind: GitRepository
         name: forecastle
         namespace: flux-system
       version: v1.0.69
