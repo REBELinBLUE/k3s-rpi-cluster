@@ -81,9 +81,9 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: forecastle
+      chart: ./deployments/kubernetes/chart/forecastle
       sourceRef:
-        kind: HelmRepository
+        kind: GitRepository
         name: forecastle
         namespace: flux-system
       version: v1.0.69
