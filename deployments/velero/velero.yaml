@@ -15,13 +15,13 @@ spec:
         kind: HelmRepository
         name: velero
         namespace: flux-system
-      version: 2.12.0
+      version: 2.26.4
   values:
     fullnameOverride: velero
 
     image:
       repository: velero/velero
-      tag: v1.4.2
+      tag: v1.7.0
 
     podAnnotations:
       SECRET_MINIO_ACCESS_KEY: /apps/shared/minio/accesskey

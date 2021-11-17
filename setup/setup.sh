@@ -52,5 +52,6 @@ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/relea
 kubectl -n flux-system get secrets flux-system -o json | jq -r '.data."identity.pub"' | base64 -d
 
 kubectl delete crd helmcharts.helm.cattle.io
-#kubectl delete apiservice v1beta1.metrics.k8s.io
+kubectl delete crd helmchartconfigs.helm.cattle.io
 kubectl delete crd addons.k3s.cattle.io
+#kubectl delete apiservice v1beta1.metrics.k8s.io
