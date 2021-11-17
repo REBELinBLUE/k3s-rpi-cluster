@@ -128,7 +128,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kubeview
+  name: forecastle
   namespace: apps
   annotations:
     kubernetes.io/ingress.class: traefik
