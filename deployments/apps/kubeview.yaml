@@ -28,20 +28,6 @@ spec:
 
     ingress:
       enabled: false
-      # annotations:
-      #   kubernetes.io/ingress.class: traefik
-      #   kubernetes.io/tls-acme: "true"
-      #   cert-manager.io/cluster-issuer: letsencrypt-prod
-      #   ingress.kubernetes.io/auth-type: forward
-      #   ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-      #   ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-      # hosts:
-      #   - host: kubeview.cluster.rebelinblue.com
-      #     paths: ["/"]
-      # tls:
-      #   - hosts:
-      #       - kubeview.cluster.rebelinblue.com
-      #     secretName: kubeview-tls
 
     resources:
       limits:
@@ -50,35 +36,72 @@ spec:
       requests:
         cpu: 100m
         memory: 128Mi
-
-# ---
-# apiVersion: networking.k8s.io/v1beta1
-# kind: Ingress
-# metadata:
-#   name: kubeview-images
-#   namespace: apps
-#   annotations:
-#     kubernetes.io/ingress.class: traefik
-#     kubernetes.io/tls-acme: "true"
-#     cert-manager.io/cluster-issuer: letsencrypt-prod
-# spec:
-#   rules:
-#     - host: kubeview.cluster.rebelinblue.com
-#       http:
-#         paths:
-#           - path: /img
-#             backend:
-#               serviceName: kubeview
-#               servicePort: 80
-#           - path: /css
-#             backend:
-#               serviceName: kubeview
-#               servicePort: 80
-#           - path: /js
-#             backend:
-#               serviceName: kubeview
-#               servicePort: 80
-#   tls:
-#     - hosts:
-#         - kubeview.cluster.rebelinblue.com
-#       secretName: kubeview-tls
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kubeview-images
+  namespace: apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/auth-type: forward
+    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+spec:
+  rules:
+    - host: kubeview.cluster.rebelinblue.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - kubeview.cluster.rebelinblue.com
+      secretName: kubeview-tls
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kubeview-images
+  namespace: apps
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: kubeview.cluster.rebelinblue.com
+      http:
+        paths:
+          - path: /img
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+          - path: /css
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+          - path: /js
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - kubeview.cluster.rebelinblue.com
+      secretName: kubeview-tls
