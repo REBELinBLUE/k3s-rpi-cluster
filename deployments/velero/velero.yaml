@@ -89,8 +89,7 @@ spec:
     credentials:
       useSecret: false
 
-
-    upgradeCRDs: true
+    upgradeCRDs: false
 
     metrics:
       serviceMonitor:
