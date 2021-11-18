@@ -401,7 +401,7 @@ metadata:
     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
 spec:
-  ingressClass: traefik
+  ingressClassName: traefik
   rules:
     - host: prometheus.cluster.rebelinblue.com
       http:

@@ -134,7 +134,7 @@ metadata:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  ingressClass: traefik
+  ingressClassName: traefik
   rules:
     - host: launchpad.cluster.rebelinblue.com
       http:
