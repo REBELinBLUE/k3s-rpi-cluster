@@ -32,7 +32,7 @@ spec:
             prober: http
             timeout: 5s
             http:
-          follow_redirects: true
+              follow_redirects: true
               preferred_ip_protocol: ip4
               valid_http_versions:
                 - HTTP/1.1
