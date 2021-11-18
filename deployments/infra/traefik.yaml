@@ -35,7 +35,7 @@ spec:
 
     logs:
       general:
-        level: INFO
+        level: DEBUG
       access:
         enabled: true
 
