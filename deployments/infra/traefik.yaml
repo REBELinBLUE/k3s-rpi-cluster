@@ -57,7 +57,7 @@ spec:
         port: 8080
       web:
         hostPort: 80
-        redirectTo: websecure
+        #redirectTo: websecure
       websecure:
         hostPort: 443
         tls:
@@ -67,6 +67,10 @@ spec:
       dashboard:
         enabled: false
 
+    metrics:
+      prometheus:
+        enabled: true
+
     # ssl:
     #   enabled: true
     #   enforced: true
@@ -74,8 +78,6 @@ spec:
     #   generateTLS: false
 
     # metrics:
-    #   prometheus:
-    #     enabled: true
     #   serviceMonitor:
     #     enabled: true
 
