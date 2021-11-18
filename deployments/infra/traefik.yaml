@@ -24,6 +24,10 @@ spec:
       kubernetesIngress:
         enabled: true
 
+    ingressClass:
+      enabled: true
+      isDefaultClass: true
+
     service:
       type: NodePort
       externalIPs:
