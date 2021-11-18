@@ -26,7 +26,8 @@ spec:
       readOnlyRootFilesystem: false
       runAsNonRoot: false
 
-    command: /metrics-server
+    command:
+      - /metrics-server
 
     extraArgs:
       kubelet-insecure-tls: true
