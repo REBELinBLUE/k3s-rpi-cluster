@@ -23,9 +23,6 @@ spec:
       repository: prom/blackbox-exporter
       tag: v0.19.0
 
-    podDisruptionBudget:
-      enabled: false
-
     config:
       modules:
         http_2xx:
