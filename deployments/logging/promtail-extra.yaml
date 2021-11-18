@@ -23,7 +23,6 @@ metadata:
   labels:
     app: promtail
   annotations:
-    kubernetes.io/ingress.class: traefik
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     ingress.kubernetes.io/auth-type: forward

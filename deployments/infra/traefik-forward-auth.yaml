@@ -104,7 +104,6 @@ metadata:
   name: traefik-forward-auth-ingress
   namespace: infra
   annotations:
-    kubernetes.io/ingress.class: traefik
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     ingress.kubernetes.io/auth-trust-headers: "true"
