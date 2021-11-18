@@ -13,13 +13,13 @@ spec:
       chart: metrics-server
       sourceRef:
         kind: HelmRepository
-        name: stable
+        name: bitnami
         namespace: flux-system
-      version: 2.11.1
+      version: 5.10.10
   values:
     image:
-      repository: k8s.gcr.io/metrics-server-arm
-      tag: v0.3.6
+      repository: rancher/metrics-server
+      tag: v0.4.1
 
     args:
       - --kubelet-insecure-tls
