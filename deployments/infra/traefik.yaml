@@ -1,12 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: traefik-ingress-controller
+  name: traefik
   namespace: infra
   annotations:
     fluxcd.io/automated: "false"
 spec:
-  releaseName: traefik-ingress-controller
+  releaseName: traefik
   interval: 5m
   chart:
     spec:
@@ -107,7 +107,7 @@ spec:
 #        paths:
 #           - backend:
 #               service:
-#                 name: traefik-ingress-controller
+#                 name: traefik
 #                 port:
 #                   number: 80
 #             path: /
