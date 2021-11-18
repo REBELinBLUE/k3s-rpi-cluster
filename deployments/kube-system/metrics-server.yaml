@@ -29,8 +29,8 @@ spec:
     command: /metrics-server
 
     extraArgs:
-      - --kubelet-insecure-tls
-      - --kubelet-preferred-address-types=InternalIP
+      kubelet-insecure-tls: true
+      kubelet-preferred-address-types: InternalIP
 
     service:
       labels:
