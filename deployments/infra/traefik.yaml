@@ -62,8 +62,6 @@ spec:
         #redirectTo: websecure
       websecure:
         hostPort: 443
-        tls:
-          enabled: true
 
     ingressRoute:
       dashboard:
