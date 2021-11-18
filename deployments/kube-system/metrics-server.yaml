@@ -34,6 +34,14 @@ spec:
       kubelet-preferred-address-types: InternalIP
       cert-dir: /tmp
 
+    extraVolumes:
+      - name: tmpdir
+        emptyDir: {}
+
+    extraVolumeMounts:
+      - name: tmpdir
+        mountPath: /tmp
+
     service:
       labels:
         kubernetes.io/cluster-service: "true"
