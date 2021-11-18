@@ -54,11 +54,14 @@ spec:
 
     ports:
       traefik:
-        hostPort: 8080
+        port: 8080
       web:
         hostPort: 80
+        redirectTo: websecure
       websecure:
         hostPort: 443
+        tls:
+          enabled: true
 
     ingressRoute:
       dashboard:
