@@ -18,8 +18,8 @@ spec:
       version: 5.10.10
   values:
     image:
-      repository: willdockerhub/metrics-server
-      tag: v0.4.3
+      repository: willdockerhub/metrics-server@sha256
+      tag: 98d633a38661784fde52bcb9f7e616114c848e201a6b925a037a26be1b2e3ed5
 
     containerSecurityContext:
       enabled: false
