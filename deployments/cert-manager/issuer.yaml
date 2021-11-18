@@ -14,9 +14,10 @@ spec:
           ingress:
             class: traefik
             ingressTemplate:
-              annotations:
-                "kubernetes.io/ingress.class": "traefik"
-                "traefik.ingress.kubernetes.io/frontend-entry-points": "http"
+              metadata:
+                annotations:
+                  "kubernetes.io/ingress.class": "traefik"
+                  "traefik.ingress.kubernetes.io/frontend-entry-points": "http"
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -33,6 +34,7 @@ spec:
           ingress:
             class: traefik
             ingressTemplate:
-              annotations:
-                "kubernetes.io/ingress.class": "traefik"
-                "traefik.ingress.kubernetes.io/frontend-entry-points": "http"
+              metadata:
+                annotations:
+                  "kubernetes.io/ingress.class": "traefik"
+                  "traefik.ingress.kubernetes.io/frontend-entry-points": "http"
