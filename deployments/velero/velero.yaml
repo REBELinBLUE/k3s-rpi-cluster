@@ -110,7 +110,7 @@ spec:
       extraEnvVars:
         AWS_SHARED_CREDENTIALS_FILE: /credentials/cloud
       backupStorageLocation:
-        name: aws
+        name: default
         provider: aws
         bucket: velero
         config:
@@ -124,7 +124,7 @@ spec:
         schedule: "0 6 * * *"
         template:
           ttl: 120h
-          storageLocation: aws
+          storageLocation: default
           includeClusterResources: true
           includedNamespaces:
             - '*'
