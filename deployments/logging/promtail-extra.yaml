@@ -29,6 +29,7 @@ metadata:
     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
 spec:
+  ingressClass: traefik
   rules:
     - host: promtail.cluster.rebelinblue.com
       http:
