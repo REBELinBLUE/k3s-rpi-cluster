@@ -18,8 +18,8 @@ spec:
       version: 5.10.10
   values:
     image:
-      repository: rancher/metrics-server
-      tag: v0.3.6-arm
+      repository: willdockerhub/metrics-server
+      tag: v0.4.3
 
     containerSecurityContext:
       enabled: false
