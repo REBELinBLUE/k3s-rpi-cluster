@@ -23,7 +23,7 @@ spec:
 
     containerSecurityContext:
       enabled: false
-      readOnlyRootFilesystem: false
+      readOnlyRootFilesystem: true
       runAsNonRoot: false
 
     command:
