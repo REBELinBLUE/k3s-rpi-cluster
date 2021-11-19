@@ -94,34 +94,34 @@ spec:
     #     dashboardEnabled: 8080
 
 
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: traefik-dashboard
-#   namespace: infra
-#   annotations:
-#     kubernetes.io/tls-acme: "true"
-#     cert-manager.io/cluster-issuer: letsencrypt-prod
-#     ingress.kubernetes.io/auth-type: forward
-#     ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-#     ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
-# spec:
-#   ingressClassName: traefik
-#   rules:
-#     - host: traefik.cluster.rebelinblue.com
-#       http:
-#        paths:
-#           - backend:
-#               service:
-#                 name: traefik
-#                 port:
-#                   number: 80
-#             path: /
-#             pathType: ImplementationSpecific
-#   tls:
-#     - hosts:
-#         - traefik.cluster.rebelinblue.com
-#       secretName: traefik-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-dashboard
+  namespace: infra
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # ingress.kubernetes.io/auth-type: forward
+    # ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
+    # ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: traefik.cluster.rebelinblue.com
+      http:
+       paths:
+          - backend:
+              service:
+                name: traefik
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - traefik.cluster.rebelinblue.com
+      secretName: traefik-tls
 
 
