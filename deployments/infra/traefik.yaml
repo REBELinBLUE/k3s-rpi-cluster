@@ -57,6 +57,7 @@ spec:
     ports:
       traefik:
         port: 9000
+        exposed: true
       web:
         hostPort: 80
         redirectTo: websecure
@@ -87,13 +88,6 @@ spec:
     #   enabled: false
 
 
-    # deployment:
-    #   hostPort:
-    #     httpEnabled: 80
-    #     httpsEnabled: 443
-    #     dashboardEnabled: 8080
-
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -116,8 +110,15 @@ spec:
               service:
                 name: traefik
                 port:
-                  number: 80
-            path: /
+                  number: 9000
+            path: /dashboard
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: traefik
+                port:
+                  number: 9000
+            path: /api
             pathType: ImplementationSpecific
   tls:
     - hosts:
