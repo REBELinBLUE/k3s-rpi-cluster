@@ -61,7 +61,13 @@ spec:
         hostPort: 80
         #redirectTo: websecure
       websecure:
+        tls:
+          enabled: true
         hostPort: 443
+
+    # additionalArguments:
+    #   - --entryPoints.web.http.redirections.entryPoint.to: websecure
+    #   - --entryPoints.web.http.redirections.entryPoint.scheme: https
 
     ingressRoute:
       dashboard:
