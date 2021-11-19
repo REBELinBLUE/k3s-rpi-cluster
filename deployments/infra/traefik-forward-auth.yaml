@@ -101,7 +101,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: traefik-forward-auth-ingress
+  name: traefik-forward-auth
   namespace: infra
   annotations:
     kubernetes.io/tls-acme: "true"
