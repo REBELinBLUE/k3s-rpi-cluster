@@ -108,5 +108,16 @@ spec:
 #     - hosts:
 #         - traefik.cluster.rebelinblue.com
 #       secretName: traefik-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: forward-auth
+  namespace: infra
+spec:
+  forwardAuth:
+    address: http://traefik-forward-auth.infra.svc
+    authResponseHeaders:
+      - X-Forwarded-User
 
 
