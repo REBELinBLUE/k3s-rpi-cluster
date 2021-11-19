@@ -47,7 +47,7 @@ spec:
             - sh
             - -c
           args:
-            - source /env/secrets; /traefik-forward-auth -log-level=info
+            - source /env/secrets; /traefik-forward-auth -log-level=debug
           ports:
             - containerPort: 4181
               protocol: TCP
@@ -106,11 +106,7 @@ metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    ingress.kubernetes.io/auth-trust-headers: "true"
-    ingress.kubernetes.io/ssl-redirect: "true"
-    ingress.kubernetes.io/auth-type: forward
-    ingress.kubernetes.io/auth-url: http://traefik-forward-auth.infra.svc
-    ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+    #traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
