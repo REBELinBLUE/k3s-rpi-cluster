@@ -28,7 +28,7 @@ spec:
 
       image:
         name: stakater/forecastle
-        tag: v1.0.69
+        tag: SNAPSHOT-PR-174-b77f9800
 
       deployment:
         replicas: 1
