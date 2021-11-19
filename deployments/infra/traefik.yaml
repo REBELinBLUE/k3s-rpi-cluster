@@ -62,7 +62,8 @@ spec:
         #redirectTo: websecure
       websecure:
         tls:
-          enabled: true
+          enabled: false
+        expose: false
         hostPort: 443
 
     # additionalArguments:

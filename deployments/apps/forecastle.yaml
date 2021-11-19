@@ -131,7 +131,6 @@ metadata:
   namespace: apps
   annotations:
     kubernetes.io/tls-acme: "true"
-    traefik.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
