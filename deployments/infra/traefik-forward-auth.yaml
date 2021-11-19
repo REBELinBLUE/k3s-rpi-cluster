@@ -47,7 +47,7 @@ spec:
             - sh
             - -c
           args:
-            - source /env/secrets; /traefik-forward-auth -log-level=debug
+            - source /env/secrets; /traefik-forward-auth -log-level=info
           ports:
             - containerPort: 4181
               protocol: TCP
