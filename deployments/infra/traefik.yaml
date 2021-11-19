@@ -67,7 +67,7 @@ spec:
 
     ingressRoute:
       dashboard:
-        enabled: true
+        enabled: false
 
     metrics:
       prometheus:
