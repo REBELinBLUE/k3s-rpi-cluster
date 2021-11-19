@@ -31,6 +31,7 @@ spec:
       annotations:
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
+        traefik.ingress.kubernetes.io/router.middlewares: forward-auth@kubernetescrd
       hosts:
         - host: kubeview.cluster.rebelinblue.com
           paths:
