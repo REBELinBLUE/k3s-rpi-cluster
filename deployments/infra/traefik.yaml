@@ -24,7 +24,7 @@ spec:
       kubernetesIngress:
         enabled: true
 
-    ingressClassName:
+    ingressClass:
       enabled: true
       isDefaultClass: true
 
