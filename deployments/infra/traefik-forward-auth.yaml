@@ -106,7 +106,7 @@ metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    #traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
