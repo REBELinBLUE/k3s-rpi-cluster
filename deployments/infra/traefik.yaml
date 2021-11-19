@@ -19,7 +19,7 @@ spec:
   values:
     providers:
       kubernetesCRD:
-        enabled: false
+        enabled: true
 
       kubernetesIngress:
         enabled: true
@@ -67,7 +67,7 @@ spec:
 
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
 
     metrics:
       prometheus:
