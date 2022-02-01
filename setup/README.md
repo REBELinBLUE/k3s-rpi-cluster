@@ -266,7 +266,7 @@ sudo chown -R pi:pi /media/usb
 Edit `/etc/fstab`
 
 ```
-UUID=ab798b62-53e6-486b-8cf9-3bcb469fd5f2 /media/usb ext4 auto,nofail,noatime,users,rw 0 0
+UUID=92724e85-366a-42e2-aefc-4775b0e7422e /media/usb ext4 auto,nofail,noatime,users,rw 0 0
 ```
 
 Edit `/etc/exports`
