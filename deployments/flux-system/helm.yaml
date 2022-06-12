@@ -1,12 +1,12 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: HelmRepository
-metadata:
-  name: stable
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.helm.sh/stable
----
+# apiVersion: source.toolkit.fluxcd.io/v1beta1
+# kind: HelmRepository
+# metadata:
+#   name: stable
+#   namespace: flux-system
+# spec:
+#   interval: 10m0s
+#   url: https://charts.helm.sh/stable
+# ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
