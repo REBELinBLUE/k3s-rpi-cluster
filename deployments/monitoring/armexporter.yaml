@@ -88,7 +88,7 @@ spec:
             cpu: 10m
             memory: 20Mi
       nodeSelector:
-        beta.kubernetes.io/arch: arm
+        kubernetes.io/arch: arm64
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane

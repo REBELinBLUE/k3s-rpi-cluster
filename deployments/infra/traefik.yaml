@@ -44,7 +44,7 @@ spec:
         key: node-role.kubernetes.io/control-plane
 
     nodeSelector:
-      beta.kubernetes.io/arch: arm
+      beta.kubernetes.io/arch: arm64
       node-role.kubernetes.io/control-plane: "true"
 
     requests:
