@@ -81,15 +81,6 @@ data:
   fi
 }
 
-
-# kpolicy "linode-dynamic-dns"
-# kapprole "linode-dynamic-dns" "infra"
-
-# vault kv put apps/infra/linode-dynamic-dns token="$LINODE_TOKEN"
-
-#kpolicy "fluxcloud"
-#kapprole "fluxcloud" "flux-system"
-
 kpolicy "alertmanager"
 kapprole "alertmanager" "monitoring"
 
