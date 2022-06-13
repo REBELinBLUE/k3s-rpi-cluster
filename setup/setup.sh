@@ -16,7 +16,7 @@ message() {
 message "Labeling all nodes"
 #kubectl taint nodes $K3S_MASTER node-role.kubernetes.io/master="":NoSchedule --overwrite
 for node in $K3S_WORKERS_RPI; do
-    kubectl label $node node-role.kubernetes.io/worker=worker --overwrite
+    kubectl label node $node node-role.kubernetes.io/node=node --overwrite
 done
 
 kubectl create namespace vault
