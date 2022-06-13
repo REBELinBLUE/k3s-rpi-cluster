@@ -1,8 +1,8 @@
 # Kubernetes on RPI4
 
-## Download Raspbian Lite (todo change to ubuntu)
+## Download UBUNTU SERVER 22. 04 LTS (RPI ZERO 2/3/4/400)
 
-## Flash the SD card using balenaEtcher
+## Flash the SD card using RPI Imager
 
 ## Enable SSH on master and all nodes
 
@@ -15,6 +15,7 @@ touch /Volumes/boot/ssh
 
 ## Enable Wifi on master
 
+--update
 ```bash
 touch /Volumes/boot/wpa_supplicant.conf
 ```
