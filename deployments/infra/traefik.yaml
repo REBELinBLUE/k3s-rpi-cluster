@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 10.6.2
+      version: 10.20.1
   values:
     providers:
       kubernetesCRD:
