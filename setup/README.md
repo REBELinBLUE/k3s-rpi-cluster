@@ -1,6 +1,6 @@
 # Kubernetes on RPI4
 
-## Download Raspbian Lite
+## Download Raspbian Lite (todo change to ubuntu)
 
 ## Flash the SD card using balenaEtcher
 
@@ -8,6 +8,7 @@
 
 SSH is disabled by default, enable it with an empty file called ssh in the /boot/ directory.
 
+-- update
 ```bash
 touch /Volumes/boot/ssh
 ```
@@ -19,6 +20,7 @@ touch /Volumes/boot/wpa_supplicant.conf
 ```
 Add the following content to the file
 
+-- update
 ```
 country=GB
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -34,12 +36,13 @@ network={
 }
 ```
 
+-- update
 ## Once booted change the hostname in /etc/hostname
 
-## Enable cgroups by editing /boot/cmdline.txt
+## Enable cgroups by editing /boot/firmware/cmdline.txt
 
 ```
-sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 swapaccount=1/' /boot/cmdline.txt
+sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 swapaccount=1/' /boot/firmware/cmdline.txt
 ```
 
 ## Master node config
@@ -54,6 +57,10 @@ touch ~/.ssh/authorized_keys
 # Copy the keys to the file
 ```
 
+
+sudo apt install net-tools
+ sudo apt install linux-modules-extra-raspi
+
 ### Generate the master's SSH key
 
 Login to the master node, and run `ssh-keygen` to initialize your SSH key; then copy the key to each node
@@ -61,7 +68,7 @@ Login to the master node, and run `ssh-keygen` to initialize your SSH key; then 
 ### Disable password authentication
 
 ```bash
-sudo sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+sudo sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/g'  /etc/ssh/sshd_config
 sudo sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 sudo sed -i 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
 sudo sed -i 's/^UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
@@ -74,24 +81,24 @@ Edit `~/.ssh/config`
 ```
 Host master
     Hostname master.local # Or the IP address
-    User pi
+    User ubuntu
 
 Host node-1
     Hostname 10.0.0.2
     ForwardAgent yes
-    User pi
+    User ubuntu
     ProxyCommand ssh -A master -W %h:%p
 
 Host node-2
     Hostname 10.0.0.3
     ForwardAgent yes
-    User pi
+    User ubuntu
     ProxyCommand ssh -A master -W %h:%p
 
 Host node-3
     Hostname 10.0.0.4
     ForwardAgent yes
-    User pi
+    User ubuntu
     ProxyCommand ssh -A master -W %h:%p
 ```
 
@@ -99,25 +106,36 @@ Host node-3
 
 Login to 'master' and edit `/etc/network/interfaces.d/eth0`
 
+-- todo update
+
 ```
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses:
+        - 10.0.0.1/24
+          ```
+<!-- ```
 allow-hotplug eth0
 iface eth0 inet static
 	address 10.0.0.1
 	netmask 255.255.255.0
 	network 10.0.0.0
 	broadcast 10.0.0.255
-	gateway 10.0.0.1
+	gateway 10.0.0.1 -->
 ```
 
 Edit `/etc/network/interfaces.d/wlan0`
 
 ```
-auto wlan0
+<!-- auto wlan0
 
 allow-hotplug wlan0
 iface wlan0 inet dhcp
 wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-iface default inet dhcp
+iface default inet dhcp -->
 ```
 
 ### On master and all nodes
@@ -153,8 +171,6 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y isc-dhcp-server nfs-kernel-server iptables
 sudo apt autoremove -y
-sudo systemctl disable dhcpcd.service
-sudo systemctl stop dhcpcd.service # May disconnect when you run this, power off and then back on
 
 sudo systemctl enable isc-dhcp-server.service
 sudo systemctl start isc-dhcp-server.service
@@ -179,24 +195,23 @@ subnet 10.0.0.0 netmask 255.255.255.0 {
 
 host node-1 {
 	hardware ethernet dc:a6:32:67:77:06;
-	#hardware ethernet b8:27:eb:a7:c2:22;
 	fixed-address 10.0.0.2;
 }
 
 host node-2 {
 	hardware ethernet dc:a6:32:67:76:b8;
-	#hardware ethernet b8:27:eb:af:e4:89;
 	fixed-address 10.0.0.3;
 }
 
 host node-3 {
 	hardware ethernet dc:a6:32:67:77:3e;
-	#hardware ethernet b8:27:eb:8b:05:83;
 	fixed-address 10.0.0.4;
 }
 ```
 
 ##### On master and all nodes `/etc/dhcpcd.conf`
+
+-- update
 
 ```
 denyinterfaces cni*,docker*,wlan*,flannel*,veth*
@@ -249,7 +264,6 @@ Enable the script as follows
 
 ```bash
 sudo chmod +x /etc/init.d/enable_nat
-sudo update-rc.d enable_nat defaults
 ```
 
 Edit `/etc/sysctl.conf` to enable IP routing: uncomment the `net.ipv4.ip_forward=1` line if it is commented out
@@ -260,7 +274,7 @@ Edit `/etc/sysctl.conf` to enable IP routing: uncomment the `net.ipv4.ip_forward
 ```bash
 sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL
 sudo mkdir /media/usb
-sudo chown -R pi:pi /media/usb
+sudo chown -R ubuntu:ubuntu /media/usb
 ```
 
 Edit `/etc/fstab`
@@ -279,7 +293,10 @@ Edit `/etc/exports`
 sudo exportfs -a
 sudo rm /lib/systemd/system/nfs-common.service
 sudo systemctl daemon-reload
-sudo update-rc.d rpcbind enable && sudo update-rc.d nfs-common enable
+sudo update-rc.d rpcbind enable
+sudo systemctl enable nfs-common
+sudo update-rc.d nfs-common enable
+sudo systemctl start nfs-common
 sudo reboot
 ```
 
@@ -292,7 +309,11 @@ sudo apt install -y rfkill nfs-common
 sudo apt autoremove -y
 sudo rm /lib/systemd/system/nfs-common.service
 sudo systemctl daemon-reload
+sudo update-rc.d rpcbind enable
+sudo systemctl enable nfs-common
 sudo update-rc.d nfs-common enable
+sudo systemctl start nfs-common
+sudo reboot
 ```
 
 ### On master and nodes
@@ -300,7 +321,7 @@ sudo update-rc.d nfs-common enable
 ```bash
 sudo apt install fish
 chsh -s /usr/bin/fish
-curl -fsSL https://starship.rs/install.sh | bash
+curl -fsSL https://starship.rs/install.sh | sh
 mkdir -p ~/.config/fish/
 echo "starship init fish | source" >>  ~/.config/fish/config.fish
 ```
@@ -308,14 +329,14 @@ echo "starship init fish | source" >>  ~/.config/fish/config.fish
 ### On master
 
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest INSTALL_K3S_EXEC="--disable metrics-server --disable traefik --disable local-storage --kube-apiserver-arg feature-gates=RemoveSelfLink=false" sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest INSTALL_K3S_EXEC="--tls-san cluster.lan --disable metrics-server --disable traefik --disable local-storage" sh -
 sudo cat /var/lib/rancher/k3s/server/node-token
 ```
 
 ### On nodes (replace XXX with the output of the previous command)
 
 ```bash
-export K3S_TOKEN=...
+export K3S_TOKEN=....
 curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest K3S_URL=https://10.0.0.1:6443 sh -
 ```
 

@@ -33,7 +33,7 @@ spec:
     service:
       type: NodePort
       externalIPs:
-        - 192.168.1.18
+        - 192.168.115.193
 
     logs:
       general:
@@ -58,7 +58,7 @@ spec:
 
     ports:
       traefik:
-        # expose: true
+        expose: true
         port: 9000
       web:
         hostPort: 80
@@ -68,9 +68,13 @@ spec:
           enabled: true
         hostPort: 443
 
+    pilot:
+      enabled: false
+      dashboard: false
+
     ingressRoute:
       dashboard:
-        enabled: false
+        enabled: true
 
     metrics:
       prometheus:
@@ -96,7 +100,7 @@ spec:
                 name: traefik
                 port:
                   number: 9000
-            path: /dashboard
+            path: /dashboard/
             pathType: ImplementationSpecific
           - backend:
               service:
