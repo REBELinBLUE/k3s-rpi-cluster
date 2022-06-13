@@ -113,6 +113,7 @@ spec:
         name: aws
         provider: aws
         bucket: velero
+        default: true
         config:
           region: minio
           s3ForcePathStyle: "true"
