@@ -15,7 +15,7 @@ spec:
         kind: GitRepository
         name: forecastle
         namespace: flux-system
-      version: v1.0.69
+      version: v1.0.80
   values:
     nameOverride: forecastle
 
@@ -28,7 +28,7 @@ spec:
 
       image:
         name: stakater/forecastle
-        tag: SNAPSHOT-PR-174-b77f9800
+        tag: v1.0.80
 
       deployment:
         replicas: 1
@@ -51,30 +51,17 @@ spec:
         title: Launch Pad
 
       ingress:
-        enabled: false
----
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: forecastle
-#   namespace: apps
-#   annotations:
-#     kubernetes.io/tls-acme: "true"
-#     cert-manager.io/cluster-issuer: letsencrypt-prod
-# spec:
-#   ingressClassName: traefik
-#   rules:
-#     - host: launchpad.cluster.rebelinblue.com
-#       http:
-#         paths:
-#           - path: /
-#             pathType: ImplementationSpecific
-#             backend:
-#               service:
-#                 name: forecastle
-#                 port:
-#                   number: 80
-#   tls:
-#     - hosts:
-#         - launchpad.cluster.rebelinblue.com
-#       secretName: forecastle-tls
+        enabled: true
+        annotations:
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+        className: traefik
+        hosts:
+        - host: launchpad.cluster.rebelinblue.com
+          paths:
+          - path: /
+            pathType: ImplementationSpecific
+        tls:
+        - hosts:
+          - launchpad.cluster.rebelinblue.com
+          secretName: forecastle-tls
