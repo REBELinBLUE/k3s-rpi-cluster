@@ -12,4 +12,4 @@ spec:
     Version: 1.7.19
   urlFrom:
     ingressRef:
-      name: traefik-ingress-controller-dashboard
+      name: traefik-dashboard
