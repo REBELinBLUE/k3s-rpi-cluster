@@ -6,7 +6,7 @@ metadata:
   annotations:
     fluxcd.io/automated: "false"
 spec:
-  releaseName: loki
+  releaseName: linkerd2
   interval: 5m
   chart:
     spec:
@@ -24,3 +24,17 @@ spec:
     identity:
       issuer:
         scheme: kubernetes.io/tls
+
+    # kubectl get secret linkerd-identity-issuer -o jsonpath="{.data.ca\.crt}" -n linkerd | base64 -d > ca.crt
+    identityTrustAnchorsPEM: |-
+      -----BEGIN CERTIFICATE-----
+      MIIBcTCCARegAwIBAgIRAPfjoj2f6xNLE2HdojEqcHAwCgYIKoZIzj0EAwIwGDEW
+      MBQGA1UEAxMNc2VsZnNpZ25lZC1jYTAeFw0yMjA2MTQyMDM4MTVaFw0yMjA5MTIy
+      MDM4MTVaMBgxFjAUBgNVBAMTDXNlbGZzaWduZWQtY2EwWTATBgcqhkjOPQIBBggq
+      hkjOPQMBBwNCAASDdhxGjW7jLKFgHmFBgAgqOmVDt29qIW8gJPp87W81A6Yjajji
+      HGgW+DkAlLQzSzlgXDCt/nLLqs8AR8eLjb8Oo0IwQDAOBgNVHQ8BAf8EBAMCAqQw
+      DwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQU+SewDBO6H/o3EaU50rIiKzzk3/gw
+      CgYIKoZIzj0EAwIDSAAwRQIhANPPLtaPUsqKVk+qPpRLjoDggS62l4FO8avAHBD8
+      s0DhAiBiqHoHJVCPVTw/xOVg50lTBWzWFm7o7sHUwpTnf2e4HA==
+      -----END CERTIFICATE-----
+
