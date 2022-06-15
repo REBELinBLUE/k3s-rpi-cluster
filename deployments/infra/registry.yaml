@@ -10,13 +10,15 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: registry
+      chart: docker-registry
       sourceRef:
         kind: HelmRepository
         name: twuni
         namespace: flux-system
       version: 2.1.0
   values:
+    nameOverride: registry
+
     persistence:
       accessMode: 'ReadWriteOnce'
       enabled: true
