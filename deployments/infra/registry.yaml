@@ -29,9 +29,30 @@ spec:
       - effect: NoSchedule
         key: node-role.kubernetes.io/control-plane
 
+    nodeSelector:
+      beta.kubernetes.io/arch: arm64
+      node-role.kubernetes.io/control-plane: "true"
+
     metrics:
       enabled: true
       serviceMonitor:
         enabled: false
       prometheusRule:
         enabled: false
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      className: traefik
+      path: /
+      hosts:
+        - registry.cluster.rebelinblue.com
+      tls:
+        - hosts:
+          - registry.cluster.rebelinblue.com
+          secretName: registry-tls
+
+    secrets:
+      htpasswd: "stephen:$2y$05$.aUqmn4GOa6H4A3kAIOeLu0XfCGQk1Nhfev9XH2TO0PKlRUpkoQKy"
