@@ -1,0 +1,60 @@
+#cloud-config
+
+# On first boot, set the (default) ubuntu user's password to "ubuntu" and expire user passwords
+chpasswd:
+  expire: true
+  list:
+  - ubuntu:ubuntu
+
+timezone: Europe/London
+locale: en_GB.UTF-8
+hostname: node-3
+
+ssh_pwauth: true
+
+users:
+- name: ubuntu
+  ssh_authorized_keys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5Q7TKWI+S+ni92soS9SFw902rUcflXku2Xg1ATnMjxoL3DSpV0FgZsilMP08eXy0jm9O1BwFwkGLjX69YsVvAiOhF5GLjUHXh/G0VZD8u05j0LkYh6mHOQEp9rFihRkrhQBRXGfNJiNY8NNUvTwrt7knnH/UUYYrC7eSc6U2nNAuvZitwo2XMmueAk7AayH2bI1LyI+DtgMeqr1H+mkO/Tf+uPv/4l8unhpK0G4O4uJWthG3+8J7xdro3yVGewEaos9pzDTK9sT4LVCSL9aZwW5B17EN+c14gt1e7uMlyZPkcAGFECW76SLXQwywGD65Sy7ceeu9f3uEtiLEBc5m1/aVbv2kIDKdokG7CB63k6OFregk16qVE+/ComcLHoE/EAVzee+8LnajxScu47cY0mHJrrS/DLPwuMChZD5Nb0OzPUJ/Z6xHlbJ7BAiPk6I64X29lWZxZ5JWit64OrhkXfRiD0AgmLoXQZOgNAnq358AafjFk9viVoMuEhQueBNB9QcnA302+yaYStYspoe6QnTmd3oZB6tycOtarGB6ni/hcVUUqjiqxY8We8dnk+hc0w4uTngTqlM7PIgwg/WXMC8hdFAgrJRFcPIV0Er6EV9vYIG14YS1k9fiRgPMrWBvQ6rRCxpQeBGWoLOaEF20Kv+7uBpdWrHvfc7puawK4ww== cardno:16 936 794
+
+## Update apt database and upgrade packages on first boot
+package_update: true
+package_upgrade: true
+
+## Install additional packages on first boot
+packages:
+- net-tools
+- libraspberrypi-bin
+- linux-modules-extra-raspi
+- rfkill
+- nfs-common
+- fish
+
+## Write arbitrary files to the file-system (including binaries!)
+#write_files:
+#- path: /etc/default/console-setup
+#  content: |
+#    # Consult the console-setup(5) manual page.
+#    ACTIVE_CONSOLES="/dev/tty[1-6]"
+#    CHARMAP="UTF-8"
+#    VIDEOMODE=
+#    FONT="Lat15-Terminus18x10.psf.gz"
+#    FONTFACE=
+#    FONTSIZE=
+#    CODESET="Lat15"
+#  permissions: '0644'
+#  owner: root:root
+#- encoding: gzip
+#  path: /root/Makefile
+#  content: !!binary |
+#    H4sICF2DTWIAA01ha2VmaWxlAFNWCM8syVBILMjPyU/PTC1WKMlXiPB2dlFQNjSx5MpNteLi
+#    dLDiSoRQxYl5KeWZyRkgXrSCkoqKRmaKgm6pppKCbmqhgoFCrIKamkK1QmpyRr6Ckn92YqWS
+#    NdC80uQMBZhOa4VahZoaqIrwjMQSewXfxOxUhcwShcr80qLi1Jw0RSUuAIYfEJmVAAAA
+#  owner: root:root
+#  permissions: '0644'
+
+## Run arbitrary commands at rc.local like time
+#runcmd:
+#- [ ls, -l, / ]
+#- [ sh, -xc, "echo $(date) ': hello world!'" ]
+#- [ wget, "http://ubuntu.com", -O, /run/mydir/index.html ]

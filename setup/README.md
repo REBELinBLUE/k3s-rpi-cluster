@@ -8,37 +8,6 @@
 
 SSH is disabled by default, enable it with an empty file called ssh in the /boot/ directory.
 
--- update
-```bash
-touch /Volumes/boot/ssh
-```
-
-## Enable Wifi on master
-
---update
-```bash
-touch /Volumes/boot/wpa_supplicant.conf
-```
-Add the following content to the file
-
--- update
-```
-country=GB
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-
-network={
-    ssid="NETWORK-NAME"
-    psk="NETWORK-PASSWORD"
-    proto=RSN
-    key_mgmt=WPA-PSK
-    pairwise=CCMP
-    auth_alg=OPEN
-}
-```
-
--- update
-## Once booted change the hostname in /etc/hostname
 
 ## Enable cgroups by editing /boot/firmware/cmdline.txt
 
@@ -48,7 +17,6 @@ sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 sw
 
 ## Master node config
 
-
 ### Copy your SSH key to master and the nodes
 
 ```bash
@@ -57,10 +25,6 @@ touch ~/.ssh/authorized_keys
 
 # Copy the keys to the file
 ```
-
-
-sudo apt install net-tools
- sudo apt install linux-modules-extra-raspi
 
 ### Generate the master's SSH key
 
@@ -105,9 +69,7 @@ Host node-3
 
 ### Set a static IP address on master
 
-Login to 'master' and edit `/etc/network/interfaces.d/eth0`
-
--- todo update
+Login to 'master' and edit `/etc/netplan/50-cloud-init.yaml`
 
 ```
 network:
@@ -117,27 +79,9 @@ network:
     eth0:
       addresses:
         - 10.0.0.1/24
-          ```
-<!-- ```
-allow-hotplug eth0
-iface eth0 inet static
-	address 10.0.0.1
-	netmask 255.255.255.0
-	network 10.0.0.0
-	broadcast 10.0.0.255
-	gateway 10.0.0.1 -->
 ```
 
-Edit `/etc/network/interfaces.d/wlan0`
-
-```
-<!-- auto wlan0
-
-allow-hotplug wlan0
-iface wlan0 inet dhcp
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-iface default inet dhcp -->
-```
+Run `sudo netplan apply`
 
 ### On master and all nodes
 
@@ -149,6 +93,15 @@ Edit `/etc/hosts`
 10.0.0.2 node-1
 10.0.0.3 node-2
 10.0.0.4 node-3
+```
+
+#### Cleanup
+
+```bash
+sudo snap list
+sudo snap remove lxd && sudo snap remove core20 && sudo snap remove snapd
+sudo apt purge snapd
+sudo apt autoremove
 ```
 
 #### Install log2ram
@@ -170,7 +123,7 @@ sudo reboot
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y isc-dhcp-server nfs-kernel-server iptables
+sudo apt install -y isc-dhcp-server nfs-kernel-server iptables net-tools libraspberrypi-bin linux-modules-extra-raspi
 sudo apt autoremove -y
 
 sudo systemctl enable isc-dhcp-server.service
@@ -212,7 +165,7 @@ host node-3 {
 
 ##### On master and all nodes `/etc/dhcpcd.conf`
 
--- update
+May not be needed anymore....
 
 ```
 denyinterfaces cni*,docker*,wlan*,flannel*,veth*
@@ -306,7 +259,7 @@ sudo reboot
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y rfkill nfs-common
+sudo apt install -y rfkill nfs-common net-tools libraspberrypi-bin linux-modules-extra-raspi
 sudo apt autoremove -y
 sudo rm /lib/systemd/system/nfs-common.service
 sudo systemctl daemon-reload
@@ -349,4 +302,3 @@ sudo rm -rf /var/lib/{docker,containerd} /etc/{cni,containerd,docker} /var/lib/c
 sudo rm -rf /var/log/{containers,pods}
 sudo reboot
 ```
-

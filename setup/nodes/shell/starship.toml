@@ -1,0 +1,5 @@
+[username]
+format = "[$user]($style) on "
+
+[hostname]
+format = "[$hostname]($style) in "

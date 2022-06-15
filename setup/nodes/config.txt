@@ -1,3 +1,13 @@
+[all]
+kernel=vmlinuz
+cmdline=cmdline.txt
+initramfs initrd.img followkernel
+
+[pi4]
+max_framebuffers=2
+arm_boost=1
+
+[all]
 # Disable Serial Port
 enable_uart=0
 
@@ -25,10 +35,6 @@ gpu_mem=16
 over_voltage=2
 arm_freq=1750
 
-[pi4]
-# Enable DRM VC4 V3D driver on top of the dispmanx display stack
-dtoverlay=vc4-fkms-v3d
-max_framebuffers=2
-
-[all]
-#dtoverlay=vc4-fkms-v3d
+# Config settings specific to arm64
+arm_64bit=1
+dtoverlay=dwc2
