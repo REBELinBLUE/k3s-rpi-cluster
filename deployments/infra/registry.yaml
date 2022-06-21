@@ -20,7 +20,7 @@ spec:
     nameOverride: registry
 
     persistence:
-      accessMode: 'ReadWriteOnce'
+      accessMode: ReadWriteOnce
       enabled: true
       size: 10Gi
       storageClass: local-path
