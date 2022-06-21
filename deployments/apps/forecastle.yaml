@@ -48,6 +48,7 @@ spec:
             - infra
             - kube-system
             - vault
+            - data
         title: Launch Pad
 
       ingress:
