@@ -30,3 +30,31 @@ spec:
       enabled: true
     dashboard:
       enforcedHostRegexp: ".*"
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: linkerd
+  namespace: linkerd-viz
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/custom-request-headers: l5d-dst-override:linkerd.linkerd-viz.svc.cluster.local:8084
+    traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: linkerd.cluster.rebelinblue.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: web
+            port:
+              number: 8084
+  tls:
+    - hosts:
+        - linkerd.cluster.rebelinblue.com
+      secretName: linkerd-tls

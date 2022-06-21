@@ -49,6 +49,7 @@ spec:
             - kube-system
             - vault
             - data
+            - linkerd-viz
         title: Launch Pad
 
       ingress:

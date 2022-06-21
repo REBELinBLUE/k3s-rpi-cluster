@@ -6,7 +6,7 @@ metadata:
 spec:
   name: Vault
   group: Secrets
-  icon: https://cdn.freebiesupply.com/logos/large/2x/vault-enterprise-logo-png-transparent.png
+  icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/vault.png
   networkRestricted: false
   properties:
     Version: 1.2.3
