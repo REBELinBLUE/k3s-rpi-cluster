@@ -15,13 +15,13 @@ spec:
         kind: HelmRepository
         name: prometheus
         namespace: flux-system
-      version: 5.3.1
+      version: 5.8.1
   values:
     fullnameOverride: blackbox-exporter
 
     image:
       repository: prom/blackbox-exporter
-      tag: v0.19.0
+      tag: v0.21.1
 
     config:
       modules:
@@ -40,17 +40,20 @@ spec:
               - 403
 
     ingress:
-      enabled: false
-      # hosts:
-      #   - blackbox.cluster.rebelinblue.com
-      # annotations:
-      #   kubernetes.io/tls-acme: "true"
-      #   cert-manager.io/cluster-issuer: letsencrypt-prod
-      #   traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
-      # tls:
-      #   - hosts:
-      #       - blackbox.cluster.rebelinblue.com
-      #     secretName: blackbox-exporter-tls
+      enabled: true
+      hosts:
+        - host: blackbox.cluster.rebelinblue.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
+      tls:
+        - hosts:
+            - blackbox.cluster.rebelinblue.com
+          secretName: blackbox-exporter-tls
 
     serviceMonitor:
       enabled: true
