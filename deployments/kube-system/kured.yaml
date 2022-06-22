@@ -141,7 +141,7 @@ spec:
           args:
             - source /env/secrets; /usr/bin/kured
                 --period=1h0m0s --ds-name=kured --ds-namespace=kube-system
-                --prometheus-url=http://prometheus.monitoring.svc.cluster.local:8080
+                --prometheus-url=http://prometheus-k8s.monitoring.svc.cluster.local:9090
                 --alert-filter-regexp="^Reboot Required$"
                 --slack-hook-url=$SLACK_URL
           ports:
