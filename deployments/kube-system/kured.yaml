@@ -131,7 +131,7 @@ spec:
               name: podinfo
       containers:
         - name: kured
-          image: rebelinblue/kured:1.4.0
+          image: rebelinblue/kured:1.10.0
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true # Give permission to nsenter /proc/1/ns/mnt
