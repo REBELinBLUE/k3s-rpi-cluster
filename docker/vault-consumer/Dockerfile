@@ -8,7 +8,7 @@ ARG CONFD_VERSION
 
 ENV CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=arm
+    GOARCH=arm64
 
 RUN apk add --no-cache make git
 

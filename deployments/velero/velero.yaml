@@ -60,7 +60,7 @@ spec:
           - mountPath: /tmpfs
             name: podinfo
       - name: velero-plugin-for-aws
-        image: rebelinblue/velero-plugin-for-aws:1.1.0
+        image: rebelinblue/velero-plugin-for-aws:1.5.0
         volumeMounts:
           - mountPath: /target
             name: plugins

@@ -2,14 +2,13 @@
 # Compile
 #
 
-FROM golang:1.12-alpine as build
+FROM golang:1.16-alpine as build
 
 ARG VELERO_AWS_PLUGIN_VERSION
 
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
-    GOARCH=arm \
-    GOARM=7 \
+    GOARCH=arm64 \
     GOOS=linux
 
 WORKDIR /go/src/github.com/vmware-tanzu/velero-plugin-for-aws
