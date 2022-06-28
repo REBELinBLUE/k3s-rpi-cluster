@@ -26,7 +26,7 @@ RUN git clone https://github.com/kelseyhightower/confd.git . && \
 # Deploy
 #
 
-FROM arm32v6/alpine:3.10
+FROM arm64v8/alpine:3.10
 
 COPY entrypoint.sh /entrypoint.sh
 

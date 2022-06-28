@@ -115,7 +115,7 @@ spec:
 #              cpu: 50m
 #              memory: 32Mi
         - name: vault
-          image: rebelinblue/vault:1.4.2
+          image: rebelinblue/vault:1.11.0
           imagePullPolicy: Always
           ports:
             - name: api

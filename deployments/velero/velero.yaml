@@ -29,7 +29,7 @@ spec:
 
     initContainers:
       - name: init
-        image: rebelinblue/vault-consumer:0.0.2
+        image: rebelinblue/vault-consumer:0.0.3
         command:
           - /bin/sh
           - -c

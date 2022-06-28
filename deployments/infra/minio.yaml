@@ -93,7 +93,7 @@ spec:
       serviceAccountName: minio
       initContainers:
         - name: init
-          image: rebelinblue/vault-consumer:0.0.2
+          image: rebelinblue/vault-consumer:0.0.3
           imagePullPolicy: IfNotPresent
           env:
             - name: VAULT_ROLE_ID

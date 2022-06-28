@@ -1,6 +1,6 @@
 ARG VAULT_VERSION
 
-FROM arm32v6/vault:${VAULT_VERSION}
+FROM arm64v8/vault:${VAULT_VERSION}
 
 RUN mkdir -p /opt/vault && \
     apk add --no-cache nmap-ncat jq bash
