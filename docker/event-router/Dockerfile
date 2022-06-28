@@ -5,7 +5,7 @@ ARG EVENTROUTER_VERSION
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=arm
+    GOARCH=arm64
 
 WORKDIR /go/src/github.com/heptiolabs/eventrouter
 
@@ -20,7 +20,7 @@ RUN go build
 # Deploy
 #
 
-FROM arm32v6/alpine:3.9
+FROM arm64v8/alpine:3.9
 
 WORKDIR /app
 

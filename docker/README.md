@@ -15,19 +15,6 @@ docker build -f Dockerfile \
 docker push rebelinblue/eventrouter
 ```
 
-## Forecastle
-
-```bash
-cd forecastle
-
-docker build -f Dockerfile \
-    --build-arg FORECASTLE_VERSION="v1.0.58" \
-    -t rebelinblue/forecastle:1.0.58 \
-    -t rebelinblue/forecastle:latest .
-
-docker push rebelinblue/forecastle
-```
-
 ## Kubeview
 
 ```bash
@@ -59,7 +46,10 @@ docker push rebelinblue/traefik-forward-auth
 ```bash
 cd vault
 
-cd 
+docker build -f Dockerfile \
+    --build-arg VAULT_VERSION="1.11.0" \
+    -t rebelinblue/vault:1.11.0 \
+    -t rebelinblue/vault:latest .
 
 docker push rebelinblue/vault
 ```
