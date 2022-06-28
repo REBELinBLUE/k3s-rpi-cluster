@@ -85,47 +85,6 @@ docker build -f Dockerfile \
 
 docker push rebelinblue/kubeview-arm
 ```
-
-## Kured
-
-```bash
-cd kured
-
-docker build -f Dockerfile \
-    --build-arg KUBECTL_VERSION="v1.18.0" \
-    --build-arg VERSION="1.4.0" \
-    -t rebelinblue/kured:1.4.0 \
-    -t rebelinblue/kured:latest .
-
-docker push rebelinblue/kured
-```
-
-## Linode Dynamic DNS
-
-```bash
-cd linode-dynamic-dns
-
-docker build -f Dockerfile \
-    --build-arg DYNDNS_VERSION="0.6.2" \
-    -t rebelinblue/linode-dynamic-dns:0.6.2 \
-    -t rebelinblue/linode-dynamic-dns:latest .
-
-docker push rebelinblue/linode-dynamic-dns
-```
-
-## Popeye
-
-```bash
-cd popeye
-
-docker build -f Dockerfile \
-    --build-arg POPEYE_VERSION="0.8.3" \
-    -t rebelinblue/popeye:v0.8.3 \
-    -t rebelinblue/popeye:latest .
-
-docker push rebelinblue/popeye
-```
-
 ## Traefik Forward Authentication
 
 ```bash

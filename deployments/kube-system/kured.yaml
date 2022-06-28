@@ -131,12 +131,12 @@ spec:
               name: podinfo
       containers:
         - name: kured
-          image: rebelinblue/kured:1.10.0
+          image: weaveworks/kured:1.10.0
           imagePullPolicy: IfNotPresent
           securityContext:
             privileged: true # Give permission to nsenter /proc/1/ns/mnt
           command:
-            - bash
+            - sh
             - -c
           args:
             - source /env/secrets; /usr/bin/kured
