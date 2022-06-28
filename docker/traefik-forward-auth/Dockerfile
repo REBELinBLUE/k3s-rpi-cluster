@@ -11,7 +11,7 @@ ARG VCS_REF
 ENV GO111MODULE=on \
     CGO_ENABLED=0 \
     GOOS=linux \
-    GOARCH=arm
+    GOARCH=arm64
 
 WORKDIR /go/src/github.com/funkypenguin/traefik-forward-auth
 
@@ -34,7 +34,7 @@ RUN go build -a -installsuffix nocgo -o /traefik-forward-auth .
 # Deploy
 #
 
-FROM arm32v6/alpine:3.10
+FROM arm64v8/alpine:3.10
 
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /traefik-forward-auth /
