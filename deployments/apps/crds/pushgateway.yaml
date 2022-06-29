@@ -1,0 +1,15 @@
+apiVersion: forecastle.stakater.com/v1alpha1
+kind: ForecastleApp
+metadata:
+  name: pushgateway
+  namespace: monitoring
+spec:
+  name: Push Gateway
+  group: Monitoring
+  icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+  networkRestricted: true
+  properties:
+    Version: 1.4.2
+  urlFrom:
+    ingressRef:
+      name: pushgateway

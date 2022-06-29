@@ -2,6 +2,17 @@
 
 > Note: These builds were run on macOS with docker desktop, I have not attempted to build them elsewhere
 
+## Dev Utils
+
+```bash
+cd dev
+
+docker build -f Dockerfile \
+    -t rebelinblue/utils:0.1 \
+    -t rebelinblue/utils:latest .
+
+docker push rebelinblue/utils
+
 ## Event Router
 
 ```bash
