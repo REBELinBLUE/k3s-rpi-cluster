@@ -4,7 +4,7 @@ metadata:
   name: blackbox-exporter
   namespace: monitoring
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: blackbox-exporter
   interval: 5m

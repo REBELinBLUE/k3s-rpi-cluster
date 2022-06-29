@@ -1,31 +1,41 @@
-FROM centos:7
+FROM debian:10-slim
+
+WORKDIR /root
+
+RUN echo 'deb http://deb.debian.org/debian buster-backports main' > /etc/apt/sources.list.d/backports.list
+
+RUN apt-get update -qq && \
+    apt-get install -y apt-transport-https \
+                       ca-certificates \
+                       software-properties-common \
+                       httping \
+                       man \
+                       man-db \
+                       vim \
+                       screen \
+                       curl \
+                       gnupg \
+                       atop \
+                       htop \
+                       dstat \
+                       jq \
+                       dnsutils \
+                       tcpdump \
+                       traceroute \
+                       iputils-ping \
+                       net-tools \
+                       netcat \
+                       iproute2 \
+                       strace \
+                       telnet \
+                       openssl \
+                       psmisc \
+                       dsniff \
+                       conntrack
 
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
-
-RUN yum install -y \
-        yum-utils \
-        bind-utils \
-        net-tools \
-        git \
-        curl \
-        openssl \
-        zip \
-        unzip \
-        bzip2 \
-        gettext \
-        rsync \
-        make \
-        gcc \
-        g++ \
-        nc \
-        tcpdump
-
-RUN yum clean all && \
-    rm -rf /var/cache/yum/*
-
-WORKDIR /
 
 ENTRYPOINT ["/entrypoint.sh"]
 

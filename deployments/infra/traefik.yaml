@@ -4,7 +4,7 @@ metadata:
   name: traefik
   namespace: infra
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: traefik
   interval: 5m

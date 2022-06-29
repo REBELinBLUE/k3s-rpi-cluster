@@ -4,7 +4,7 @@ metadata:
   name: linkerd-viz
   namespace: linkerd-viz
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: linkerd-viz
   interval: 5m

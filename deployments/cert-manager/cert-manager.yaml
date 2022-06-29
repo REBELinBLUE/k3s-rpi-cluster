@@ -4,7 +4,7 @@ metadata:
   name: cert-manager
   namespace: cert-manager
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: cert-manager
   interval: 5m

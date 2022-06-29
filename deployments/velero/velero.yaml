@@ -4,7 +4,7 @@ metadata:
   name: velero
   namespace: velero
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: velero
   interval: 5m

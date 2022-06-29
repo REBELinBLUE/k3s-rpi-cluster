@@ -4,7 +4,7 @@ metadata:
   name: promtail
   namespace: logging
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: promtail
   interval: 5m

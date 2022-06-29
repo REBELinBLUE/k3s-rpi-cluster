@@ -4,7 +4,7 @@ metadata:
   name: linkerd2
   namespace: linkerd
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: linkerd2
   interval: 5m

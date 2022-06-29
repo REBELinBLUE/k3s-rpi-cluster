@@ -4,7 +4,7 @@ metadata:
   name:  pushgateway
   namespace: monitoring
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: pushgateway
   interval: 5m

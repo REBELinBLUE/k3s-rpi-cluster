@@ -4,7 +4,7 @@ metadata:
   name: kubeview
   namespace: apps
   annotations:
-    fluxcd.io/automated: "false"
+    fluxcd.io/automated: "true"
 spec:
   releaseName: kubeview
   interval: 5m
