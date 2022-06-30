@@ -52,7 +52,7 @@ spec:
         node-role.kubernetes.io/control-plane: "true"
       containers:
         - name: mariadb
-          image: mariadb
+          image: mariadb:10.7.4
           env:
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:

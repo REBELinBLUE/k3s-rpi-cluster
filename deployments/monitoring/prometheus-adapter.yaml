@@ -171,6 +171,7 @@ spec:
         name: prometheus-adapter
         ports:
         - containerPort: 6443
+          name: secure
         volumeMounts:
         - mountPath: /tmp
           name: tmpfs
@@ -204,6 +205,6 @@ spec:
   ports:
     - name: https
       port: 443
-      targetPort: 6443
+      targetPort: secure
   selector:
     name: prometheus-adapter

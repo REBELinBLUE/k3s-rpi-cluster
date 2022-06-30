@@ -26,6 +26,18 @@ spec:
     extraArgs:
       - --web.enable-admin-api
 
+    service:
+      port: 9091
+      targetPort: metrics
+
+    resources:
+      limits:
+        cpu: 200m
+        memory: 50Mi
+      requests:
+        cpu: 100m
+        memory: 30Mi
+
     ingress:
       enabled: true
       className: traefik

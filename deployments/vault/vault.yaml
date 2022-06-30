@@ -53,11 +53,11 @@ spec:
     - name: api
       protocol: TCP
       port: 8200
-      targetPort: 8200
+      targetPort: api
     - name: cluster
       protocol: TCP
       port: 8201
-      targetPort: 8201
+      targetPort: cluster
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -120,13 +120,13 @@ spec:
           ports:
             - name: api
               containerPort: 8200
-              protocol: "TCP"
+              protocol: TCP
             - name: cluster
               containerPort: 8201
-              protocol: "TCP"
+              protocol: TCP
             - name: replication
               containerPort: 8202
-              protocol: "TCP"
+              protocol: TCP
           env:
             - name: ENVIRONMENT
               value: production
@@ -180,7 +180,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /v1/sys/health?standbyok=true&uninitcode=204&sealedcode=204&
-              port: 8200
+              port: api
               scheme: HTTP
             initialDelaySeconds: 15
             periodSeconds: 30
@@ -191,7 +191,7 @@ spec:
             failureThreshold: 5
             httpGet:
               path: /v1/sys/health?standbyok=true&uninitcode=204&sealedcode=204&
-              port: 8200
+              port: api
               scheme: HTTP
             initialDelaySeconds: 30
             periodSeconds: 30

@@ -39,6 +39,14 @@ spec:
               - 401
               - 403
 
+    resources:
+      limits:
+        cpu: 100m
+        memory: 300Mi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+
     ingress:
       enabled: true
       hosts:
