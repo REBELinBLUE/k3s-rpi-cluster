@@ -118,6 +118,14 @@ sudo rm -r log2ram-master log2ram.tar.gz
 sudo reboot
 ```
 
+### Install topgrade
+```
+curl -LJO https://github.com/r-darwish/topgrade/releases/download/v9.0.1/topgrade-v9.0.1-aarch64-unknown-linux-gnu.tar.gz
+tar zvxf topgrade-v9.0.1-aarch64-unknown-linux-gnu.tar.gz
+rm -f topgrade-v9.0.1-aarch64-unknown-linux-gnu.tar.gz
+sudo mv topgrade /usr/local/bin
+```
+
 ### On master
 
 ```bash
