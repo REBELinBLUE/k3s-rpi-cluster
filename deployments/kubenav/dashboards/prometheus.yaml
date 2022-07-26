@@ -1,0 +1,155 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-dashboard
+  namespace: kubenav
+  labels:
+    kubenav.io/prometheus-dashboard: "true"
+data:
+  title: "Prometheus"
+  description: "Dashboard for Prometheus Metrics"
+  variables: |
+    [
+      {
+        "name": "Namespace",
+        "label": "namespace",
+        "query": "prometheus_build_info",
+        "allowAll": false
+      },
+      {
+        "name": "Pod",
+        "label": "pod",
+        "query": "prometheus_build_info{namespace=~\"{{ .Namespace }}\"}",
+        "allowAll": false
+      }
+    ]
+  charts: |
+    [
+      {
+        "title": "Uptime",
+        "unit": "h",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "(time() - process_start_time_seconds{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\"}) / 60 / 60"
+          }
+        ]
+      },
+      {
+        "title": "Local Memory Chunks",
+        "unit": "",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "prometheus_tsdb_head_chunks{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\"}"
+          }
+        ]
+      },
+      {
+        "title": "Target Scrapes",
+        "unit": "",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .interval }}",
+            "query": "rate(prometheus_target_interval_length_seconds_count{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\"}[5m])"
+          }
+        ]
+      },
+      {
+        "title": "Scrape Duration",
+        "unit": "s",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .quantile }} ({{ .interval }})",
+            "query": "prometheus_target_interval_length_seconds{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\", quantile!=\"0.01\", quantile!=\"0.05\"}"
+          }
+        ]
+      },
+      {
+        "title": "Rule Evaluation Duration",
+        "unit": "s",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "12",
+          "xl": "12"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .quantile }}",
+            "query": "prometheus_rule_evaluation_duration_seconds{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\"}"
+          }
+        ]
+      },
+      {
+        "title": "Rule Evaluations Total",
+        "unit": "",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .rule_group }}",
+            "query": "rate(prometheus_rule_evaluations_total{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\"}[5m])"
+          }
+        ]
+      },
+      {
+        "title": "Rule Evaluation Failures",
+        "unit": "",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .rule_group }}",
+            "query": "rate(prometheus_rule_evaluation_failures_total{namespace=\"{{ .Namespace }}\", pod=\"{{ .Pod }}\"}[5m])"
+          }
+        ]
+      }
+    ]

@@ -1,0 +1,335 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-exporter-dashboard
+  namespace: kubenav
+  labels:
+    kubenav.io/prometheus-dashboard: "true"
+data:
+  title: "Node Exporter"
+  description: "Dashboard for Node Exporter Metrics"
+  variables: |
+    [
+      {
+        "name": "Node",
+        "label": "instance",
+        "query": "node_uname_info",
+        "allowAll": false
+      }
+    ]
+  charts: |
+    [
+      {
+        "title": "CPU Busy",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "(((count(count(node_cpu_seconds_total{instance=\"{{ .Node }}\"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance=\"{{ .Node }}\"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance=\"{{ .Node }}\"}) by (cpu))"
+          }
+        ]
+      },
+      {
+        "title": "RAM Used",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "100 - ((node_memory_MemAvailable_bytes{instance=\"{{ .Node }}\"} * 100) / node_memory_MemTotal_bytes{instance=\"{{ .Node }}\"})"
+          }
+        ]
+      },
+      {
+        "title": "SWAP Used",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "((node_memory_SwapTotal_bytes{instance=\"{{ .Node }}\"} - node_memory_SwapFree_bytes{instance=\"{{ .Node }}\"}) / (node_memory_SwapTotal_bytes{instance=\"{{ .Node }}\"} )) * 100"
+          }
+        ]
+      },
+      {
+        "title": "Root FS Used",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "100 - ((node_filesystem_avail_bytes{instance=\"{{ .Node }}\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"{{ .Node }}\",mountpoint=\"/\",fstype!=\"rootfs\"})"
+          }
+        ]
+      },
+      {
+        "title": "CPU Cores",
+        "unit": "Cores",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "count(count(node_cpu_seconds_total{instance=\"{{ .Node }}\"}) by (cpu))"
+          }
+        ]
+      },
+      {
+        "title": "RAM Total",
+        "unit": "GiB",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "node_memory_MemTotal_bytes{instance=\"{{ .Node }}\"} / 1024 / 1024 / 1024"
+          }
+        ]
+      },
+      {
+        "title": "SWAP Total",
+        "unit": "GiB",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "node_memory_SwapTotal_bytes{instance=\"{{ .Node }}\"} / 1024 / 1024 / 1024"
+          }
+        ]
+      },
+      {
+        "title": "RootFS Total",
+        "unit": "GiB",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "node_filesystem_size_bytes{instance=\"{{ .Node }}\",mountpoint=\"/\",fstype!=\"rootfs\"} / 1024 / 1024 / 1024"
+          }
+        ]
+      },
+      {
+        "title": "System Load",
+        "unit": "",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "Load 1m",
+            "query": "max(node_load1{instance=\"{{ .Node }}\"})"
+          },
+          {
+            "label": "Load 5m",
+            "query": "max(node_load5{instance=\"{{ .Node }}\"})"
+          },
+          {
+            "label": "Load 15m",
+            "query": "max(node_load15{instance=\"{{ .Node }}\"})"
+          },
+          {
+            "label": "Cores",
+            "query": "count(node_cpu_seconds_total{instance=\"{{ .Node }}\", mode=\"user\"})"
+          }
+        ]
+      },
+      {
+        "title": "Usage per Core",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .cpu }}",
+            "query": "sum by (cpu) (irate(node_cpu_seconds_total{instance=\"{{ .Node }}\", mode!=\"idle\"}[5m])) * 100"
+          }
+        ]
+      },
+      {
+        "title": "CPU Utilization",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "CPU Utilization",
+            "query": "max (sum by (cpu) (irate(node_cpu_seconds_total{instance=\"{{ .Node }}\", mode!=\"idle\"}[2m])) ) * 100"
+          }
+        ]
+      },
+      {
+        "title": "Memory Usage",
+        "unit": "GiB",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "Memory Used",
+            "query": "max(node_memory_MemTotal_bytes{instance=\"{{ .Node }}\"} - node_memory_MemFree_bytes{instance=\"{{ .Node }}\"} - node_memory_Buffers_bytes{instance=\"{{ .Node }}\"} - node_memory_Cached_bytes{instance=\"{{ .Node }}\"}) / 1024 / 1024 / 1024"
+          },
+          {
+            "label": "Memory Buffers",
+            "query": "max(node_memory_Buffers_bytes{instance=\"{{ .Node }}\"}) / 1024 / 1024 / 1024"
+          }
+        ]
+      },
+      {
+        "title": "Disk I/O",
+        "unit": "MiB",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "Read",
+            "query": "max(rate(node_disk_read_bytes_total{instance=\"{{ .Node }}\"}[2m])) / 1024 / 1024"
+          },
+          {
+            "label": "Write",
+            "query": "max(rate(node_disk_written_bytes_total{instance=\"{{ .Node }}\"}[2m])) / 1024 / 1024"
+          }
+        ]
+      },
+      {
+        "title": "Disk I/O",
+        "unit": "s",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "I/O Time",
+            "query": "max(rate(node_disk_io_time_seconds_total{instance=\"{{ .Node }}\"}[2m]))"
+          }
+        ]
+      },
+      {
+        "title": "Disk Space Usage",
+        "unit": "%",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "{{ .device }}",
+            "query": "(max by (instance, namespace, pod, device) ((node_filesystem_size_bytes{instance=\"{{ .Node }}\", fstype=~\"ext[234]|btrfs|xfs|zfs\"} - node_filesystem_avail_bytes{instance=\"{{ .Node }}\", fstype=~\"ext[234]|btrfs|xfs|zfs\"}) / node_filesystem_size_bytes{instance=\"{{ .Node }}\", fstype=~\"ext[234]|btrfs|xfs|zfs\"})) * 100"
+          }
+        ]
+      },
+      {
+        "title": "Network",
+        "unit": "MiB",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "Received {{ .device }}",
+            "query": "rate(node_network_receive_bytes_total{instance=\"{{ .Node }}\", device!~\"lo\"}[5m]) / 1024 / 1024"
+          },
+          {
+            "label": "Transmitted {{ .device }}",
+            "query": "rate(node_network_transmit_bytes_total{instance=\"{{ .Node }}\", device!~\"lo\"}[5m]) / 1024 / 1024"
+          }
+        ]
+      }
+    ]

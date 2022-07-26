@@ -1,0 +1,137 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackbox-exporter-dashboard
+  namespace: kubenav
+  labels:
+    kubenav.io/prometheus-dashboard: "true"
+data:
+  title: "Blackbox Exporter"
+  description: "Dashboard for Blackbox Exporter Metrics"
+  variables: |
+    [
+      {
+        "name": "Job",
+        "label": "job",
+        "query": "probe_success",
+        "allowAll": false
+      },
+      {
+        "name": "Target",
+        "label": "target",
+        "query": "probe_success{job=~\"{{ .Job }}\"}",
+        "allowAll": false
+      }
+    ]
+  charts: |
+    [
+      {
+        "title": "Up",
+        "unit": "",
+        "size": {
+          "xs": "6",
+          "sm": "6",
+          "md": "6",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "max(probe_success{job=\"{{ .Job }}\", target=\"{{ .Target }}\"})"
+          }
+        ]
+      },
+      {
+        "title": "SSL",
+        "unit": "",
+        "size": {
+          "xs": "6",
+          "sm": "6",
+          "md": "6",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "max(probe_http_ssl{job=\"{{ .Job }}\", target=\"{{ .Target }}\"})"
+          }
+        ]
+      },
+      {
+        "title": "SSL Cert Expiry",
+        "unit": "Days",
+        "size": {
+          "xs": "6",
+          "sm": "6",
+          "md": "6",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "(max(probe_ssl_earliest_cert_expiry{job=\"{{ .Job }}\", target=\"{{ .Target }}\"}) - time()) / 60 / 60 / 24"
+          }
+        ]
+      },
+      {
+        "title": "HTTP Status Code",
+        "unit": "",
+        "size": {
+          "xs": "6",
+          "sm": "6",
+          "md": "6",
+          "lg": "3",
+          "xl": "3"
+        },
+        "type": "singlestat",
+        "queries": [
+          {
+            "label": "",
+            "query": "max(probe_http_status_code{job=\"{{ .Job }}\", target=\"{{ .Target }}\"})"
+          }
+        ]
+      },
+      {
+        "title": "Probe Duration",
+        "unit": "s",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "Probe Duration",
+            "query": "max(probe_duration_seconds{job=\"{{ .Job }}\", target=\"{{ .Target }}\"})"
+          }
+        ]
+      },
+      {
+        "title": "DNS Lookup",
+        "unit": "s",
+        "size": {
+          "xs": "12",
+          "sm": "12",
+          "md": "12",
+          "lg": "6",
+          "xl": "6"
+        },
+        "type": "area",
+        "queries": [
+          {
+            "label": "DNS Lookup",
+            "query": "max(probe_dns_lookup_time_seconds{job=\"{{ .Job }}\", target=\"{{ .Target }}\"})"
+          }
+        ]
+      }
+    ]
