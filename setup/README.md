@@ -101,6 +101,7 @@ Edit `/etc/hosts`
 sudo snap list
 sudo snap remove lxd && sudo snap remove core20 && sudo snap remove snapd
 sudo apt purge snapd
+sudo apt remove ubuntu-advantage-tools
 sudo apt autoremove
 ```
 
