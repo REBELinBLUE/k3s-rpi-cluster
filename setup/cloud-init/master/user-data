@@ -3,16 +3,22 @@
 # On first boot, set the (default) ubuntu user's password to "ubuntu" and expire user passwords
 chpasswd:
   expire: true
-  list:
-  - ubuntu:ubuntu
+  users:
+  - name: ubuntu
+    password: ubuntu
+    type: text
 
 timezone: Europe/London
 locale: en_GB.UTF-8
 hostname: master
+
 ssh_pwauth: true
 
 users:
 - name: ubuntu
+  sudo: ALL=(ALL) NOPASSWD:ALL
+  groups: sudo, users, admin
+  shell: /bin/bash
   ssh_authorized_keys:
     - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5Q7TKWI+S+ni92soS9SFw902rUcflXku2Xg1ATnMjxoL3DSpV0FgZsilMP08eXy0jm9O1BwFwkGLjX69YsVvAiOhF5GLjUHXh/G0VZD8u05j0LkYh6mHOQEp9rFihRkrhQBRXGfNJiNY8NNUvTwrt7knnH/UUYYrC7eSc6U2nNAuvZitwo2XMmueAk7AayH2bI1LyI+DtgMeqr1H+mkO/Tf+uPv/4l8unhpK0G4O4uJWthG3+8J7xdro3yVGewEaos9pzDTK9sT4LVCSL9aZwW5B17EN+c14gt1e7uMlyZPkcAGFECW76SLXQwywGD65Sy7ceeu9f3uEtiLEBc5m1/aVbv2kIDKdokG7CB63k6OFregk16qVE+/ComcLHoE/EAVzee+8LnajxScu47cY0mHJrrS/DLPwuMChZD5Nb0OzPUJ/Z6xHlbJ7BAiPk6I64X29lWZxZ5JWit64OrhkXfRiD0AgmLoXQZOgNAnq358AafjFk9viVoMuEhQueBNB9QcnA302+yaYStYspoe6QnTmd3oZB6tycOtarGB6ni/hcVUUqjiqxY8We8dnk+hc0w4uTngTqlM7PIgwg/WXMC8hdFAgrJRFcPIV0Er6EV9vYIG14YS1k9fiRgPMrWBvQ6rRCxpQeBGWoLOaEF20Kv+7uBpdWrHvfc7puawK4ww== cardno:16 936 794
 

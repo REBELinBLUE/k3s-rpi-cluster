@@ -227,6 +227,8 @@ Enable the script as follows
 
 ```bash
 sudo chmod +x /etc/init.d/enable_nat
+sudo update-rc.d enable_nat defaults
+sudo update-rc.d enable_nat enable
 ```
 
 Edit `/etc/sysctl.conf` to enable IP routing: uncomment the `net.ipv4.ip_forward=1` line if it is commented out
