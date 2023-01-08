@@ -1,33 +1,15 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: nfs-subdir-external-provisioner
-  namespace: infra
-  annotations:
-    fluxcd.io/automated: "true"
-spec:
-  releaseName: nfs-subdir-external-provisioner
-  interval: 5m
-  chart:
-    spec:
-      chart: nfs-subdir-external-provisioner
-      sourceRef:
-        kind: HelmRepository
-        name: nfs-subdir-external-provisioner
-        namespace: flux-system
-      version: 4.0.16
-  values:
-    provisionerName: nfs-provisioner/nfs-hdd
 
-    image:
-      repository: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
-      tag: v4.0.2
-      pullPolicy: Always
+provisionerName: nfs-provisioner/nfs-hdd
 
-    nfs:
-      server: 10.0.0.1
-      path: /media/usb
+image:
+  repository: k8s.gcr.io/sig-storage/nfs-subdir-external-provisioner
+  tag: v4.0.2
+  pullPolicy: Always
 
-    storageClass:
-      name: nfs-hdd
-      defaultClass: false
+nfs:
+  server: 10.0.0.1
+  path: /media/usb
+
+storageClass:
+  name: nfs-hdd
+  defaultClass: false

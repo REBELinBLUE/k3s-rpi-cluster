@@ -33,13 +33,13 @@ message "Installing Flux"
 # helm upgrade --install flux --values $REPO_ROOT/deployments/flux/flux/flux-values.yaml --namespace flux fluxcd/flux
 # helm upgrade --install helm-operator --values $REPO_ROOT/deployments/flux/helm-operator/helm-operator-values.yaml --namespace flux fluxcd/helm-operator
 
+#kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml
+
 GITHUB_TOKEN=.... flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=main --path=deployments/
 
-message "Installing NFS Provisioner"
-kubectl create namespace infra
-helm upgrade --install nfs-subdir-external-provisioner --values $REPO_ROOT/deployments/infra/nfs-subdir-external-provisioner.yaml --namespace infra nfs-subdir-external-provisioner/nfs-client-provisioner
-
-kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml
+#message "Installing NFS Provisioner"
+#kubectl create namespace infra
+#helm upgrade --install nfs-subdir-external-provisioner --values $REPO_ROOT/deployments/infra/nfs-subdir-external-provisioner.yaml --namespace infra nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
 
 # FLUX_READY=1
 # while [ ${FLUX_READY} != 0 ]; do

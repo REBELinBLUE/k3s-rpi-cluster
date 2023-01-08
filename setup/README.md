@@ -290,7 +290,8 @@ sudo apt install fish
 chsh -s /usr/bin/fish
 curl -fsSL https://starship.rs/install.sh | sh
 mkdir -p ~/.config/fish/
-echo "starship init fish | source" >>  ~/.config/fish/config.fish
+echo "export QUOTING_STYLE=literal" >> ~/.config/fish/config.fish
+echo "starship init fish | source" >> ~/.config/fish/config.fish
 ```
 
 ### On master
