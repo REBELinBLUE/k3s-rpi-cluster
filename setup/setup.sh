@@ -35,6 +35,8 @@ message "Installing Flux"
 
 #kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml
 #kubectl apply --validate=false -f https://raw.githubusercontent.com/stakater/Forecastle/v1.0.118/deployments/kubernetes/chart/forecastle/crds/forecastleApp.yaml
+#kubectl apply --server-side --force-conflicts -k https://github.com/traefik/traefik-helm-chart/traefik/crds/
+ 
 
 GITHUB_TOKEN=.... flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=main --path=deployments/
 
