@@ -11,7 +11,7 @@
 #       slack:  
 #         enabled: true
 #         channel: k8s-alerts
-#         token: 
+#         token: xoxb-45148463796-4904352324946-GhBSl992dz4e3rHgnOcPSOcL
 #         notiftype: short
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
