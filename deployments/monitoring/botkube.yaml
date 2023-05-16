@@ -218,7 +218,7 @@ spec:
             - create
             - delete
             - update
-        - name: helm.toolkit.fluxcd.io/v1beta2/gitrepositories
+        - name: helm.toolkit.fluxcd.io/v1/gitrepositories
           namespaces:
             include:
               - all
