@@ -79,7 +79,7 @@ spec:
   serviceName: rabbitmq
   updateStrategy:
     type: RollingUpdate
-  replicas: 3
+  replicas: 0
   selector:
     matchLabels:
       app: rabbitmq

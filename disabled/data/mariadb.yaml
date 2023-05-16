@@ -35,7 +35,7 @@ metadata:
   labels:
     app.kubernetes.io/name: mariadb
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: mariadb
