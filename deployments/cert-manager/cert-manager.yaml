@@ -39,4 +39,4 @@ spec:
       servicemonitor:
         enabled: true
 
-    installCRDs: false
+    installCRDs: true
