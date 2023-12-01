@@ -29,7 +29,6 @@ spec:
 
     persistence:
       enabled: true
-      storageClassName: nfs-hdd
 
     serviceMonitor:
       enabled: true

@@ -360,7 +360,6 @@ spec:
       apiVersion: v1
       kind: PersistentVolumeClaim
       spec:
-        storageClassName: local-path
         accessModes:
         - ReadWriteOnce
         resources:

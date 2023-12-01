@@ -58,7 +58,6 @@ metadata:
   labels:
     app: minio
 spec:
-  storageClassName: nfs-hdd
   accessModes:
     - ReadWriteOnce
   resources:

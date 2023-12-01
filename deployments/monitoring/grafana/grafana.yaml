@@ -10,7 +10,6 @@ metadata:
   name: grafana-storage
   namespace: monitoring
 spec:
-  storageClassName: nfs-hdd
   accessModes:
     - ReadWriteOnce
   resources:

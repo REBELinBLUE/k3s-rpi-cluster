@@ -30,13 +30,13 @@ message "Installing Flux"
 
 flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=main --path=deployments/
 
-# FLUX_READY=1
-# while [ ${FLUX_READY} != 0 ]; do
-#     echo "Waiting for flux pod to be fully ready..."
-#     kubectl -n flux wait --for condition=available deployment/flux
-#     FLUX_READY="$?"
-#     sleep 5
-# done
+FLUX_READY=1
+while [ ${FLUX_READY} != 0 ]; do
+    echo "Waiting for flux pod to be fully ready..."
+    kubectl -n flux wait --for condition=available deployment/flux
+    FLUX_READY="$?"
+    sleep 5
+done
 
 kubectl -n flux-system get secrets flux-system -o json | jq -r '.data."identity.pub"' | base64 -d
 
