@@ -1,0 +1,26 @@
+networkPolicies:
+  type: "k3s"
+
+persistence:
+  defaultClass: true
+
+longhornManager:
+  log:
+    format: json
+
+ingress:
+  enabled: true
+
+  ingressClassName: traefik
+
+  host: longhorn.cluster.rebelinblue.com
+
+  tls: true
+
+  tlsSecret: longhorn-tls
+
+  path: /
+
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod

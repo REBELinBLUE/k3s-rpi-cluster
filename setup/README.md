@@ -1,20 +1,16 @@
 # Kubernetes on RPI4
 
-## Download UBUNTU SERVER 22. 04 LTS (RPI ZERO 2/3/4/400)
+## Download UBUNTU SERVER 22.10 LTS (RPI ZERO 2/3/4/400)
 
-## Flash the SD card using RPI Imager
+## Flash the SSD drive using RPI Imager
 
-## Enable SSH on master and all nodes
-
-SSH is disabled by default, enable it with an empty file called ssh in the /boot/ directory.
-
+Copy the relevant files from cloud-init to each mounted drive, remembering to set the wifi details on the master network-config. Copy config.txt to each one also
 
 ## Enable cgroups by editing /boot/firmware/cmdline.txt
 
 ```
 sudo sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 swapaccount=1/' /boot/firmware/cmdline.txt
 ```
-
 ## Master node config
 
 ### Copy your SSH key to master and the nodes
@@ -33,7 +29,7 @@ Login to the master node, and run `ssh-keygen` to initialize your SSH key; then 
 ### Disable password authentication
 
 ```bash
-sudo sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/g'  /etc/ssh/sshd_config
+sudo sed -i 's/^#PasswordAuthentication yes/PasswordAuthentication no/g'  /etc/ssh/sshd_config
 sudo sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 sudo sed -i 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_config
 sudo sed -i 's/^UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
@@ -67,22 +63,6 @@ Host node-3
     ProxyCommand ssh -A master -W %h:%p
 ```
 
-### Set a static IP address on master
-
-Login to 'master' and edit `/etc/netplan/50-cloud-init.yaml`
-
-```
-network:
-  version: 2
-  renderer: networkd
-  ethernets:
-    eth0:
-      addresses:
-        - 10.0.0.1/24
-```
-
-Run `sudo netplan apply`
-
 ### On master and all nodes
 
 Edit `/etc/hosts`
@@ -99,10 +79,11 @@ Edit `/etc/hosts`
 
 ```bash
 sudo snap list
-sudo snap remove lxd && sudo snap remove core20 && sudo snap remove snapd
+sudo snap remove lxd && sudo snap remove core22 && sudo snap remove snapd
 sudo apt purge snapd
 sudo apt remove ubuntu-advantage-tools
 sudo apt autoremove
+sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf /etc/apt/apt.conf.d/20apt-esm-hook.conf.disabled
 ```
 
 #### Install log2ram
@@ -121,9 +102,9 @@ sudo reboot
 
 ### Install topgrade
 ```
-curl -LJO https://github.com/r-darwish/topgrade/releases/download/v9.0.1/topgrade-v9.0.1-aarch64-unknown-linux-gnu.tar.gz
-tar zvxf topgrade-v9.0.1-aarch64-unknown-linux-gnu.tar.gz
-rm -f topgrade-v9.0.1-aarch64-unknown-linux-gnu.tar.gz
+curl -LJO https://github.com/topgrade-rs/topgrade/releases/download/v13.0.0/topgrade-v13.0.0-aarch64-unknown-linux-gnu.tar.gz
+tar zvxf topgrade-v13.0.0-aarch64-unknown-linux-gnu.tar.gz
+rm -f topgrade-v13.0.0-aarch64-unknown-linux-gnu.tar.gz
 sudo mv topgrade /usr/local/bin
 ```
 
@@ -132,7 +113,7 @@ sudo mv topgrade /usr/local/bin
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y isc-dhcp-server nfs-kernel-server iptables net-tools libraspberrypi-bin linux-modules-extra-raspi
+sudo apt install -y isc-dhcp-server iptables net-tools libraspberrypi-bin linux-modules-extra-raspi
 sudo apt autoremove -y
 
 sudo systemctl enable isc-dhcp-server.service
@@ -233,51 +214,13 @@ sudo update-rc.d enable_nat enable
 
 Edit `/etc/sysctl.conf` to enable IP routing: uncomment the `net.ipv4.ip_forward=1` line if it is commented out
 
-
-### On master
-
-```bash
-sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL
-sudo mkdir /media/usb
-sudo chown -R ubuntu:ubuntu /media/usb
-```
-
-Edit `/etc/fstab`
-
-```
-UUID=92724e85-366a-42e2-aefc-4775b0e7422e /media/usb ext4 auto,nofail,noatime,users,rw 0 0
-```
-
-Edit `/etc/exports`
-
-```
-/media/usb 10.0.0.0/24(rw,sync,no_subtree_check,no_root_squash)
-```
-
-```bash
-sudo exportfs -a
-sudo rm /lib/systemd/system/nfs-common.service
-sudo systemctl daemon-reload
-sudo update-rc.d rpcbind enable
-sudo systemctl enable nfs-common
-sudo update-rc.d nfs-common enable
-sudo systemctl start nfs-common
-sudo reboot
-```
-
 ### On nodes
 
 ```bash
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y rfkill nfs-common net-tools libraspberrypi-bin linux-modules-extra-raspi
+sudo apt install -y rfkill net-tools libraspberrypi-bin linux-modules-extra-raspi
 sudo apt autoremove -y
-sudo rm /lib/systemd/system/nfs-common.service
-sudo systemctl daemon-reload
-sudo update-rc.d rpcbind enable
-sudo systemctl enable nfs-common
-sudo update-rc.d nfs-common enable
-sudo systemctl start nfs-common
 sudo reboot
 ```
 
@@ -292,6 +235,13 @@ curl -fsSL https://starship.rs/install.sh | sh
 mkdir -p ~/.config/fish/
 echo "export QUOTING_STYLE=literal" >> ~/.config/fish/config.fish
 echo "starship init fish | source" >> ~/.config/fish/config.fish
+```
+
+Edit `/etc/sysctl.d/k3s.conf`
+
+```
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
 ```
 
 ### On master
