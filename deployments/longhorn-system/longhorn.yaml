@@ -1,26 +1,45 @@
-networkPolicies:
-  type: "k3s"
-
-persistence:
-  defaultClass: true
-
-longhornManager:
-  log:
-    format: json
-
-ingress:
-  enabled: true
-
-  ingressClassName: traefik
-
-  host: longhorn.cluster.rebelinblue.com
-
-  tls: true
-
-  tlsSecret: longhorn-tls
-
-  path: /
-
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: longhorn
+  namespace: longhorn-system
   annotations:
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: longhorn
+  interval: 5m
+  chart:
+    spec:
+      chart: longhorn
+      sourceRef:
+        kind: HelmRepository
+        name: longhorn
+        namespace: flux-system
+      version: 1.5.3
+  values:
+    networkPolicies:
+      type: "k3s"
+
+    persistence:
+      defaultClass: true
+
+    longhornManager:
+      log:
+        format: json
+
+    ingress:
+      enabled: true
+
+      ingressClassName: traefik
+
+      host: longhorn.cluster.rebelinblue.com
+
+      tls: true
+
+      tlsSecret: longhorn-tls
+
+      path: /
+
+      annotations:
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
