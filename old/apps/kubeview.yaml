@@ -30,7 +30,7 @@ spec:
       enabled: true
       annotations:
         kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt
+        cert-manager.io/cluster-issuer: letsencrypt-staging
         traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
       hosts:
         - host: kubeview.cluster.rebelinblue.com
@@ -56,7 +56,7 @@ metadata:
   namespace: apps
   annotations:
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   ingressClassName: traefik
   rules:

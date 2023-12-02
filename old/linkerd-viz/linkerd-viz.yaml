@@ -38,7 +38,7 @@ metadata:
   namespace: linkerd-viz
   annotations:
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt-staging
     ingress.kubernetes.io/custom-request-headers: l5d-dst-override:linkerd.linkerd-viz.svc.cluster.local:8084
     traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
 spec:
