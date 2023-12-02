@@ -35,3 +35,12 @@ spec:
   interval: 10m0s
   url: oci://ghcr.io/weaveworks/charts
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: sealed-secrets
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://bitnami-labs.github.io/sealed-secrets
+---

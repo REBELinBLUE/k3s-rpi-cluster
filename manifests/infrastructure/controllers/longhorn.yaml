@@ -23,7 +23,7 @@ spec:
 
   values:
     networkPolicies:
-      type: "k3s"
+      type: k3s
 
     persistence:
       defaultClass: true
