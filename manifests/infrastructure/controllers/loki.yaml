@@ -28,7 +28,7 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      version: 2.12.2
+      version: 5.40.0
   values:
     fullnameOverride: loki
 
@@ -37,7 +37,7 @@ spec:
 
     image:
       repository: grafana/loki
-      tag: 2.5.0-arm
+      tag: helm-loki-5.39.0-arm64
       pullPolicy: Always
 
     persistence:
