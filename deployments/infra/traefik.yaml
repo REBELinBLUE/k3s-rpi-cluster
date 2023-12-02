@@ -1,85 +1,85 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: traefik
-  namespace: infra
-  annotations:
-    fluxcd.io/automated: "true"
-spec:
-  releaseName: traefik
-  interval: 5m
-  chart:
-    spec:
-      chart: traefik
-      sourceRef:
-        kind: HelmRepository
-        name: traefik
-        namespace: flux-system
-      version: 10.20.1
-  values:
-    providers:
-      kubernetesCRD:
-        enabled: true
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: traefik
+#   namespace: infra
+#   annotations:
+#     fluxcd.io/automated: "true"
+# spec:
+#   releaseName: traefik
+#   interval: 5m
+#   chart:
+#     spec:
+#       chart: traefik
+#       sourceRef:
+#         kind: HelmRepository
+#         name: traefik
+#         namespace: flux-system
+#       version: 10.20.1
+#   values:
+#     providers:
+#       kubernetesCRD:
+#         enabled: true
 
-      kubernetesIngress:
-        enabled: true
-        publishedService:
-          enabled: true
+#       kubernetesIngress:
+#         enabled: true
+#         publishedService:
+#           enabled: true
 
-    ingressClass:
-      enabled: true
-      isDefaultClass: true
+#     ingressClass:
+#       enabled: true
+#       isDefaultClass: true
 
-    service:
-      type: NodePort
-      externalIPs:
-        - 192.168.115.193
+#     service:
+#       type: NodePort
+#       externalIPs:
+#         - 192.168.115.193
 
-    logs:
-      general:
-        level: DEBUG
-      access:
-        enabled: true
+#     logs:
+#       general:
+#         level: DEBUG
+#       access:
+#         enabled: true
 
-    tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/control-plane
-      - effect: NoSchedule
-        key: node.kubernetes.io/unschedulable
+#     tolerations:
+#       - effect: NoSchedule
+#         key: node-role.kubernetes.io/control-plane
+#       - effect: NoSchedule
+#         key: node.kubernetes.io/unschedulable
 
-    nodeSelector:
-      node-role.kubernetes.io/control-plane: "true"
+#     nodeSelector:
+#       node-role.kubernetes.io/control-plane: "true"
 
-    requests:
-      cpu: 25m
-      memory: 128Mi
-    limits:
-      cpu: 200m
-      meomry: 384Mi
+#     requests:
+#       cpu: 25m
+#       memory: 128Mi
+#     limits:
+#       cpu: 200m
+#       meomry: 384Mi
 
-    ports:
-      traefik:
-        expose: true
-        port: 9000
-      web:
-        hostPort: 80
-        redirectTo: websecure
-      websecure:
-        tls:
-          enabled: true
-        hostPort: 443
+#     ports:
+#       traefik:
+#         expose: true
+#         port: 9000
+#       web:
+#         hostPort: 80
+#         redirectTo: websecure
+#       websecure:
+#         tls:
+#           enabled: true
+#         hostPort: 443
 
-    pilot:
-      enabled: false
-      dashboard: false
+#     pilot:
+#       enabled: false
+#       dashboard: false
 
-    ingressRoute:
-      dashboard:
-        enabled: true
+#     ingressRoute:
+#       dashboard:
+#         enabled: true
 
-    metrics:
-      prometheus:
-        enabled: true
+#     metrics:
+#       prometheus:
+#         enabled: true
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -114,16 +114,16 @@ spec:
     - hosts:
         - traefik.cluster.rebelinblue.com
       secretName: traefik-tls
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: forward-auth
-  namespace: infra
-spec:
-  forwardAuth:
-    address: http://traefik-forward-auth.infra.svc
-    authResponseHeaders:
-      - X-Forwarded-User
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: forward-auth
+#   namespace: infra
+# spec:
+#   forwardAuth:
+#     address: http://traefik-forward-auth.infra.svc
+#     authResponseHeaders:
+#       - X-Forwarded-User
 
 

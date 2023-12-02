@@ -51,15 +51,15 @@ metadata:
 spec:
   interval: 10m0s
   url: https://charts.bitnami.com/bitnami
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: traefik
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://helm.traefik.io/traefik
+# ---
+# apiVersion: source.toolkit.fluxcd.io/v1beta2
+# kind: HelmRepository
+# metadata:
+#   name: traefik
+#   namespace: flux-system
+# spec:
+#   interval: 10m0s
+#   url: https://helm.traefik.io/traefik
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -70,15 +70,15 @@ spec:
   interval: 10m0s
   url: https://vmware-tanzu.github.io/helm-charts
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: jetstack
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.jetstack.io
----
+# apiVersion: source.toolkit.fluxcd.io/v1beta2
+# kind: HelmRepository
+# metadata:
+#   name: jetstack
+#   namespace: flux-system
+# spec:
+#   interval: 10m0s
+#   url: https://charts.jetstack.io
+# ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:

@@ -90,6 +90,6 @@ spec:
       dashboard:
         enabled: true
 
-    metrics:
-      prometheus:
-        enabled: true
+    # metrics:
+    #   prometheus:
+    #     enabled: true
