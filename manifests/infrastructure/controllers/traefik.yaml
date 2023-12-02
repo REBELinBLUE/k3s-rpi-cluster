@@ -86,3 +86,37 @@ spec:
     # metrics:
     #   prometheus:
     #     enabled: true
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-dashboard
+  namespace: infra
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: traefik.cluster.rebelinblue.com
+      http:
+       paths:
+          - backend:
+              service:
+                name: traefik
+                port:
+                  number: 9000
+            path: /dashboard/
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: traefik
+                port:
+                  number: 9000
+            path: /api
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - traefik.cluster.rebelinblue.com
+      secretName: traefik-tls
