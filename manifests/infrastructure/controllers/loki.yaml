@@ -45,3 +45,6 @@ spec:
 
     # serviceMonitor:
     #   enabled: true
+
+    rbac:
+      pspEnabled: false
