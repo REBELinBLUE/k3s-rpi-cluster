@@ -65,7 +65,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: bitnami
+  name: metrics-server
   namespace: flux-system
 spec:
   interval: 10m0s
