@@ -8,3 +8,4 @@ resources:
   - weave-gitops.yaml
   - longhorn.yaml
   - loki.yaml
+  - promtail.yaml
