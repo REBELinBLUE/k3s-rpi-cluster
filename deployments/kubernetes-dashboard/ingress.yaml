@@ -5,7 +5,7 @@ metadata:
   namespace: kubernetes-dashboard
   annotations:
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt
     traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
 spec:
   ingressClassName: traefik
