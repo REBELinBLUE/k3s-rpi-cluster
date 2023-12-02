@@ -1,22 +1,18 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: debug
+  name: debugger
   namespace: kube-system
-  annotations:
-    fluxcd.io/automated: "false"
   labels:
-    app: debug
+    app: debugger
 spec:
   selector:
     matchLabels:
-      name: debug
+      name: debugger
   template:
     metadata:
       labels:
-        name: debug
-      annotations:
-        linkerd.io/inject: disabled
+        name: debugger
     spec:
       hostPID: true
       hostIPC: true
