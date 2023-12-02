@@ -5,3 +5,4 @@ resources:
   - traefik.yaml
   - weave-gitops.yaml
   - longhorn.yaml
+  - loki.yaml

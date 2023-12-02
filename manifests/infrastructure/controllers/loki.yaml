@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: logging
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: logging
+spec:
+  releaseName: loki
+  interval: 5m
+  chart:
+    spec:
+      chart: loki
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      version: 2.12.2
+  values:
+    fullnameOverride: loki
+
+    ingress:
+      enabled: false
+
+    image:
+      repository: grafana/loki
+      tag: 2.5.0-arm
+      pullPolicy: Always
+
+    persistence:
+      enabled: true
+
+    # serviceMonitor:
+    #   enabled: true
