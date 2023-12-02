@@ -4,5 +4,6 @@ resources:
   - sealed-secrets.yaml
   - cert-manager.yaml
   - traefik.yaml
+  - traefik-forward-auth.yaml
   - weave-gitops.yaml
   - longhorn.yaml

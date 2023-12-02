@@ -1,0 +1,74 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: traefik-forward-auth
+  namespace: infra
+spec:
+  template:
+    metadata:
+      name: traefik-forward-auth
+      namespace: infra
+  encryptedData:
+    OAUTH_CLIENT_ID: AgAmdlspden+1HfMd4N0mA8a3wlrb4EqJllljt93sCCjw3wvAknjPgj8fj1JN4F3S6h6jrSsSEEcD9jhSHH6gYw7SC3ivaQjSC1BF3oR3Bu7vrDziwlGWlq6VX9Pe7FLEn/3SXIytBHK1w1VIzFVB4GOh7w+xY2OF/L3WbI4hYGJKW0UvVLk3hddUK9i4yFAn6GBA4jGsuc8/wr9p5Lc+xHb8OX8oHsy8/gowUQPbcrmebGhZq6321VesgWXseBy4oQyglfp8tVJm7Gj6a8TaviNlRwwrtgr5/yq4c4TsGGzcgKjLttmKEDQ3H4eZGWQtzehaarEpsgdUHGelrk+0UON+eD8eFDDZ4la8A6XRhZwnpGWhLyXqhYJkVnE5YLDbLZ8o9a7oF53zMWcOql3yV+p7/XHMrbTrzYEpPnJpV3s/oAK9LXS3wRR7LMUb0eEm1uViCT0+lGlUjyHcjmZG/7uVU3WMbvciTsD46pSj4sOlBPkUCovfSLITdKOz5d6CMjy8sEGSLOaBK7/pWI1m1cGyan4CdUtggywdud6/PDMcITifeqTJnOT/LAFbKZToESufUm8bV/UhyFRr+AbVqHwh3/ewS+TV7aICQwFxLyVVhdmDVxUgIw+DSuOwGqx6al5LEnPXhfb5EuQbbyS8WQczPOfh1WY8I13s82oWiiCDah+zja0e8eckid6nHooWiIYyJJv9lSgDHb+RHPbJ62egvAVdVg/9aAo9z9j9keAGjMXnSoONzcsQHYYKaMnt19Dk39kVXgVCRjbzrk7eFGxq3+APYnc86A=
+    OAUTH_CLIENT_SECRET: AgA0DK4gjx6S9LVm4BJ69DbTB9OIW+sSujD4K/hNl2ewfK3ooQcA+zQoCQ49GGrDmxrVo1zl1FV0BauvdFWfxrydtFd35xoTflcHGtxEKlMUlQQTydGTevOymVJmUAZlY9kZZWemeMXsONuWMetMqeSTq6nHtNBrpwGcAoZmWNjpEWGAV82W3ddHohuKIc1rlQBdBhgtZqE53Bsb3MbMsa9PcbLysVuOIRltAzqRFiXySENEUhEXbktPum8e8WKI4MP2YWFousuLaw6P0j2RRD/o49mzPnT2iUWKp2LTgvPS1q1BfjBAhBie9xiZV9Zn2atUcWr1yIC//qmu3E/2dHVsyjhixVkzrSlj2aI2Kn2fn12pYlpkwHRjbczTFfScH5UNrRt4ph8/9dI+7IFMZxyQlelx0tMegzRJ8sBpofOmcf0xtM+JsNVa2KVb5qipJDfPYyv+TE8poxY09/YPIssZ5Sr+iYhb7z6gYTCPoeQQBtNKyRzdx7d8nwVRPcHjpWjtVxQERN7y/YZkvElKjYd6yeD7NwE9TE0tJbCBjLMz17dF7jKwDNnjfLmxdrNIYLyfKVvo0j6skhFoVkbkCUUY5L2Jn3raPlIbBxwaozYuQS8cbYTEs3AOzVJM2zYjxBu+UX30ZFl3CH+4QGGDZnpds8eZoHXqWdLTHXVYdYROWup2GDmAWZU3rDB6zNEusCUPs4MElUKejjKSzCkHXJVQ87ZF7ri4VTtOUjEIcoQuCWk1jw==
+    OAUTH_SECRET: AgCsaQZIZrjqzDci/CbAi1aPPzAxBQ3ylzi3CWbiPVXWR1T/x1zyJm//TJzohAnRl+7lCM0jvJI34CYWx1m5U0xjOLGuUkpl2aqoUSlLGbF7It/kM5FUfV1nwOKvhtGHZwv+wbrVse1SyAYcriD4pP/d30WFGDKomj2Ti6kaY+5/2mvBSPgYKV2XQHZmzUCk/vDmXbukMeQ/E6tyfibqI1sWnj3cn7Dv4J+WdwFMWNB4T/NYyUzeYBaskue4VS6K8CwDcsux/wDct4c09bmrPyoDcQ1PudMUOq8rBayI9JoLiUpbtiweJlV2GAorZC1/TVmxK7qgp9rCx9l4vuQMowFt6PMMrh/BiB+bmbvTOjUdVaVQ9epCfp17U2dDT1ekaNNN30v9ngcRxYxTKNHfIW8mY3s2vt5CSXwa/R3dAeh5kbz3UbruOnzdYzLfE1066oyYF+PUswh+foWWhZUiK7k93be3yxbSmQUs3WIJUBXjBisa1PlM5xNKazNlTIj/VgA+kKYjDjwi5Y2T43GBikahjwhojRgvAlbCRy3DNBY90YO5lHyaLC/K7y4fp14uABAyWl9ae7TEPXV+eP4pyVsa9nARgphhdWAmA5nYqSr5m1PnI/xX/ReydOnloRVIA1NmcIS16uOhA/dzqN8QVVggw19wg9JZUoF9JsFF6H8mGRyAT4E6aB4kb0g++I0JXxNke6Fg3WuS8osSV24MvsBew0wMHY7VtbE=
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-forward-auth
+  namespace: infra
+  labels:
+    app: traefik-forward-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik-forward-auth
+  template:
+    metadata:
+      labels:
+        app: traefik-forward-auth
+    spec:
+      containers:
+        - image: rebelinblue/traefik-forward-auth:2.0.0-rc2
+          name: traefik-forward-auth
+          command: /traefik-forward-auth -log-level=info
+          ports:
+            - containerPort: 4181
+              protocol: TCP
+          envFrom:
+          - secretRef:
+              name: traefik-forward-auth
+          env:
+            - name: OIDC_ISSUER
+              value: https://accounts.google.com
+            - name: AUTH_HOST
+              value: auth.cluster.rebelinblue.com
+            - name: COOKIE_DOMAINS
+              value: cluster.rebelinblue.com
+            - name: WHITELIST
+              value: stephen.ball@gmail.com,stephen.ball@lendinvest.com
+            - name: COOKIE_SECURE
+              value: "false"
+          livenessProbe:
+            tcpSocket:
+              port: 4181
+            initialDelaySeconds: 20
+            failureThreshold: 3
+            successThreshold: 1
+            periodSeconds: 10
+            timeoutSeconds: 2
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-forward-auth
+  namespace: infra
+spec:
+  selector:
+    app: traefik-forward-auth
+  ports:
+    - port: 80
+      targetPort: 4181
+      protocol: TCP
