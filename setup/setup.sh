@@ -19,16 +19,16 @@ for node in $K3S_WORKERS_RPI; do
     kubectl label node $node node-role.kubernetes.io/worker="" --overwrite
 done
 
-kubectl create namespace vault
-kubectl -n vault create secret generic vault-unseal-keys --from-literal="VAULT_UNSEAL_KEY_1=$VAULT_UNSEAL_KEY_1" \
-                                                         --from-literal="VAULT_UNSEAL_KEY_2=$VAULT_UNSEAL_KEY_2" \
-                                                         --from-literal="VAULT_UNSEAL_KEY_3=$VAULT_UNSEAL_KEY_3" \
-                                                         --from-literal="VAULT_UNSEAL_KEY_4=$VAULT_UNSEAL_KEY_4" \
-                                                         --from-literal="VAULT_UNSEAL_KEY_5=$VAULT_UNSEAL_KEY_5"
+# kubectl create namespace vault
+# kubectl -n vault create secret generic vault-unseal-keys --from-literal="VAULT_UNSEAL_KEY_1=$VAULT_UNSEAL_KEY_1" \
+#                                                          --from-literal="VAULT_UNSEAL_KEY_2=$VAULT_UNSEAL_KEY_2" \
+#                                                          --from-literal="VAULT_UNSEAL_KEY_3=$VAULT_UNSEAL_KEY_3" \
+#                                                          --from-literal="VAULT_UNSEAL_KEY_4=$VAULT_UNSEAL_KEY_4" \
+#                                                          --from-literal="VAULT_UNSEAL_KEY_5=$VAULT_UNSEAL_KEY_5"
 
 message "Installing Flux"
 
-flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=main --path=deployments/
+flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=rebuild --path=manifests/cluster/
 
 FLUX_READY=1
 while [ ${FLUX_READY} != 0 ]; do
