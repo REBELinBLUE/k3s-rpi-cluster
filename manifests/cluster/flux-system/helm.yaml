@@ -52,3 +52,12 @@ metadata:
 spec:
   interval: 10m0s
   url: https://grafana.github.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: bitnami
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.bitnami.com/bitnami

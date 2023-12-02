@@ -9,3 +9,4 @@ resources:
   - longhorn.yaml
   - loki.yaml
   - promtail.yaml
+  - metrics-server.yaml

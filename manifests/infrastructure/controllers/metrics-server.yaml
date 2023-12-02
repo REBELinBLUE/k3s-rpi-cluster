@@ -3,19 +3,19 @@ kind: HelmRelease
 metadata:
   name: metrics-server
   namespace: kube-system
-  annotations:
-    fluxcd.io/automated: "true"
 spec:
   releaseName: metrics-server
   interval: 5m
+
   chart:
     spec:
       chart: metrics-server
+      version: 6.3.1
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
-      version: 6.3.1
+
   values:
     image:
       repository: rancher/metrics-server@sha256
