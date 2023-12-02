@@ -264,5 +264,6 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest K3S_URL=https://10.0.0
 sudo /usr/local/bin/k3s*-uninstall.sh
 sudo rm -rf /var/lib/{docker,containerd} /etc/{cni,containerd,docker} /var/lib/cni
 sudo rm -rf /var/log/{containers,pods}
+sudo rm -rf /var/lib/longhorn/
 sudo reboot
 ```
