@@ -7,3 +7,4 @@ resources:
   - traefik-forward-auth.yaml
   - weave-gitops.yaml
   - longhorn.yaml
+  - loki.yaml
