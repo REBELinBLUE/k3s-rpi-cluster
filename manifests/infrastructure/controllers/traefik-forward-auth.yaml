@@ -20,7 +20,7 @@ metadata:
   namespace: ingress
   labels:
     app: traefik-forward-auth
-spec: #FIXME: Upgrade
+spec:
   replicas: 1
   selector:
     matchLabels:
@@ -31,30 +31,37 @@ spec: #FIXME: Upgrade
         app: traefik-forward-auth
     spec:
       containers:
-        - image: rebelinblue/traefik-forward-auth:2.0.0-rc2
+        - image: thomseddon/traefik-forward-auth:2.2.0
           name: traefik-forward-auth
-          command:
-            - sh
-            - -c
-          args: # FIXME: Should not need this
-            - /traefik-forward-auth -log-level=info
           ports:
-            - containerPort: 4181
-              protocol: TCP
-          envFrom:
-          - secretRef:
-              name: traefik-forward-auth
+          - containerPort: 4181
+            protocol: TCP
           env:
-            - name: OIDC_ISSUER
-              value: https://accounts.google.com
+            - name: LOG_LEVEL
+              value: "info"
             - name: AUTH_HOST
               value: auth.cluster.rebelinblue.com
             - name: COOKIE_DOMAINS
               value: cluster.rebelinblue.com
             - name: WHITELIST
               value: stephen.ball@gmail.com,stephen.ball@lendinvest.com
-            - name: COOKIE_SECURE
+            - name: INSECURE_COOKIE
               value: "false"
+            - name: PROVIDERS_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-forward-auth
+                  key: CLIENT_ID
+            - name: PROVIDERS_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-forward-auth
+                  key: CLIENT_SECRET
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-forward-auth
+                  key: SECRET
           livenessProbe:
             tcpSocket:
               port: 4181
