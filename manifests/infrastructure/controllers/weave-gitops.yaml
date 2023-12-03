@@ -34,10 +34,15 @@ spec:
       runAsUser: 1000
 
     additionalArgs:
-      - --insecure-no-authentication-user=gitops-test-user
+      - --insecure-no-authentication-user=admin
 
     adminUser:
       create: true
+      username: admin
+      # Change password by generating a new hash with:
+      # https://docs.gitops.weave.works/docs/configuration/securing-access-to-the-dashboard/#login-via-a-cluster-user-account
+      # bcrypt hash for password "flux"
+      passwordHash: "$2a$10$P/tHQ1DNFXdvX0zRGA8LPeSOyb0JXq9rP3fZ4W8HGTpLV7qHDlWhe"
 
     metrics:
       enabled: false
@@ -58,3 +63,41 @@ spec:
       - secretName: weave-gitops-tls
         hosts:
           - weave-gitops.cluster.rebelinblue.com
+
+---
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: minimum-weavegitops-role
+rules:
+- apiGroups: [""]
+  resources: ["secrets","pods","events"]
+  verbs: ["get","list"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get","list"]
+- apiGroups: ["kustomize.toolkit.fluxcd.io"]
+  resources: ["kustomizations"]
+  verbs: ["get","list"]
+- apiGroups: ["helm.toolkit.fluxcd.io"]
+  resources: ["helmreleases"]
+  verbs: ["get","list"]
+- apiGroups: ["source.toolkit.fluxcd.io"]
+  resources: ["*"]
+  verbs: ["get","list"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["get","list","watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: minimum-weavegitops-role
+subjects:
+  - kind: User
+    name: admin
