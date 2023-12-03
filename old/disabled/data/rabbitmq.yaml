@@ -193,7 +193,7 @@ metadata:
   namespace: data
   annotations:
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
   rules:

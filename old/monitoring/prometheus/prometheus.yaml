@@ -388,7 +388,7 @@ metadata:
   namespace: monitoring
   annotations:
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
 spec:
   ingressClassName: traefik
