@@ -2,7 +2,7 @@ apiVersion: forecastle.stakater.com/v1alpha1
 kind: ForecastleApp
 metadata:
   name: traefik
-  namespace: infra
+  namespace: ingress
 spec:
   name: Traefik
   group: Infrastructure
