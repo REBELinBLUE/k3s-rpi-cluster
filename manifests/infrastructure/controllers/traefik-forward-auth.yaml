@@ -31,11 +31,11 @@ spec:
         app: traefik-forward-auth
     spec:
       containers:
-        - image: thomseddon/traefik-forward-auth:2.2.0
+        - image: thomseddon/traefik-forward-auth:2.2.0-arm
           name: traefik-forward-auth
           ports:
           - containerPort: 4181
-            protocol: TCP
+            protocol: TCPg
           env:
             - name: LOG_LEVEL
               value: "info"
