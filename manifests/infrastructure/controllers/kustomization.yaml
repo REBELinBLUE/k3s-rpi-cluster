@@ -12,3 +12,4 @@ resources:
   - metrics-server.yaml
   - eventrouter.yaml
   - kured.yaml
+  - system-upgrade-controller.yaml
