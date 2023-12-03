@@ -52,32 +52,6 @@ docker build -f Dockerfile \
 docker push rebelinblue/traefik-forward-auth
 ```
 
-## Vault
-
-```bash
-cd vault
-
-docker build -f Dockerfile \
-    --build-arg VAULT_VERSION="1.11.0" \
-    -t rebelinblue/vault:1.11.0 \
-    -t rebelinblue/vault:latest .
-
-docker push rebelinblue/vault
-```
-
-## Vault Consumer
-
-```bash
-cd vault-consumer
-
-docker build -f Dockerfile \
-    --build-arg CONFD_VERSION="v0.17.0-dev" \
-    -t rebelinblue/vault-consumer:0.0.3 \
-    -t rebelinblue/vault-consumer:latest .
-
-docker push rebelinblue/vault-consumer
-```
-
 ## Velero FS Freeze
 
 ```bash

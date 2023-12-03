@@ -34,32 +34,6 @@ spec:
   interval: 10m0s
   url: https://helm.linkerd.io/stable
 ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: HelmRepository
-# metadata:
-#   name: grafana
-#   namespace: flux-system
-# spec:
-#   interval: 10m0s
-#   url: https://grafana.github.io/helm-charts
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmRepository
-metadata:
-  name: bitnami
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  url: https://charts.bitnami.com/bitnami
-# ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: HelmRepository
-# metadata:
-#   name: traefik
-#   namespace: flux-system
-# spec:
-#   interval: 10m0s
-#   url: https://helm.traefik.io/traefik
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -70,15 +44,6 @@ spec:
   interval: 10m0s
   url: https://vmware-tanzu.github.io/helm-charts
 ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: HelmRepository
-# metadata:
-#   name: jetstack
-#   namespace: flux-system
-# spec:
-#   interval: 10m0s
-#   url: https://charts.jetstack.io
-# ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
@@ -87,26 +52,6 @@ metadata:
 spec:
   interval: 10m0s
   url: https://prometheus-community.github.io/helm-charts
-# ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: HelmRepository
-# metadata:
-#   name: nfs-subdir-external-provisioner
-#   namespace: flux-system
-# spec:
-#   interval: 10m0s
-#   url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: GitRepository
-metadata:
-  name: kubeview
-  namespace: flux-system
-spec:
-  interval: 10m0s
-  ref:
-    branch: master
-  url: https://github.com/REBELinBLUE/kubeview.git
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
@@ -118,12 +63,3 @@ spec:
   ref:
     branch: master
   url: https://github.com/stakater/Forecastle.git
-# ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta2
-# kind: HelmRepository
-# metadata:
-#   name: longhorn
-#   namespace: flux-system
-# spec:
-#   interval: 10m
-#   url: https://charts.longhorn.io

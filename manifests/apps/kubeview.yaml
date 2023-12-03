@@ -1,21 +1,26 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apps
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: kubeview
   namespace: apps
-  annotations:
-    fluxcd.io/automated: "true"
 spec:
   releaseName: kubeview
   interval: 5m
+
   chart:
     spec:
       chart: ./deployments/helm/kubeview
+      version: 0.1.13
       sourceRef:
         kind: GitRepository
         name: kubeview
         namespace: flux-system
-      version: 0.1.13
+
   values:
     replicaCount: 1
 
@@ -31,7 +36,7 @@ spec:
       annotations:
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-staging
-        traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
       hosts:
         - host: kubeview.cluster.rebelinblue.com
           paths:

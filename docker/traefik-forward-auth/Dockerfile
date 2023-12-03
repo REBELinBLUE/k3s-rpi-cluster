@@ -39,4 +39,6 @@ FROM arm64v8/alpine:3.10
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /traefik-forward-auth /
 
+RUN chmod +x /traefik-forward-auth
+
 ENTRYPOINT ["/traefik-forward-auth"]
