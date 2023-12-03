@@ -35,7 +35,7 @@ spec:
           name: traefik-forward-auth
           ports:
           - containerPort: 4181
-            protocol: TCPg
+            protocol: TCP
           env:
             - name: LOG_LEVEL
               value: "info"
