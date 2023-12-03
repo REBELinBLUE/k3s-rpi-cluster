@@ -29,13 +29,14 @@ spec:
     metrics-server:
       enabled: false
 
-    ingress:
-      enabled: true
-      ingressClassName: traefik
-      hosts:
-        - dashboard.cluster.rebelinblue.com
-      issuer:
-        name: letsencrypt-prod
-        scope: diabled
-      annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+    app:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - dashboard.cluster.rebelinblue.com
+        issuer:
+          name: letsencrypt-prod
+          scope: diabled
+        annotations:
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
