@@ -37,6 +37,6 @@ spec:
           - dashboard.cluster.rebelinblue.com
         issuer:
           name: letsencrypt-prod
-          scope: diabled
+          scope: cluster
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
