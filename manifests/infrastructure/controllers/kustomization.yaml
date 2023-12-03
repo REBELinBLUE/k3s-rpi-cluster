@@ -5,7 +5,7 @@ resources:
   - cert-manager.yaml
   - traefik.yaml
   - traefik-forward-auth.yaml
-  #- weave-gitops.yaml
+  - weave-gitops.yaml
   - longhorn.yaml
   - loki.yaml
   - promtail.yaml
