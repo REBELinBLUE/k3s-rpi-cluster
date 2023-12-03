@@ -77,6 +77,9 @@ spec:
         - key: "node-role.kubernetes.io/etcd"
           operator: "Exists"
           effect: "NoExecute"
+        - key: "node.kubernetes.io/unschedulable"
+          operator: "Exists"
+          effect: "NoExecute"
       containers:
         - name: system-upgrade-controller
           image: rancher/system-upgrade-controller:v0.11.0
