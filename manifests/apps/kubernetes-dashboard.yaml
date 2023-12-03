@@ -22,6 +22,11 @@ spec:
         namespace: flux-system
 
   values:
+    cert-manager:
+      enabled: false
+    nginx:
+      enabled: false
+
     ingress:
       enabled: true
       ingressClassName: traefik
