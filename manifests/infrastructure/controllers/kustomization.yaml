@@ -3,13 +3,10 @@ kind: Kustomization
 resources:
   - sealed-secrets.yaml
   - cert-manager.yaml
-  - traefik.yaml
-  - traefik-forward-auth.yaml
+  - ./ingress/
   - weave-gitops.yaml
   - longhorn.yaml
-  - loki.yaml
-  - promtail.yaml
+  - ./logging/
   - metrics-server.yaml
-  - eventrouter.yaml
   - kured.yaml
   #- system-upgrade-controller.yaml

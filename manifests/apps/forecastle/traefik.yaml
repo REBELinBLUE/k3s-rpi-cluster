@@ -8,8 +8,6 @@ spec:
   group: Infrastructure
   icon: https://pbs.twimg.com/media/CcZdW37UcAA9DZz?format=png&name=4096x4096
   networkRestricted: true
-  properties:
-    Version: 2.7.0
   urlFrom:
     ingressRef:
       name: traefik-dashboard
