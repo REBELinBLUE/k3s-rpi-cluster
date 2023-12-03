@@ -77,10 +77,6 @@ spec:
         - key: "node-role.kubernetes.io/etcd"
           operator: "Exists"
           effect: "NoExecute"
-          # FIXME: Why is the master node getting this taint added
-        - key: "node.kubernetes.io/unschedulable"
-          operator: "Exists"
-          effect: "NoSchedule"
       containers:
         - name: system-upgrade-controller
           image: rancher/system-upgrade-controller:v0.11.0
