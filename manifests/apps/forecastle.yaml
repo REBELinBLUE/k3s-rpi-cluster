@@ -3,19 +3,19 @@ kind: HelmRelease
 metadata:
   name: forecastle
   namespace: apps
-  annotations:
-    fluxcd.io/automated: "true"
 spec:
   releaseName: forecastle
   interval: 5m
+
   chart:
     spec:
       chart: ./deployments/kubernetes/chart/forecastle
+      version: v1.0.132
       sourceRef:
         kind: GitRepository
         name: forecastle
         namespace: flux-system
-      version: v1.0.80
+
   values:
     nameOverride: forecastle
 
@@ -28,7 +28,7 @@ spec:
 
       image:
         name: stakater/forecastle
-        tag: v1.0.80
+        tag: v1.0.132
 
       deployment:
         replicas: 1
@@ -45,11 +45,8 @@ spec:
             - monitoring
             - kubernetes-dashboard
             - apps
-            - infra
+            - ingress
             - kube-system
-            - vault
-            - data
-            - linkerd-viz
         title: Launch Pad
 
       ingress:

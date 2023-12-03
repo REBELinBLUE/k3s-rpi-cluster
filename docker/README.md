@@ -12,18 +12,6 @@ docker build -f Dockerfile \
     -t rebelinblue/utils:latest .
 
 docker push rebelinblue/utils
-
-## Event Router
-
-```bash
-cd event-router
-
-docker build -f Dockerfile \
-    --build-arg EVENTROUTER_VERSION="master" \
-    -t rebelinblue/eventrouter:0.3 \
-    -t rebelinblue/eventrouter:latest .
-
-docker push rebelinblue/eventrouter
 ```
 
 ## Kubeview
@@ -37,19 +25,6 @@ docker build -f Dockerfile \
     -t rebelinblue/kubeview-arm:latest .
 
 docker push rebelinblue/kubeview-arm
-```
-
-## Traefik Forward Authentication
-
-```bash
-cd traefik-forward-auth
-
-docker build -f Dockerfile \
-    --build-arg FORWARD_AUTH_VERSION="v2.0.0-rc2" \
-    -t rebelinblue/traefik-forward-auth:2.0.0-rc2 \
-    -t rebelinblue/traefik-forward-auth:latest .
-
-docker push rebelinblue/traefik-forward-auth
 ```
 
 ## Velero FS Freeze
