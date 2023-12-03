@@ -6,3 +6,5 @@ resources:
   - kubeview.yaml
   - traefik.yaml
   - promtail.yaml
+  - longhorn.yaml
+  - weave-gitops.yaml
