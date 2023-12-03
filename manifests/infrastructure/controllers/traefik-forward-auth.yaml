@@ -20,7 +20,7 @@ metadata:
   namespace: ingress
   labels:
     app: traefik-forward-auth
-spec:
+spec: #FIXME: Upgrade
   replicas: 1
   selector:
     matchLabels:
