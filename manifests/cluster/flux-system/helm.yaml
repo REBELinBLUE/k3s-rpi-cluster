@@ -92,3 +92,12 @@ spec:
   ref:
     branch: master
   url: https://github.com/stakater/Forecastle.git
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name:  kubernetes-dashboard
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://kubernetes.github.io/dashboard/
