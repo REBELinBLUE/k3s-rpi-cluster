@@ -4,3 +4,5 @@ metadata:
   name: monitoring
   annotations:
     linkerd.io/inject: disabled
+
+#fixme: what about event-exporter
