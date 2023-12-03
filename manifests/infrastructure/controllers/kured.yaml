@@ -1,0 +1,12 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: kured
+  namespace: kube-system
+spec:
+  encryptedData:
+    SLACK_URL: AgASs7FSIZIEjoSY01pHzCRA/9TMLqbqUiPfTv2aP+gyiiOMlGgu07yPAY6jRJnnKCEKaAP8Znbg9dZUePgt3kaMjlwn5oGi1sT59uipgkkHV5ABBGGxhIO7FqcQIkA1+CzmCwxR5CKKVl8wvf86JVXTKsUXDUJ6ooMuM7OvpdL6XJYsWEdx/klhkf8YgUzi1zkZbIM0mJtnahkUPFmrU1KBeuxgRwgyNrn9yKiLxoBWEXrxqPH4ygnVywVnio1sEOvl6O6uLO5kgne+O1BPLNIEeN1vAELIPRyZ7dLqR8DI1WfZwrxZlkTbTgS/wxIauXlGgPjiQZdz+xR/NPpHsx7MuSKvImiVeIpFLKWPwnqh9Up2CRJI+o4VOiWmTTslITnnYxAwiZ52d1ITexf/IWdpwizOzL6aa+ihY82djWmiSHfd4OlhzFfUsPP3QnzCzKt7aj7wt2LLGb4htDYgIHHF7wFOmzezLl7pCqBEnSB5SUecXEBy/matD11dBChL3XVu1jRbOGY0YEoQu6y8GrxUqYDVj+ibbqMHbIzLrtOes7S5Gp92gvPUMz1l/tViutZEIuddHvLHWhz127aKSBIkewyGk/q8hNJypQwabTIyuC83/uuBpM+S3VBtGFH/voLNj4SI5On6TzzsuiaGps3RcQ97h11bG1Q9F2bQgodoqGV9aTDr1QzBk9owsql7sD3MoExRQwsaeOigy8Zp0an1nYX5lrP+ccAp2OY6uLZ2sU7KBO0r947V3HoJJEW+aBPD1rC+XJVCBngfJtXrMMtEiNWAJWa6Otp+ruW6IPFT
+  template:
+    metadata:
+      name: kured
+      namespace: kube-system
