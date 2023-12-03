@@ -11,3 +11,4 @@ resources:
   - promtail.yaml
   - metrics-server.yaml
   - eventrouter.yaml
+  - kured.yaml
