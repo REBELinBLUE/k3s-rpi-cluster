@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: monitoring
   annotations:
-    kubernetes.io/description: Prometheus monitoring and alerting
+    kubernetes.io/description: Prometheus monitoring and alerting # FIXME: Add to all NSs
   labels:
-    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce: privileged # FIXME: Add to all NSs
