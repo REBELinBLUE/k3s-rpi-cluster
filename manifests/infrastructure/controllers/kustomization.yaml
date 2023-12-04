@@ -6,7 +6,6 @@ resources:
   - ./cert-manager/
   - ./ingress/
   - ./flux-system/
-  #- ./longhorn-system/
   - ./logging/
   - ./kube-system/metrics-server.yaml
   - ./monitoring/
