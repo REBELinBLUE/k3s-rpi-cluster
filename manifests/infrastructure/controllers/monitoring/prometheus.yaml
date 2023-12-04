@@ -141,7 +141,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: gp3 # must match an actual StorageClass in the cluster, with a suitable fsType
+              storageClassName: local-path # must match an actual StorageClass in the cluster, with a suitable fsType
               accessModes: ["ReadWriteOnce"] # use ReadWriteOncePod if the cluster supports this
               resources:
                 requests:
