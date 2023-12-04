@@ -19,7 +19,7 @@ Thanks to the following pages
 ```bash
 .
 │   # Flux will scan and deploy from this directory
-├── ./deployments
+├── ./manifests
 │   # Initial setup of the cluster
 ├── ./setup
 │   │   # Scripts for setting things up
