@@ -5,7 +5,7 @@ resources:
   - ./cert-manager/
   - ./ingress/
   - weave-gitops.yaml
-  - longhorn.yaml
+  - ./longhorn-system/
   - ./logging/
   - metrics-server.yaml
   - kured.yaml
