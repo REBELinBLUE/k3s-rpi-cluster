@@ -9,5 +9,5 @@ resources:
   - ./logging/
   - metrics-server.yaml
   - kured.yaml
-  #- ./monitoring/
+  - ./monitoring/
   #- system-upgrade-controller.yaml
