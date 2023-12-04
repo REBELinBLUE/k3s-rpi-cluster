@@ -1,13 +1,13 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - sealed-secrets.yaml
+  - ./kube-system/sealed-secrets.yaml
   - ./cert-manager/
   - ./ingress/
-  - weave-gitops.yaml
+  - ./flux-system/
   - ./longhorn-system/
   - ./logging/
-  - metrics-server.yaml
-  - kured.yaml
+  - ./kube-system/metrics-server.yaml
+  - ./kube-system/kured.yaml
   - ./monitoring/
   #- system-upgrade-controller.yaml
