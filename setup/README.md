@@ -258,13 +258,6 @@ export K3S_TOKEN=...
 curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest K3S_URL=https://10.0.0.1:6443 sh -
 ```
 
-### On local machine
-
-```bash
-export GITHUB_TOKEN=....
-flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=rebuild --path=manifests/cluster/
-```
-
 ### To remove from master and all nodes
 
 ```bash
