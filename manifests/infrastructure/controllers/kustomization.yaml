@@ -8,6 +8,6 @@ resources:
   - ./longhorn-system/
   - ./logging/
   - ./kube-system/metrics-server.yaml
-  - ./kube-system/kured.yaml
   - ./monitoring/
+  - ./kube-system/kured.yaml
   #- system-upgrade-controller.yaml
