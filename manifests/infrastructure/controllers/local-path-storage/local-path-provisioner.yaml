@@ -31,7 +31,6 @@ rules:
   - apiGroups: ["storage.k8s.io"]
     resources: ["storageclasses"]
     verbs: ["get", "list", "watch"]
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -46,7 +45,6 @@ subjects:
   - kind: ServiceAccount
     name: local-path-provisioner-service-account
     namespace: local-path-storage
-
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -60,7 +58,6 @@ subjects:
   - kind: ServiceAccount
     name: local-path-provisioner-service-account
     namespace: local-path-storage
-
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -100,7 +97,6 @@ spec:
         - name: config-volume
           configMap:
             name: local-path-config
-
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
