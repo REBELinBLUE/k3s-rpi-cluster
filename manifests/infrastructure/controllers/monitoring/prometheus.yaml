@@ -99,8 +99,7 @@ spec:
           - secretName: prometheus-tls
             hosts:
               - prometheus.cluster.rebelinblue.com
-            
-            
+
       enabled: true
 
       service:
@@ -198,17 +197,17 @@ spec:
 
     ## Component scraping the kube-controller-manager
     kubeControllerManager:
-      enabled: false # not really relevant to EKS
+      enabled: true
 
     ## Component scraping etcd
     ##
     kubeEtcd:
-      enabled: false # not really relevant to EKS
+      enabled: false # not really relevant to K3S
 
     ## Component scraping kube scheduler
     ##
     kubeScheduler:
-      enabled: false # not really relevant to EKS
+      enabled: true
 
     ## Component scraping kube state metrics
     ##
