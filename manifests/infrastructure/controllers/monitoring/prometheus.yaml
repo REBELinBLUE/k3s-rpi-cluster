@@ -167,6 +167,28 @@ spec:
                 requests:
                   storage: 100Gi
 
+    # Configuration for alertmanager
+    alertmanager:
+      ingress:
+        enabled: true
+        annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/alert-manager.png
+          forecastle.stakater.com/appName: Alert Manager
+          forecastle.stakater.com/group: Monitoring
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+        hosts:
+          - alertmanager.cluster.rebelinblue.com
+        paths:
+          - /
+        pathType: ImplementationSpecific
+        tls:
+          - secretName: alertmanager-tls
+            hosts:
+              - alertmanager.cluster.rebelinblue.com
+
     ## Component scraping the kube-apiserver
     ##
     kubeApiServer:
