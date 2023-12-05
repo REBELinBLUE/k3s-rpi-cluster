@@ -80,6 +80,27 @@ spec:
     ## Deploy a Prometheus instance
     ##
     prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+          forecastle.stakater.com/appName: Prometheus
+          forecastle.stakater.com/group: Monitoring
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+        hosts:
+          - prometheus.cluster.rebelinblue.com
+        paths:
+          - /
+        pathType: ImplementationSpecific
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+              - prometheus.cluster.rebelinblue.com
+            
+            
       enabled: true
 
       service:
