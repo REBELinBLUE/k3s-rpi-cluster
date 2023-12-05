@@ -282,11 +282,12 @@ spec:
             secretName: grafana-tls
       
       grafana.ini:
+        users:
+          auto_assign_org: true
+          auto_assign_org_role: Admin
         auth:
           disable_login_form: true
           disable_signout_menu: true
-          auto_assign_org: true
-          auto_assign_org_role: Admin
         auth.anonymous:
           enabled: false
           org_role: Admin
