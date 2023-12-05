@@ -285,7 +285,7 @@ spec:
               tlsSkipVerify: true
           orgId: 1
           type: loki
-          url: https://loki.logging.svc:3100
+          url: http://loki.logging.svc:3100
           version: 1
 
 
