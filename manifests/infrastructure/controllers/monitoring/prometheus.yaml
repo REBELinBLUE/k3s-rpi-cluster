@@ -285,11 +285,18 @@ spec:
         auth:
           disable_login_form: true
           disable_signout_menu: true
+          auto_assign_org: true
+          auto_assign_org_role: Admin
         auth.anonymous:
-          enabled: true
+          enabled: false
           org_role: Admin
         auth.basic:
           enabled: false
+        auth.proxy:
+          enabled: true
+          header_name: X-Forwarded-User
+          header_property: email
+          auto_sign_up: true
         alerting:
           enabled: false
         analytics:
