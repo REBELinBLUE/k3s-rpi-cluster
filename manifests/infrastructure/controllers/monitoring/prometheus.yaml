@@ -29,7 +29,7 @@ spec:
         pspAnnotations: {}
 
     ## Create default rules for monitoring the cluster
-    ## Disable rules for components that aren't reachable with EKS
+    ## Disable rules for components that aren't part of K3S
     defaultRules:
       create: true
       rules:
@@ -42,8 +42,10 @@ spec:
       enabled: true
 
       clusterDomain: "cluster.local"
+
       tls:
         tlsMinVersion: VersionTLS13
+
       hostNetwork: false
 
       service:
@@ -119,8 +121,7 @@ spec:
       prometheusSpec:
         ## Number of replicas of each shard to deploy for a Prometheus deployment.
         ## Number of replicas multiplied by shards is the total number of Pods created.
-        ## Currently set by terraform resource
-        # replicas: 2
+        # replicas: 1
         # shards: 1 # default
 
         serviceMonitorSelectorNilUsesHelmValues: false
@@ -224,7 +225,7 @@ spec:
     ## Component scraping etcd
     ##
     kubeEtcd:
-      enabled: false # not really relevant to K3S
+      enabled: false # not relevant to K3S
 
     ## Component scraping kube scheduler
     ##
@@ -243,11 +244,14 @@ spec:
 
     grafana:
       enabled: true
+
       defaultDashboardsTimezone: Europe/London
+
       sidecar:
         datasources:
           url: http://prometheus-kube-prometheus-prometheus:9090/
           defaultDatasourceScrapeInterval: 30s
+
       persistence:
         enabled: true
         type: pvc
@@ -255,6 +259,7 @@ spec:
         accessModes:
           - ReadWriteOnce
         size: 5Gi
+
       ingress:
         enabled: true
         annotations:
@@ -292,7 +297,6 @@ spec:
           type: loki
           url: http://loki.logging.svc:3100
           version: 1
-
 
     additionalPrometheusRulesMap:
       alerting-rules:
