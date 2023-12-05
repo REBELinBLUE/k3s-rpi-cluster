@@ -275,7 +275,12 @@ spec:
           - hosts:
               - grafana.cluster.rebelinblue.com
             secretName: grafana-tls
-      adminPassword: prom-operator
+      
+      grafana.ini:
+        auth.anonymous:
+          enabled: true
+          org_role: Admin
+
       additionalDataSources:
         - name: loki
           access: proxy
