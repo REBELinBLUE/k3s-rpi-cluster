@@ -249,6 +249,7 @@ spec:
 
       sidecar:
         datasources:
+          enabled: true
           url: http://prometheus-kube-prometheus-prometheus:9090/
           defaultDatasourceScrapeInterval: 30s
 
