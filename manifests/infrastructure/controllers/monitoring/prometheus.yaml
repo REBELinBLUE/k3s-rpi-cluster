@@ -1,0 +1,304 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  releaseName: prometheus
+  interval: 5m
+
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: 46.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: flux-system
+
+  values:
+    global:
+      rbac:
+        create: true
+
+        ## Create ClusterRoles that extend the existing view, edit and admin ClusterRoles to interact with prometheus-operator CRDs
+        ## Ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles
+        createAggregateClusterRoles: true
+        # Use PodSecurityPolicies
+        pspEnabled: false
+        pspAnnotations: {}
+
+    ## Create default rules for monitoring the cluster
+    ## Disable rules for components that aren't reachable with EKS
+    defaultRules:
+      create: true
+      rules:
+        etcd: false
+        kubeSchedulerAlerting: false
+        kubeSchedulerRecording: false
+
+    ## Operator for managing Prometheus
+    prometheusOperator:
+      enabled: true
+
+      clusterDomain: "cluster.local"
+      tls:
+        tlsMinVersion: VersionTLS13
+      hostNetwork: false
+
+      service:
+        type: ClusterIP
+
+      resources:
+        limits:
+          cpu: 200m
+          memory: 400Mi
+        requests:
+          cpu: 100m
+          memory: 100Mi
+
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+
+      containerSecurityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+
+      prometheusConfigReloader:
+        # resource config for prometheusConfigReloader
+        resources:
+          requests:
+            cpu: 200m
+            memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 50Mi
+
+    ## Deploy a Prometheus instance
+    ##
+    prometheus:
+      ingress:
+        enabled: true
+        annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+          forecastle.stakater.com/appName: Prometheus
+          forecastle.stakater.com/group: Monitoring
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+        hosts:
+          - prometheus.cluster.rebelinblue.com
+        paths:
+          - /
+        pathType: ImplementationSpecific
+        tls:
+          - secretName: prometheus-tls
+            hosts:
+              - prometheus.cluster.rebelinblue.com
+
+      enabled: true
+
+      service:
+        type: ClusterIP
+
+      thanosService:
+        enabled: false
+
+      ## Configure pod disruption budgets for Prometheus
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
+
+      ## Settings affecting prometheusSpec
+      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
+      ##
+      prometheusSpec:
+        ## Number of replicas of each shard to deploy for a Prometheus deployment.
+        ## Number of replicas multiplied by shards is the total number of Pods created.
+        ## Currently set by terraform resource
+        # replicas: 2
+        # shards: 1 # default
+
+        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+
+        priorityClassName: system-cluster-critical
+
+        containers:
+          - name: prometheus
+            startupProbe:
+              failureThreshold: 30 # default = 10
+
+        ## How long to retain metrics
+        ##
+        retention: 10d
+
+        # Scheduling
+        topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: prometheus
+
+        podAntiAffinity: "soft"
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+
+        ## Logging
+        logLevel: info
+        logFormat: logfmt
+
+        additionalRemoteWrite: []
+
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path # must match an actual StorageClass in the cluster, with a suitable fsType
+              accessModes: ["ReadWriteOnce"] # use ReadWriteOncePod if the cluster supports this
+              resources:
+                requests:
+                  storage: 100Gi
+
+    # Configuration for alertmanager
+    alertmanager:
+      ingress:
+        enabled: true
+        annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/alert-manager.png
+          forecastle.stakater.com/appName: Alert Manager
+          forecastle.stakater.com/group: Monitoring
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+        hosts:
+          - alertmanager.cluster.rebelinblue.com
+        paths:
+          - /
+        pathType: ImplementationSpecific
+        tls:
+          - secretName: alertmanager-tls
+            hosts:
+              - alertmanager.cluster.rebelinblue.com
+
+    ## Component scraping the kube-apiserver
+    ##
+    kubeApiServer:
+      enabled: true
+
+    ## Component scraping coreDns. Use either this or kubeDns
+    ##
+    coreDns:
+      enabled: true
+
+    ## Component scraping the kubelet and kubelet-hosted cAdvisor
+    ##
+    kubelet:
+      enabled: true
+
+    ## Deploy node exporter as a daemonset to all nodes
+    ##
+    nodeExporter:
+      enabled: true
+
+    prometheus-node-exporter:
+      priorityClassName: system-node-critical
+
+    ## Component scraping kube proxy
+    ##
+    kubeProxy:
+      enabled: true
+
+    ## Component scraping the kube-controller-manager
+    kubeControllerManager:
+      enabled: true
+
+    ## Component scraping etcd
+    ##
+    kubeEtcd:
+      enabled: false # not really relevant to K3S
+
+    ## Component scraping kube scheduler
+    ##
+    kubeScheduler:
+      enabled: true
+
+    ## Component scraping kube state metrics
+    ##
+    kubeStateMetrics:
+      enabled: true
+
+    ## Thanos ruler
+    ##
+    thanosRuler:
+      enabled: false
+
+    grafana:
+      enabled: true
+      defaultDashboardsTimezone: Europe/London
+      sidecar:
+        datasources:
+          url: http://kube-prometheus-stack-prom-prometheus:9090/
+          defaultDatasourceScrapeInterval: 30s
+      persistence:
+        enabled: true
+        type: pvc
+        storageClassName: gp3
+        accessModes:
+          - ReadWriteOnce
+        size: 5Gi
+      ingress:
+        enabled: true
+        annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/grafana.png
+          forecastle.stakater.com/appName: Grafana
+          forecastle.stakater.com/group: Monitoring
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+        labels: { }
+        hosts:
+          - grafana.cluster.rebelinblue.com
+        paths:
+          - /
+        pathType: ImplementationSpecific
+        tls:
+          - hosts:
+              - grafana.cluster.rebelinblue.com
+            secretName: grafana-tls
+      adminPassword: prom-operator
+
+    additionalPrometheusRulesMap:
+      alerting-rules:
+        groups:
+          - name: kubernetes-apps
+            rules:
+            - alert: ScaleupFail
+              annotations:
+                description: Total number of NonReady pods has been high the last 30m; scaleup failure?
+              expr: sum (max by(namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace=~".*",phase=~"Pending|Unknown"})
+                * on(namespace, pod) group_left(owner_kind) max by(namespace, pod, owner_kind)
+                (kube_pod_owner{owner_kind!="Job"})) > 5
+              for: 30m
+              labels:
+                severity: warning
+          - name: prometheus-stack
+            rules:
+            - alert: PrometheusHighMemoryUsage
+              annotations:
+                description: Prometheus pods are using 90% of their memory requests. May be time to increase it?
+              expr: (avg(container_memory_working_set_bytes{container="prometheus",namespace="prometheus",pod=~"prometheus-kube-prometheus-stack-prom-prometheus-.*"}) /
+                avg(kube_pod_container_resource_requests{container="prometheus",namespace="prometheus",pod=~"prometheus-kube-prometheus-stack-prom-prometheus-.*",resource="memory",unit="byte"}))
+                * 100 > 90
+              for: 30m
+              labels:
+                severity: warning
