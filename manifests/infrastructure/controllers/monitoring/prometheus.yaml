@@ -300,6 +300,8 @@ spec:
           auto_sign_up: true
         alerting:
           enabled: false
+        unified_alerting:
+          enabled: false
         analytics:
           check_for_updates: false
 
