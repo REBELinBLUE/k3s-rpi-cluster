@@ -48,7 +48,6 @@ spec:
             - ingress
             - kube-system
             - flux-system
-            - longhorn-system
         title: Launch Pad
 
       ingress:
