@@ -76,6 +76,10 @@ metadata:
   labels:
     app: promtail
   annotations:
+    forecastle.stakater.com/expose: "true"
+    forecastle.stakater.com/icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+    forecastle.stakater.com/appName: Dashboard
+    forecastle.stakater.com/group: Logging
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd

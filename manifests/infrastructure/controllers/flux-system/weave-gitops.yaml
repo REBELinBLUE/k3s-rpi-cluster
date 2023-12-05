@@ -53,7 +53,7 @@ spec:
       annotations:
         forecastle.stakater.com/expose: "true"
         forecastle.stakater.com/icon: https://docs.gitops.weave.works/img/weave-logo.png
-        #forecastle.stakater.com/appName: 
+        forecastle.stakater.com/appName: Gitops
         forecastle.stakater.com/group: Infrastructure
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod

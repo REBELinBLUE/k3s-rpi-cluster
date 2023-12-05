@@ -34,6 +34,10 @@ spec:
     ingress:
       enabled: true
       annotations:
+        forecastle.stakater.com/expose: "true"
+        forecastle.stakater.com/icon: https://raw.githubusercontent.com/benc-uk/kubeview/master/web/client/src/assets/logo.png
+        forecastle.stakater.com/appName: KubeView
+        forecastle.stakater.com/group: Infrastructure
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
         traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd

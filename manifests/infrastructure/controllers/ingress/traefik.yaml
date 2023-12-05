@@ -88,6 +88,10 @@ metadata:
   name: traefik-dashboard
   namespace: ingress
   annotations:
+    forecastle.stakater.com/expose: "true"
+    forecastle.stakater.com/icon: https://pbs.twimg.com/media/CcZdW37UcAA9DZz?format=png&name=4096x4096
+    forecastle.stakater.com/appName: Traefik
+    forecastle.stakater.com/group: Infrastructure
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
