@@ -246,7 +246,7 @@ spec:
       defaultDashboardsTimezone: Europe/London
       sidecar:
         datasources:
-          url: http://kube-prometheus-stack-prom-prometheus:9090/
+          url: http://prometheus-kube-prometheus-prometheus:9090/
           defaultDatasourceScrapeInterval: 30s
       persistence:
         enabled: true
@@ -276,6 +276,18 @@ spec:
               - grafana.cluster.rebelinblue.com
             secretName: grafana-tls
       adminPassword: prom-operator
+      additionalDataSources:
+        - name: loki
+          access: proxy
+          basicAuth: false
+          editable: false
+          jsonData:
+              tlsSkipVerify: true
+          orgId: 1
+          type: loki
+          url: https://loki.logging.svc:3100
+          version: 1
+
 
     additionalPrometheusRulesMap:
       alerting-rules:
