@@ -51,6 +51,10 @@ spec:
       enabled: true
       className: traefik
       annotations:
+        forecastle.stakater.com/expose: "true"
+        forecastle.stakater.com/icon: https://docs.gitops.weave.works/img/weave-logo.png
+        #forecastle.stakater.com/appName: 
+        forecastle.stakater.com/group: Infrastructure
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
         traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd

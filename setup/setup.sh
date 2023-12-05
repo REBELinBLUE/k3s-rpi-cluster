@@ -30,6 +30,8 @@ message "Installing Flux"
 
 flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=rebuild --path=manifests/cluster/
 
+#kubeseal --fetch-cert > pub-sealed-secrets.pem
+
 FLUX_READY=1
 while [ ${FLUX_READY} != 0 ]; do
     echo "Waiting for flux pod to be fully ready..."

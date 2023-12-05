@@ -1,0 +1,13 @@
+apiVersion: forecastle.stakater.com/v1alpha1
+kind: ForecastleApp
+metadata:
+  name: longhorn
+  namespace: longhorn-system
+spec:
+  name: Longhorn
+  group: Infrastructure
+  icon: https://longhorn.io/img/logos/longhorn-icon-white.png
+  networkRestricted: true
+  urlFrom:
+    ingressRef:
+      name: longhorn-ingress

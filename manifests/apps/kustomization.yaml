@@ -4,4 +4,4 @@ resources:
   - ./kubernetes-dashboard/
   - debugger.yaml
   - kubeview.yaml
-  - ./forecastle/
+  - forecastle.yaml
