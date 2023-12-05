@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubernetes-dashboard
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kubernetes-dashboard
+  namespace: kubernetes-dashboard
+spec:
+  releaseName: kubernetes-dashboard
+  interval: 5m
+
+  chart:
+    spec:
+      chart: kubernetes-dashboard
+      version: 7.0.0-alpha1
+      sourceRef:
+        kind: HelmRepository
+        name: kubernetes-dashboard
+        namespace: flux-system
+
+  values:
+    cert-manager:
+      enabled: false
+    nginx:
+      enabled: false
+    metrics-server:
+      enabled: false
+
+    app:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+          - dashboard.cluster.rebelinblue.com
+        issuer:
+          name: letsencrypt-prod
+          scope: cluster
+        annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/kubernetes.png
+          forecastle.stakater.com/appName: Dashboard
+          forecastle.stakater.com/group: Infrastructure
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+  annotations:
+    kubernetes.io/service-account.name: "admin-user"
+type: kubernetes.io/service-account-token
