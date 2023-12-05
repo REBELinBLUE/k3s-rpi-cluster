@@ -289,12 +289,12 @@ spec:
           disable_login_form: true
           disable_signout_menu: true
         auth.anonymous:
-          enabled: false
+          enabled: true
           org_role: Admin
         auth.basic:
           enabled: false
         auth.proxy:
-          enabled: true
+          enabled: false
           header_name: X-Forwarded-User
           header_property: email
           auto_sign_up: true
