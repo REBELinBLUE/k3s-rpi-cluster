@@ -255,7 +255,7 @@ spec:
       persistence:
         enabled: true
         type: pvc
-        storageClassName: gp3
+        storageClassName: local-path
         accessModes:
           - ReadWriteOnce
         size: 5Gi
