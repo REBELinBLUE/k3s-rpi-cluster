@@ -285,6 +285,8 @@ spec:
         auth.anonymous:
           enabled: true
           org_role: Admin
+        auth.basic:
+          enabled: false
 
       additionalDataSources:
         - name: loki
