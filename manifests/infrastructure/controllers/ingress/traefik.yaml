@@ -78,9 +78,9 @@ spec:
       dashboard:
         enabled: true
 
-    # metrics:
-    #   prometheus:
-    #     enabled: true
+    metrics:
+      prometheus:
+        enabled: true
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

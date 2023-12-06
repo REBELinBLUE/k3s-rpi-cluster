@@ -22,9 +22,9 @@ spec:
     ingress:
       enabled: false
 
-    # monitoring:
-    #   rules:
-    #     enabled: false
+    monitoring:
+      rules:
+        enabled: true
 
-    #   serviceMonitor:
-    #     enabled: true
+      serviceMonitor:
+        enabled: true

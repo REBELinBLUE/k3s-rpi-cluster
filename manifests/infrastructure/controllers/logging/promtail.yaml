@@ -27,8 +27,8 @@ spec:
       servicePort: 3100
       serviceScheme: http
 
-    # serviceMonitor:
-    #   enabled: true
+    serviceMonitor:
+      enabled: true
 
     volumes:
       - name: containers

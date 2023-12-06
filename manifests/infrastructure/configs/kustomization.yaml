@@ -4,3 +4,4 @@ resources:
   - cluster-issuers.yaml
   - middlewares.yaml
   #- plans.yaml
+  - monitors.yaml

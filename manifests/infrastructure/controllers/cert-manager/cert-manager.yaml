@@ -20,7 +20,7 @@ spec:
     fullnameOverride: cert-manager
     installCRDs: true
 
-    # prometheus:
-    #   enabled: true
-    #   servicemonitor:
-    #     enabled: true
+    prometheus:
+      enabled: true
+      servicemonitor:
+        enabled: true
