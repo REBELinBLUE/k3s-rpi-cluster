@@ -247,11 +247,15 @@ spec:
 
       defaultDashboardsTimezone: Europe/London
 
+      forceDeployDatasources: true
+
       sidecar:
         datasources:
           enabled: true
-          url: http://prometheus-kube-prometheus-prometheus:9090/
-          defaultDatasourceScrapeInterval: 30s
+          #url: http://prometheus-kube-prometheus-prometheus:9090/
+          #defaultDatasourceScrapeInterval: 30s
+          alertmanager:
+            enabled: true
 
       persistence:
         enabled: true
