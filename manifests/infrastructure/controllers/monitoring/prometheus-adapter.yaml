@@ -17,5 +17,5 @@ spec:
         namespace: flux-system
 
   values:
-    psp:
-      create: false
+    prometheus:
+      url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
