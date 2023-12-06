@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 46.8.0
+      version: 55.0.0
       sourceRef:
         kind: HelmRepository
         name: prometheus
@@ -246,9 +246,6 @@ spec:
       enabled: true
 
       defaultDashboardsTimezone: Europe/London
-
-      # FIXME: This shouldn't be needed https://github.com/prometheus-community/helm-charts/blob/11127a45423d6cf468e476e9ee5a800b7a6c29af/charts/kube-prometheus-stack/templates/grafana/configmaps-datasources.yaml#L1
-      forceDeployDatasources: true
 
       sidecar:
         datasources:
