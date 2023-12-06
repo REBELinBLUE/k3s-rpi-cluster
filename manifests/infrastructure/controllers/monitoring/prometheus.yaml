@@ -209,6 +209,11 @@ spec:
     ##
     nodeExporter:
       enabled: true
+      operatingSystems:
+        linux:
+          enabled: true
+        darwin:
+          enabled: false
 
     prometheus-node-exporter:
       priorityClassName: system-node-critical
