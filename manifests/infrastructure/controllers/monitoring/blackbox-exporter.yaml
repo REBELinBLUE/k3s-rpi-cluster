@@ -33,6 +33,8 @@ spec:
               - 401
               - 403
 
+    pspEnabled: false
+
     resources:
       limits:
         cpu: 100m
