@@ -3,26 +3,20 @@ kind: HelmRelease
 metadata:
   name: blackbox-exporter
   namespace: monitoring
-  annotations:
-    fluxcd.io/automated: "true"
 spec:
   releaseName: blackbox-exporter
   interval: 5m
+
   chart:
     spec:
       chart: prometheus-blackbox-exporter
+      version: 8.6.1
       sourceRef:
         kind: HelmRepository
         name: prometheus
         namespace: flux-system
-      version: 5.8.1
+
   values:
-    fullnameOverride: blackbox-exporter
-
-    image:
-      repository: prom/blackbox-exporter
-      tag: v0.21.1
-
     config:
       modules:
         http_2xx:
@@ -49,19 +43,23 @@ spec:
 
     ingress:
       enabled: true
+      annotations:
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+          forecastle.stakater.com/appName: Blackbox Exporter
+          forecastle.stakater.com/group: Monitoring
+          kubernetes.io/tls-acme: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
       hosts:
         - host: blackbox.cluster.rebelinblue.com
           paths:
             - path: /
               pathType: ImplementationSpecific
-      annotations:
-        kubernetes.io/tls-acme: "true"
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        traefik.ingress.kubernetes.io/router.middlewares: infra-forward-auth@kubernetescrd
       tls:
-        - hosts:
-            - blackbox.cluster.rebelinblue.com
-          secretName: blackbox-exporter-tls
+        - secretName: blackbox-exporter-tls
+          hosts:
+            - blackbox.cluster.rebelinblue.com 
 
     serviceMonitor:
       enabled: true
