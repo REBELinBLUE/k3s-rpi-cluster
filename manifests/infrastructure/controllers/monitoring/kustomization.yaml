@@ -4,3 +4,4 @@ resources:
   - namespace.yaml
   - prometheus.yaml
   - blackbox-exporter.yaml
+  - pushgateway.yaml
