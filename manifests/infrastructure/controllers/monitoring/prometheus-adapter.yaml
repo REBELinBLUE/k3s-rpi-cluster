@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-adapter
+  namespace: monitoring
+spec:
+  releaseName: pushgateway
+  interval: 5m
+
+  chart:
+    spec:
+      chart: prometheus-adapter
+      version: 4.9.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: flux-system
+
+  values:
+    psp:
+      create: false

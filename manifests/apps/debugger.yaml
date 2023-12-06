@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: debugger
+  namespace: kube-system
+  labels:
+    app: debugger
+spec:
+  selector:
+    matchLabels:
+      name: debugger
+  template:
+    metadata:
+      labels:
+        name: debugger
+    spec:
+      hostPID: true
+      hostIPC: true
+      hostNetwork: true
+      tolerations:
+      - operator: Exists
+      containers:
+      - name: utils
+        image: rebelinblue/utils:0.1
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        volumeMounts:
+          - name: host
+            mountPath: /host
+      volumes:
+        - name: host
+          hostPath:
+            path: /
+  updateStrategy:
+    type: RollingUpdate

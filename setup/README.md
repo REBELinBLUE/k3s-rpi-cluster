@@ -254,7 +254,7 @@ sudo cat /var/lib/rancher/k3s/server/node-token
 ### On nodes (replace XXX with the output of the previous command)
 
 ```bash
-export K3S_TOKEN=....
+export K3S_TOKEN=...
 curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest K3S_URL=https://10.0.0.1:6443 sh -
 ```
 
@@ -262,7 +262,6 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_CHANNEL=latest K3S_URL=https://10.0.0
 
 ```bash
 sudo /usr/local/bin/k3s*-uninstall.sh
-sudo rm -rf /var/lib/{docker,containerd} /etc/{cni,containerd,docker} /var/lib/cni
-sudo rm -rf /var/log/{containers,pods}
+sudo rm -rf /var/lib/{docker,containerd} /etc/{cni,containerd,docker} /var/lib/cni /var/log/{containers,pods} /var/lib/rancher/ /etc/rancher/ /opt/local-path-provisioner
 sudo reboot
 ```

@@ -1,0 +1,153 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: kured
+  namespace: kube-system
+spec:
+  encryptedData:
+    SLACK_URL: AgDTANZvUc/+2Ob/a8dBCWQSh7+hialOKX35Z62XAJ9YAuBHLOkjags1vEVHulBCFDILIQM2h2a/OranZknCfdOSk8xxy/ULFiXYK5Hm0jhxnK/QkIv9funm4gMxuXxaUuoXBu02Ovq/UzWZsGg97A6ekE/yEmcOLKSyF4XWGDgdD9hxhTtzrMGiecfJfeWGfSxx7x1RkeziEb7TuEWA8V0AlQKbtONtBbv2HXu259Jc+YKXOLBsPsDAHbyDDmfSvJDlbQPccHljxUjS3TAXSs8LAzD0tIyq7Un8BOfdd0FytmoVOdxt+AYhEsH5uGgQ22x8FOx3+6kKBVEcn0GjzD5xCLVtXJmD9C1kFLNZKiLO4cOkpMHlSowRljhK8qkd+HnYG8COKjG6Ulz7/YwkpjwXjX2Rnv+Vkr75jNlkiKSVPBBzkMps1orI26w9HHqzirxqvhMmQUMg9EyMu1jtsUVtAREgd8nQkmdjSuLYeokJtbgJ6BZOvh868oz0cewAUK+t3NgRjzBoY6m8S7bryE06xGOfSTV2IM+2wVsTlZ/0JRkjPN0Cf5LSynqXhFWIJ3F3dKtk0EfGekbt67h61syPatCst/ybn0nHuMySfH/mcubTEEfA3S6bQSTMw2Z4aQfD+mO0vawcTiWqVbCqlVqhBCJ8fW00sboUHLj/mupqsfbICvj8rHYwz6evc9//UCdf4vkeILWK/zl96ZEfNy7FbiKdoLRppuEMexVc8qYIhsCkSUkAF/E7RRLGPvaqZs4WaWmytDXZBxeDeZ7zQKSHNiZVdP9Kr56sOB44wmNH
+  template:
+    metadata:
+      name: kured
+      namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kured
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kured
+  labels:
+    app: kured
+rules:
+  # Allow kured to read spec.unschedulable
+  # Allow kubectl to drain/uncordon
+  #
+  # NB: These permissions are tightly coupled to the bundled version of kubectl; the ones below
+  # match https://github.com/kubernetes/kubernetes/blob/v1.12.1/pkg/kubectl/cmd/drain.go
+  #
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs:     ["get", "patch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs:     ["list","delete","get"]
+  - apiGroups: ["extensions"]
+    resources: ["daemonsets"]
+    verbs:     ["get"]
+  - apiGroups: ["apps"]
+    resources: ["daemonsets"]
+    verbs:     ["get"]
+  - apiGroups: [""]
+    resources: ["pods/eviction"]
+    verbs:     ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kured
+  labels:
+    app: kured
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kured
+subjects:
+  - kind: ServiceAccount
+    name: kured
+    namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: kube-system
+  name: kured
+  labels:
+    app: kured
+rules:
+  # Allow kured to lock/unlock itself
+  - apiGroups:     ["extensions"]
+    resources:     ["daemonsets"]
+    resourceNames: ["kured"]
+    verbs:         ["update", "patch"]
+  - apiGroups:     ["apps"]
+    resources:     ["daemonsets"]
+    resourceNames: ["kured"]
+    verbs:         ["update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: kube-system
+  name: kured
+  labels:
+    app: kured
+subjects:
+  - kind: ServiceAccount
+    namespace: kube-system
+    name: kured
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: kured
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kured
+  namespace: kube-system
+  labels:
+    app: kured
+spec:
+  updateStrategy:
+    type: OnDelete
+  selector:
+    matchLabels:
+      app: kured
+  template:
+    metadata:
+      labels:
+        app: kured
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8080"
+    spec:
+      serviceAccountName: kured
+      hostPID: true
+      restartPolicy: Always
+      containers:
+        - name: kured
+          envFrom:
+          - secretRef:
+              name: kured
+          image: weaveworks/kured:1.10.0
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true # Give permission to nsenter /proc/1/ns/mnt
+          command:
+            - sh
+            - -c
+          args:
+            - /usr/bin/kured
+                --period=1h0m0s --ds-name=kured --ds-namespace=kube-system
+                --prometheus-url=http://prometheus-k8s.monitoring.svc.cluster.local:9090
+                --alert-filter-regexp="^Reboot Required$"
+                --slack-hook-url=$SLACK_URL
+          ports:
+            - containerPort: 8080
+              name: metrics
+          env:
+            # Pass in the name of the node on which this pod is scheduled
+            # for use with drain/uncordon operations and lock acquisition
+            - name: KURED_NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane

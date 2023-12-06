@@ -1,7 +1,0 @@
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra
-  annotations:
-    linkerd.io/inject: disabled

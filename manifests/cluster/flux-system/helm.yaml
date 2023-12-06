@@ -1,0 +1,103 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: jetstack
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.jetstack.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: longhorn
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://charts.longhorn.io
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://helm.traefik.io/traefik
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: weave-gitops
+  namespace: flux-system
+spec:
+  type: oci
+  interval: 10m0s
+  url: oci://ghcr.io/weaveworks/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: sealed-secrets
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://bitnami-labs.github.io/sealed-secrets
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: grafana
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://grafana.github.io/helm-charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: metrics-server
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://kubernetes-sigs.github.io/metrics-server/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: kubeview
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  ref:
+    branch: master
+  url: https://github.com/REBELinBLUE/kubeview.git
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: forecastle
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  ref:
+    branch: master
+  url: https://github.com/stakater/Forecastle.git
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name:  kubernetes-dashboard
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://kubernetes.github.io/dashboard/
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: prometheus
+  namespace: flux-system
+spec:
+  interval: 10m0s
+  url: https://prometheus-community.github.io/helm-charts

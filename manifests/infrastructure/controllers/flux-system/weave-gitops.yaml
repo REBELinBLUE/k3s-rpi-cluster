@@ -1,0 +1,105 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: weave-gitops
+  namespace: flux-system
+spec:
+  releaseName: weave-gitops
+  interval: 5m
+
+  chart:
+    spec:
+      chart: weave-gitops
+      version: 4.0.35
+      sourceRef:
+        kind: HelmRepository
+        name: weave-gitops
+        namespace: flux-system
+
+  values:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        cpu: 1
+        memory: 512Mi
+
+    securityContext:
+      capabilities:
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
+
+    additionalArgs:
+      - --insecure-no-authentication-user=admin
+
+    adminUser:
+      create: true
+      username: admin
+      # Change password by generating a new hash with:
+      # https://docs.gitops.weave.works/docs/configuration/securing-access-to-the-dashboard/#login-via-a-cluster-user-account
+      # bcrypt hash for password "flux"
+      passwordHash: "$2a$10$P/tHQ1DNFXdvX0zRGA8LPeSOyb0JXq9rP3fZ4W8HGTpLV7qHDlWhe"
+
+    metrics:
+      enabled: false
+
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        forecastle.stakater.com/expose: "true"
+        forecastle.stakater.com/icon: https://docs.gitops.weave.works/img/weave-logo.png
+        forecastle.stakater.com/appName: Gitops
+        forecastle.stakater.com/group: Infrastructure
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+      hosts:
+        - host: weave-gitops.cluster.rebelinblue.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+      - secretName: weave-gitops-tls
+        hosts:
+          - weave-gitops.cluster.rebelinblue.com
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: minimum-weavegitops-role
+rules:
+- apiGroups: [""]
+  resources: ["secrets","pods","events"]
+  verbs: ["get","list"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get","list"]
+- apiGroups: ["kustomize.toolkit.fluxcd.io"]
+  resources: ["kustomizations"]
+  verbs: ["get","list"]
+- apiGroups: ["helm.toolkit.fluxcd.io"]
+  resources: ["helmreleases"]
+  verbs: ["get","list"]
+- apiGroups: ["source.toolkit.fluxcd.io"]
+  resources: ["*"]
+  verbs: ["get","list"]
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["get","list","watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: minimum-weavegitops-role
+subjects:
+  - kind: User
+    name: admin

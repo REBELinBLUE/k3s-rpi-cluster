@@ -1,0 +1,112 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: traefik-forward-auth
+  namespace: ingress
+spec:
+  template:
+    metadata:
+      name: traefik-forward-auth
+      namespace: ingress
+  encryptedData:
+    CLIENT_ID: AgB6NedT/GR6V34eMwVb956gobveSzHiorEGcHB1qa1le2a2OTOn9tHypwDoDqjqcDgXYhQRVjN5IhtDcz4SkYNyjgTdPs6+W+QznlgeV2EP9jjo1mt8aKlr4W/dl86l+Q/+qZIwB0FtkLKlXzQ+eslU7dG6yMQ70qWlyQe1uD0kHgBHS05mRnNc+ujQ3Vw5CyK14Sc9zeoVAPQKzL64hiFBW+lwOMY18Q1IUoRczhHCJHV+cu4Kf7A7cRFjUnUH9e5vvhWrklr+v/cV88Ha62oqabAhe7KHEQIC3wjAOZW8zW99/hApfH2Xt7y5/me4kfzc+ao0Zn7BuKLHtuJ92RV9gn5dn4lZA1QFYfDvl8RHnAjAkKEcDayAK7YXZt0Bc6W3cT8iu53FIu5d3lP9Egq+MNhC4f1TY98XK59edAbxcq/vJclW7CfNEvjxDckFq2CA40EKxjGTU2yiUl7YyIeMAjQRjTXbLJAb+VluMAio0l620qEQUCCixhmS23bCsvdnInPbnu97f9cAYCCmJnDC5TCtREOG99MCHomEf24Z+ZfjMAlIIwfMyIlKH1ZKIBDjnWQMU3npdXN8cvqGwsL6xpv2ddKSNI1QGE24MDoucwl8/yZUlf0paZU+JXvklf54hdnJMbR5095aEVESgpu/1erVx3z7IEHyEIIsr5lIbsOvGFytx4iD/w6JgOfyOMVzu2bMW+ygA2fOGuZ5Vf64JZ/E4cKGsIZzoTXMvDGyG440i+8c0LNd7Ry/NiK1LA9tL41ujIl0gp/EeWSShSewnbKO6YCG6k4=
+    CLIENT_SECRET: AgAjgywkr6jiikBkDPGQhsxZ5eT4IkOuwz3QZNSWgDM2gD/ukueX9W+bGiLXA+isQkLYr66GP/5CXdW3yk/6RFjXsHIje8Ef//OsKp5kiTXRQDzsdg7s0v+rZcYxMoorVbBabYKfZEIefV5sr0Fu3l4u4GxYoGkXR0cbYxa+bKiZC4EVejLgIQGp7DtWz6kxCuHSMpFaT3oB9QzkUoTswfa7QFowpC7yPrMRsn1lELForjjDjo5FvLXRxgBrxWH/tndzPN/sTtUdzBTI+y/PaJHyGo7GFsdJuXsQQvXYXCcg4OR7t9aUFf2ZodyRerrxsdY1qD6qcWD60Vlf1GY64mZdxMk8ry+UF6k44MuwuXd008e1Y9wdHnZYtdgPLjwfVRgq1eswaGOvbHyuoPyq+YCp+kPdfIN+GFFHKiLSTnOirdfKY11jpqst8p7pa9te11XYZ8+LC+YNDN5FWgvjiVrBXysZVPl2ZmOfYzJEmKCuiv7gbYAHCsKXvy0LulrOBCx2kuoR2isgmPjh4fVo0uCCfOlTPXVyZ0qhePxpG5wRkcUo86RJ+lnTVc56wv/UuvnFjsjkudEUlN5gO0T3A4+JdMuUD7MrACkd/KWEJujIfxWHEvq76BYME975E6AQra7e4wI9Z+Pucb1H1FxaqF/HQRHP6mf/pRm3+9S1AeuDOg30sWUJwlMAGYAGeboRJS8jOgxZrT5sao96kM673Ogrfvs9VSg3hyrCsSUCvXureNFCRQ==
+    SECRET: AgDP9gygYXQyMbpsws8vVgOX7lZT3Uz7ZRd9QBB1D64xzTGeFWGdhaasyMEpdtNDFWgGcc9+f2//34egMJOCzQEamujh1P0VftpvcB0fYAfJFFMFIOQpELUfxYtn9E4BpOeKpnHWhEI5Q6HRo11js9Vohz7f5U84VhDwexrTyQi5q+5tuBBhclhtxrFU1PCLG6uN/x77qJFY+Sg44Wc440qUF9ji3YE/Z9H34R7JJ+I9DfcHqEjUG6tqbRzzcYzpPT0bEPJUkelTr8VAAjlBCNo9qstg5+lWWb6Zhqi/9DwrKbY1q1lL3WsqwIdF1/vcgLk6x+eYnTSBJvaRa6SZgBXyVenZOPq688tQsedDULfWAYrZO5WLFlDlA+awAt3MPeBgVMuD4Yx1H2go5pedKES8n6MuGXhWv5J7/RTeTEmTvTDNvzuBGcf8PdXnOXPlVU8LiYtzLOzIdUQEoT+AO0Chq/8SgzY3D07RV3N0rojmsRBSVP9mWRmdFY+62NwWTOFKBgBdjH45jmv8p08ZboXHEPZj0W0XY21I3Ib+ZdoOXt1sYT8LCffuTtrOWqPR9vSMWQZ2o5dYCBrQc23OPS4o8Hv8CRENE1FG2Cb1jxfQKCoHAPH3kJwAEim9Qi8esGDjbP1WDpDDQ/R+jwCo2YaCZ0a34zQZezqBjlVTUNWyyzAauZffDgA6bcyAfIzHTMFitlMGStTFZlWjtc+gzbD6pDXcsLkZDPM=
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik-forward-auth
+  namespace: ingress
+  labels:
+    app: traefik-forward-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik-forward-auth
+  template:
+    metadata:
+      labels:
+        app: traefik-forward-auth
+    spec:
+      containers:
+        - image: thomseddon/traefik-forward-auth:2.2.0-arm
+          name: traefik-forward-auth
+          ports:
+          - containerPort: 4181
+            protocol: TCP
+          env:
+            - name: LOG_LEVEL
+              value: "info"
+            - name: AUTH_HOST
+              value: auth.cluster.rebelinblue.com
+            - name: COOKIE_DOMAINS
+              value: cluster.rebelinblue.com
+            - name: WHITELIST
+              value: stephen.ball@gmail.com,stephen.ball@lendinvest.com
+            - name: INSECURE_COOKIE
+              value: "false"
+            - name: PROVIDERS_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-forward-auth
+                  key: CLIENT_ID
+            - name: PROVIDERS_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-forward-auth
+                  key: CLIENT_SECRET
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-forward-auth
+                  key: SECRET
+          livenessProbe:
+            tcpSocket:
+              port: 4181
+            initialDelaySeconds: 20
+            failureThreshold: 3
+            successThreshold: 1
+            periodSeconds: 10
+            timeoutSeconds: 2
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-forward-auth
+  namespace: ingress
+spec:
+  selector:
+    app: traefik-forward-auth
+  ports:
+    - port: 80
+      targetPort: 4181
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-forward-auth
+  namespace: ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: auth.cluster.rebelinblue.com
+      http:
+       paths:
+          - backend:
+              service:
+                name: traefik-forward-auth
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - auth.cluster.rebelinblue.com
+      secretName: auth-tls
