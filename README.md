@@ -1,4 +1,4 @@
-# Kubernetes on Raspbian
+# Kubernetes on Raspberry Pis
 
 Build a [Kubernetes](https://kubernetes.io/) ([k3s](https://github.com/rancher/k3s)) cluster with RPis and utilize [GitOps](https://www.weave.works/technologies/gitops/) for managing cluster state.
 
