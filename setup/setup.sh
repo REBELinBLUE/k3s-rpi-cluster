@@ -21,7 +21,7 @@ done
 
 message "Installing Flux"
 
-flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=master --path=manifests/cluster/
+flux bootstrap github --owner=rebelinblue --repository=k3s-on-raspbian --private=false --personal=true --branch=main --path=manifests/cluster/
 
 #kubeseal --fetch-cert > pub-sealed-secrets.pem
 
