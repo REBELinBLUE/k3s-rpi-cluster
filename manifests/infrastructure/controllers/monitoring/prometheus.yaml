@@ -319,7 +319,7 @@ spec:
               tlsSkipVerify: true
           orgId: 1
           type: loki
-          url: http://loki-read.logging.svc:3100
+          url: http://loki-gateway.logging.svc:3100
           version: 1
 
     additionalPrometheusRulesMap:
