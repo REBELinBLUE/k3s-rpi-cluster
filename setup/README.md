@@ -254,4 +254,4 @@ sudo reboot
 
 
 
-# FIXME: Arm monitor, flux monitors, cert manager monitors? Script to generate secrets
+# FIXME: Arm monitor, flux monitors, cert manager monitors? Script to generate secrets, loki URL for grafana

@@ -250,8 +250,6 @@ spec:
     grafana:
       enabled: true
 
-      forceDeployDatasources: true
-
       defaultDashboardsTimezone: Europe/London
 
       sidecar:
@@ -318,10 +316,14 @@ spec:
           basicAuth: false
           editable: false
           jsonData:
-              tlsSkipVerify: true
+            tlsSkipVerify: true
+            maxLine: 1000
+            httpHeaderName1: "X-Scope-OrgID"
+            secureJsonData:
+              httpHeaderValue1: "pi-cluster"
           orgId: 1
           type: loki
-          url: http://loki-gateway.logging.svc:3100
+          url: http://loki-gateway.logging.svc
           version: 1
 
     additionalPrometheusRulesMap:
