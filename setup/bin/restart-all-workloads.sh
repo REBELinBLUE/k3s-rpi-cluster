@@ -19,14 +19,11 @@ for NS in $namespaces; do
         kubectl --namespace="$NS" rollout restart daemonset "$DS"
     done
 
-    # replicasets=$(kubectl --namespace="$NS" get replicasets -o json | jq -r '.items[] | .metadata.name')
+    statefulsets=$(kubectl --namespace="$NS" get statefulsets -o json | jq -r '.items[] | .metadata.name')
 
-    # for RS in replicasets; do
-    #     echo "Restarting replicaset $RS in namespace $NS"
-    #     kubectl --namespace="$NS" rollout restart replicaset "$RS"
-    # done
+    for STS in $statefulsets; do
+        echo "Restarting statefulset $STS in namespace $NS"
+        kubectl --namespace="$NS" rollout restart statefulset "$STS"
+    done
 done
 
-kubectl -n monitoring delete pods --all --wait=0
-kubectl -n logging delete pods --all --wait=0
-kubectl -n kube-system delete pods --all --wait=0

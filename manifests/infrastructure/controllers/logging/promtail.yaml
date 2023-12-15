@@ -17,8 +17,6 @@ spec:
         namespace: flux-system
       
   values:
-    fullnameOverride: promtail
-
     pipelineStages:
       - cri: {}
 
