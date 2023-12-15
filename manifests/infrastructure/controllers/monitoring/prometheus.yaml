@@ -250,6 +250,8 @@ spec:
     grafana:
       enabled: true
 
+      forceDeployDatasources: true
+
       defaultDashboardsTimezone: Europe/London
 
       sidecar:
