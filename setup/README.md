@@ -88,9 +88,9 @@ sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf /etc/apt/apt.conf.d/20apt-esm-ho
 
 ### Install topgrade
 ```
-curl -LJO https://github.com/topgrade-rs/topgrade/releases/download/v13.0.0/topgrade-v13.0.0-aarch64-unknown-linux-gnu.tar.gz
-tar zvxf topgrade-v13.0.0-aarch64-unknown-linux-gnu.tar.gz
-rm -f topgrade-v13.0.0-aarch64-unknown-linux-gnu.tar.gz
+curl -LJO https://github.com/topgrade-rs/topgrade/releases/download/v14.0.1/topgrade-v14.0.1-aarch64-unknown-linux-musl.tar.gz
+tar zvxf topgrade-v14.0.1-aarch64-unknown-linux-musl.tar.gz
+rm -f topgrade-v14.0.1-aarch64-unknown-linux-musl.tar.gz
 sudo mv topgrade /usr/local/bin
 ```
 
