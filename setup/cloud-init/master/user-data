@@ -35,7 +35,7 @@ packages:
 - isc-dhcp-server
 - iptables
 - fish
-- open-iscsi
+#- open-iscsi # FIXME: Is this needed?
 
 ## Write arbitrary files to the file-system (including binaries!)
 #write_files:

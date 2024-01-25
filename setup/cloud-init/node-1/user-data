@@ -34,7 +34,7 @@ packages:
 - linux-modules-extra-raspi
 - rfkill
 - fish
-- open-iscsi
+- open-iscsi 
 
 ## Write arbitrary files to the file-system (including binaries!)
 #write_files:
