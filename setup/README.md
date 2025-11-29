@@ -124,7 +124,7 @@ subnet 10.0.0.0 netmask 255.255.255.0 {
 }
 
 host node-1 {
-	hardware ethernet dc:a6:32:67:77:06;
+	hardware ethernet dc:a6:32:67:77:3e;
 	fixed-address 10.0.0.2;
 }
 
@@ -134,7 +134,7 @@ host node-2 {
 }
 
 host node-3 {
-	hardware ethernet dc:a6:32:67:77:3e;
+	hardware ethernet dc:a6:32:67:77:06;
 	fixed-address 10.0.0.4;
 }
 ```
