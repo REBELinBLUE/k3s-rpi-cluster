@@ -1,7 +1,13 @@
-.PHONY: install uninstall reboot shutdown master workers all
+.PHONY: install uninstall reboot shutdown master workers flash bootstrap config lint
 
 INVENTORY = inventory.yaml
 ANSIBLE_DIR = ./ansible
+
+flash:
+	./scripts/flash.sh
+
+bootstrap:
+	./scripts/setup.sh
 
 # Initial setup
 master:

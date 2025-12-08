@@ -1,14 +1,15 @@
 #!/bin/bash
+
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-BASE_DIR="$SCRIPT_DIR/cloud-init"
 IMG_URL="http://cdimage.ubuntu.com/releases/noble/release/ubuntu-24.04.3-preinstalled-server-arm64+raspi.img.xz"
 SHA256="c3326aec8e30519ea5475bebe2ed13a87fa7c18c805cea8fe2e433936190450e"
 
-echo "Select node to flash (master/node-1/node-2/node-3):"
+echo "Enter node to flash (master/node-1/node-2/node-3):"
 read -r NODE
-NODE_DIR="$BASE_DIR/$NODE"
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+NODE_DIR="$REPO_ROOT/scripts/cloud-init/$NODE"
 
 if [ ! -d "$NODE_DIR" ]; then
     echo "Error: Directory $NODE_DIR does not exist."
@@ -21,7 +22,7 @@ NETWORKCONFIG="$NODE_DIR/network-config"
 echo "Available disks:"
 diskutil list
 echo
-echo "Enter the disk identifier for the SSD (e.g., /dev/disk6):"
+echo "Enter the disk identifier for the SSD (e.g., /dev/diskX):"
 read -r DISK
 
 if [ ! -b "$DISK" ]; then
