@@ -22,7 +22,7 @@ Build a [Kubernetes](https://kubernetes.io/) ([K3s](https://github.com/rancher/k
 ├── ./manifests
 │   # Scripts and config for setting up the Raspberry Pis
 └── ./scripts
-    │   # Cloud-init config for Raspberry Pi Imager
+    │  # Cloud-init config for Raspberry Pi Imager
     └─ ./cloud-init
 ```
 
