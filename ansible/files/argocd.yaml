@@ -16,28 +16,57 @@ spec:
     global:
       domain: argocd.cluster.rebelinblue.com
 ---
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
 metadata:
-  name: default
+  name: argoapps
   namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  repo: https://argoproj.github.io/argo-helm
+  chart: argo-apps
+  targetNamespace: argocd
+  valuesContent: |-
+    applications:
+      infrastructure:
+        namespace: argocd
+        finalizers:
+          - resources-finalizer.argocd.argoproj.io
+        project: default
+        destination:
+          namespace: argocd
+          name: in-cluster
+        source:
+          path: manifests/infrastructure
+          repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+          targetRevision: argo
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
 
-  destination:
-    namespace: argocd
-    name: in-cluster
-
-  source:
-    path: manifests
-    repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-    targetRevision: argo
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
+#---
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: default
+#  namespace: argocd
+#  finalizers:
+#    - resources-finalizer.argocd.argoproj.io
+#spec:
+#  project: default
+#
+#  destination:
+#    namespace: argocd
+#    name: in-cluster
+#
+#  source:
+#    path: manifests/infrastructure
+#    repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+#    targetRevision: argo
+#
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
