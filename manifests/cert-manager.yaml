@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: cert-manager
+    name: in-cluster
+
+  source:
+    chart: cert-manager
+    repoURL: https://charts.jetstack.io
+    targetRevision: v1.6.1
+
+    helm:
+      releaseName: cert-manager
+      installCRDs: true
+
+      prometheus:
+        enabled: true
+        servicemonitor:
+          enabled: true
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
