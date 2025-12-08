@@ -42,6 +42,7 @@ spec:
           enabled: true
 
       # FIXME: Is this needed?
+      # FIXME: This is not working
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane
