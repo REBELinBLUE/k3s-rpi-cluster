@@ -1,0 +1,52 @@
+---
+- name: Check if Topgrade binary exists
+  register: topgrade_bin
+  ansible.builtin.stat:
+    path: /usr/local/bin/topgrade
+
+- name: Check Topgrade version
+  when: topgrade_bin.stat.exists
+  ansible.builtin.command: /usr/local/bin/topgrade --version
+  register: topgrade_current_version
+  ignore_errors: true
+  changed_when: false
+
+- name: Determine if Topgrade should be installed/updated
+  ansible.builtin.set_fact:
+    topgrade_needs_install: "{{ not topgrade_bin.stat.exists or (topgrade_current_version.stdout.split(' ')[1] != topgrade_version) }}"
+
+- name: Download latest Topgrade release
+  when: topgrade_needs_install
+  ansible.builtin.get_url:
+    url: "https://github.com/topgrade-rs/topgrade/releases/download/v{{ topgrade_version }}/topgrade-v{{ topgrade_version }}-aarch64-unknown-linux-musl.tar.gz"
+    dest: /tmp/topgrade.tar.gz
+    checksum: "{{ topgrade_checksum }}"
+    mode: "0600"
+
+- name: Unzip Topgrade
+  become: true
+  when: topgrade_needs_install
+  ansible.builtin.unarchive:
+    src: /tmp/topgrade.tar.gz
+    dest: /usr/local/bin/
+    remote_src: true
+
+- name: Ensure Topgrade binary is executable
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/bin/topgrade
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Ensure ~/.config/topgrade.d/ directory exists
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.config/topgrade.d/
+    state: directory
+    mode: "0755"
+
+- name: Copy topgrade configuration
+  ansible.builtin.copy:
+    src: files/topgrade.toml
+    dest: /home/{{ ansible_user }}/.config/topgrade.d/topgrade.toml
+    mode: "0644"

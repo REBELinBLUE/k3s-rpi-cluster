@@ -1,0 +1,18 @@
+---
+- name: Retrieve kubeconfig from Control Plane
+  hosts: controlplane
+  gather_facts: false
+
+  tasks:
+    - name: Read kubeconfig
+      become: true
+      register: k3s_config_raw
+      ansible.builtin.slurp:
+        src: /etc/rancher/k3s/k3s.yaml
+
+    - name: Write updated kubeconfig
+      delegate_to: localhost
+      ansible.builtin.copy:
+        dest: ../k3s_config
+        content: "{{ k3s_config_raw.content | b64decode | regex_replace('https://127\\.0\\.0\\.1', 'https://cluster.lan') | regex_replace('default', 'pi') }}"
+        mode: "0600"

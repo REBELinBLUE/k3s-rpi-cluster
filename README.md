@@ -12,12 +12,14 @@ Thanks to the following pages
 
 * This was done using a cluster of 4 x RPi 4 4GB
 * All Pi's are connected via a local ethernet switch on a 10.0.0.0/24 LAN
-* The master node connects to the outside world on WiFi, and provides NAT for the the rest of the cluster.
+* The master node connects to the outside world on WiFi, and provides NAT for the rest of the cluster.
 
 ## Directory layout description
 
 ```bash
 .
+|   # Ansible playbooks to bootstrap the cluster
+├── ./ansible
 │   # Flux will scan and deploy from this directory
 ├── ./manifests
 │   # Initial setup of the cluster
@@ -38,11 +40,11 @@ Thanks to the following pages
 | 192.168.115.193 | Master wifi interface |                   |
 | 10.0.0.0/24     | k3s cluster CIDR      |                   |
 | 10.0.0.1        | k3s master (master)   | dc:a6:32:67:76:f1 |
-| 10.0.0.2        | k3s worker (node-1)   | dc:a6:32:67:77:06 |
+| 10.0.0.2        | k3s worker (node-1)   | dc:a6:32:67:77:3e |
 | 10.0.0.3        | k3s worker (node-2)   | dc:a6:32:67:76:b8 |
-| 10.0.0.4        | k3s worker (node-3)   | dc:a6:32:67:77:3e |
+| 10.0.0.4        | k3s worker (node-3)   | dc:a6:32:67:77:06 |
 
-## Hardware list 
+## Hardware list
 
 * 4 x [Raspberry Pi 4 Model B 4GB](https://thepihut.com/products/raspberry-pi-4-model-b?variant=20064052740158)
 * 4 x [Raspberry Pi PoE Hat](https://thepihut.com/products/raspberry-pi-power-over-ethernet-poe-hat)

@@ -8,6 +8,7 @@ network:
     wlan0:
       dhcp4: true
       optional: true
+      regulatory-domain: GB
       access-points:
-        "????":
-          password: "????"
+        "Galaxy":
+          password: "1c51a821afd76470bd61ee400513c755378ff1f2ce58a2d6008a9c7a9bbe0003"

@@ -1,0 +1,9 @@
+---
+- name: Remove macOS junk
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /boot/firmware/.fseventsd
+    - /boot/firmware/.Spotlight-V100

@@ -1,0 +1,21 @@
+---
+- name: Control Plane Configuration
+  hosts: controlplane
+  gather_facts: false
+
+  roles:
+    - cleanup
+    - role: config
+      vars:
+        config_master: true
+    - role: packages
+      vars:
+        packages_additional:
+          - isc-dhcp-server
+          - iptables
+    - master
+    - hosts
+    - cgroups
+    - shell
+    - topgrade
+    - starship

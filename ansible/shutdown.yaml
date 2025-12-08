@@ -1,0 +1,19 @@
+---
+- name: Shutdown cluster worker nodes
+  hosts: workers
+  become: true
+  gather_facts: false
+  ignore_unreachable: true
+
+  tasks:
+    - name: Shutdown worker node
+      community.general.shutdown:
+
+- name: Shutdown cluster control plane nodes
+  hosts: controlplane
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Shutdown control plane node
+      community.general.shutdown:

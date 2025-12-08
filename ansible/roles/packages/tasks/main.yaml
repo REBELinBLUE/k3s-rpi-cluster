@@ -1,0 +1,26 @@
+---
+- name: Update apt cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Upgrade all packages
+  become: true
+  ansible.builtin.apt:
+    upgrade: true
+    autoremove: true
+
+- name: Install required packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - net-tools
+      - libraspberrypi-bin
+    state: present
+
+- name: Install additional packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ packages_additional }}"
+    state: present

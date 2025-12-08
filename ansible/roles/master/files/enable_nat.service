@@ -1,0 +1,12 @@
+[Unit]
+Description=Enable NAT for cluster nodes
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/enable_nat.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

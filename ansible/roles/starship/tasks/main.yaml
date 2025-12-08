@@ -1,0 +1,25 @@
+---
+# Available in apt in 25.04
+- name: Check if Starship binary exists
+  register: starship_bin
+  ansible.builtin.stat:
+    path: /usr/local/bin/starship
+
+- name: Download Starship install script
+  when: not starship_bin.stat.exists
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_install.sh
+    mode: "0755"
+
+- name: Run Starship installer
+  become: true
+  ansible.builtin.command: /tmp/starship_install.sh --yes
+  args:
+    creates: /usr/local/bin/starship
+
+- name: Copy starship prompt configuration
+  ansible.builtin.copy:
+    src: files/starship.toml
+    dest: /home/{{ ansible_user }}/.config/starship.toml
+    mode: "0644"

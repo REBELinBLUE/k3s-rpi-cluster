@@ -1,0 +1,17 @@
+---
+- name: Workers Configuration
+  hosts: workers
+  gather_facts: false
+
+  roles:
+    - cleanup
+    - config
+    - role: packages
+      vars:
+        packages_additional:
+          - rfkill
+    - hosts
+    - cgroups
+    - shell
+    - topgrade
+    - starship

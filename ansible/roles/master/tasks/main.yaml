@@ -1,0 +1,54 @@
+---
+- name: Enable IPv4 forwarding
+  become: true
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    state: present
+    reload: true
+    sysctl_file: /etc/sysctl.d/20-forwarding.conf
+
+- name: Copy dhcpd configuration
+  become: true
+  ansible.builtin.template:
+    src: templates/dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+    mode: "0644"
+
+- name: Enable and start isc-dhcp-server service
+  become: true
+  systemd:
+    name: isc-dhcp-server.service
+    enabled: true
+    state: started
+
+- name: Ensure /usr/local/sbin directory exists
+  file:
+    path: /usr/local/sbin
+    state: directory
+    mode: "0755"
+
+- name: Copy enable_nat.sh script
+  become: true
+  ansible.builtin.copy:
+    src: files/enable_nat.sh
+    dest: /usr/local/sbin/enable_nat.sh
+    mode: "0755"
+
+- name: Create systemd service unit for NAT
+  become: true
+  ansible.builtin.copy:
+    src: files/enable_nat.service
+    dest: /etc/systemd/system/enable_nat.service
+    mode: "0644"
+
+- name: Reload systemd daemon
+  become: true
+  command: systemctl daemon-reload
+
+- name: Enable NAT service
+  become: true
+  systemd:
+    name: enable_nat.service
+    enabled: true
+    state: started

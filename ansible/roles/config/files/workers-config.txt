@@ -1,4 +1,5 @@
 [all]
+arm_64bit=1
 kernel=vmlinuz
 cmdline=cmdline.txt
 initramfs initrd.img followkernel

@@ -1,0 +1,31 @@
+.PHONY: install uninstall reboot shutdown master workers all
+
+INVENTORY = inventory.yaml
+ANSIBLE_DIR = ./ansible
+
+# Initial setup
+master:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) master.yaml
+
+workers:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) workers.yaml
+
+# K3S setup and teardown
+install:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) install.yaml
+
+uninstall:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) uninstall.yaml
+
+# Helpers
+config:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) get-config.yaml
+
+reboot:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) reboot.yaml
+
+shutdown:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) shutdown.yaml
+
+lint:
+	cd $(ANSIBLE_DIR) && ansible-lint

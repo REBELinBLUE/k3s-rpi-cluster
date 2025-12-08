@@ -1,0 +1,31 @@
+---
+- name: Install required packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - fish
+    state: present
+
+- name: Ensure user shell is set to fish
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/fish
+
+- name: Ensure ~/.config/fish/ directory exists
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.config/fish/
+    state: directory
+    mode: "0755"
+
+- name: Copy fish shell configuration
+  ansible.builtin.copy:
+    src: files/config.fish
+    dest: /home/{{ ansible_user }}/.config/fish/config.fish
+    mode: "0644"
+
+- name: Copy dircolors configuration
+  ansible.builtin.copy:
+    src: files/dircolors
+    dest: /home/{{ ansible_user }}/.dircolors
+    mode: "0644"

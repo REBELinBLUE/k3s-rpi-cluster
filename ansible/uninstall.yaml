@@ -1,0 +1,60 @@
+---
+- name: Uninstall K3s from worker nodes
+  hosts: workers
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Run K3s agent uninstall script
+      ansible.builtin.command: /usr/local/bin/k3s-agent-uninstall.sh
+      args:
+        removes: /var/lib/rancher/k3s
+
+- name: Uninstall K3s from control plane nodes
+  hosts: controlplane
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Run K3s uninstall script
+      ansible.builtin.command: /usr/local/bin/k3s-uninstall.sh
+      args:
+        removes: /var/lib/rancher/k3s
+
+- name: Clean up residual files
+  hosts: all
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Remove directories related to container runtimes and K3s
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /var/lib/docker
+        - /var/lib/containerd
+        - /var/lib/cni
+        - /var/log/containers
+        - /var/log/pods
+        - /var/lib/rancher
+        - /etc/rancher
+        - /etc/cni
+        - /etc/containerd
+        - /etc/docker
+        - /opt/local-path-provisioner
+
+- name: Reboot cluster worker nodes
+  hosts: workers
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Reboot worker node
+      ansible.builtin.reboot:
+
+- name: Reboot cluster control plane nodes
+  hosts: controlplane
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Reboot control plane node
+      ansible.builtin.reboot:

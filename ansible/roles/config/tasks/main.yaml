@@ -1,0 +1,37 @@
+---
+- name: Check if backup exists
+  ansible.builtin.stat:
+    path: /boot/firmware/config.txt.bak
+  register: config_bak
+
+- name: Backup config before modification
+  become: true
+  when: not config_bak.stat.exists
+  ansible.builtin.copy:
+    remote_src: true
+    src: /boot/firmware/config.txt
+    dest: /boot/firmware/config.txt.bak
+    mode: "0755"
+    owner: root
+
+- name: Select config file
+  when: not config_bak.stat.exists
+  ansible.builtin.set_fact:
+    config_to_use: "{{ 'master-config.txt' if config_master else 'workers-config.txt' }}"
+
+- name: Copy correct config file
+  become: true
+  when: not config_bak.stat.exists
+  ansible.builtin.copy:
+    src: "files/{{ config_to_use }}"
+    dest: "/boot/firmware/config.txt"
+    mode: "0755"
+    owner: root
+
+- name: Reboot if config has changed
+  become: true
+  when: not config_bak.stat.exists
+  ansible.builtin.reboot:
+
+- name: Waiting for server to come back
+  ansible.builtin.wait_for_connection:
