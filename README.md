@@ -1,6 +1,6 @@
 # Kubernetes on Raspberry Pis
 
-Build a [Kubernetes](https://kubernetes.io/) ([K3s](https://github.com/rancher/k3s)) cluster with Raspberry Pis, using [Anisble](https://www.ansible.com) to bootstrap the machines, and utilizing [GitOps](https://www.weave.works/technologies/gitops/) for managing cluster state.
+Build a [Kubernetes](https://kubernetes.io/) ([K3s](https://github.com/rancher/k3s)) cluster with Raspberry Pis, using [Anisble](https://www.ansible.com) to bootstrap the machines, and utilizing [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) for managing cluster state.
 
 ![Raspberry Pi Kubernetes Cluster](./images/cluster.jpg)
 

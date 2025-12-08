@@ -25,6 +25,13 @@
       environment:
         INSTALL_K3S_EXEC: "--tls-san cluster.lan --disable metrics-server --disable traefik --disable local-storage --disable servicelb"
 
+    - name: Copy argocd manifest
+      become: true
+      ansible.builtin.copy:
+        src: files/argocd.yaml
+        dest: /var/lib/rancher/k3s/server/manifests/argocd.yaml
+        mode: "0600"
+
     - name: Read the node token
       become: true
       ansible.builtin.slurp:
@@ -61,3 +68,5 @@
       environment:
         K3S_URL: "https://10.0.0.1:6443"
         K3S_TOKEN: "{{ hostvars[groups['controlplane'][0]].k3s_node_token }}"
+
+
