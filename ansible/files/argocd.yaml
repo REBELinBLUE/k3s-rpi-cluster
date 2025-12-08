@@ -28,7 +28,7 @@ spec:
 
   destination:
     namespace: argocd
-    server: in-cluster
+    name: in-cluster
 
   source:
     path: manifests
