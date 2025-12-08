@@ -14,18 +14,16 @@ Build a [Kubernetes](https://kubernetes.io/) ([K3s](https://github.com/rancher/k
 
 ```bash
 .
-|   # Ansible playbooks to bootstrap the cluster
+│   # Ansible playbooks to bootstrap the cluster
 ├── ./ansible
+│   # Docker builds for ARM devices
+├── ./docker
 │   # Flux will scan and deploy from this directory
 ├── ./manifests
-│   # Initial setup of the cluster
-├── ./setup
-│   │   # Scripts for setting things up
-│   ├── ./bin
-│   │   # Cloud-init config for Raspberry Pi Imager
-│   └─ ./cloud-init
-│   # Docker builds for ARM devices
-└── ./docker
+│   # Scripts and config for setting up the Raspberry Pis
+└── ./scripts
+    │   # Cloud-init config for Raspberry Pi Imager
+    └─ ./cloud-init
 ```
 
 ## Network topology
