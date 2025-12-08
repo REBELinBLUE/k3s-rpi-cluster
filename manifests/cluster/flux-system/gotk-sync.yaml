@@ -11,7 +11,7 @@ spec:
     branch: main
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/rebelinblue/k3s-on-raspbian
+  url: ssh://git@github.com/rebelinblue/k3s-rpi-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
