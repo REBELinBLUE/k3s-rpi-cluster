@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-path-provisioner
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: local-path-storage
+    name: in-cluster
+
+  source:
+    path: manifests/infrastructure/manifests/local-path-provisioner.yaml
+    repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+    targetRevision: argo
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
