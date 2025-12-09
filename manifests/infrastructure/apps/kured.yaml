@@ -43,11 +43,11 @@ spec:
             create: true
 
           extraEnvVars:
-            - name: KURED_SLACK_HOOK_URL
+            - name: NOTIFY_URL
               valueFrom:
                 secretKeyRef:
                   name: kured
-                  key: KURED_SLACK_HOOK_URL
+                  key: NOTIFY_URL
 
     - path: manifests/infrastructure/manifests/kured/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster

@@ -10,7 +10,7 @@ kubeseal --kubeconfig="$REPO_ROOT/k3s_config" --controller-namespace kube-system
 
 kubectl --kubeconfig="$REPO_ROOT/k3s_config" create secret generic kured \
   --namespace=kube-system \
-  --from-literal=KURED_SLACK_HOOK_URL=$SLACK_URL \
+  --from-literal=NOTIFY_URL=$SLACK_URL \
   --dry-run=client -o yaml | \
 kubeseal --kubeconfig="$REPO_ROOT/k3s_config" -o yaml > $REPO_ROOT/manifests/infrastructure/manifests/kured/secrets.yaml
 
