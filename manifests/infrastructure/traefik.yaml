@@ -1,0 +1,93 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: traefik
+    name: in-cluster
+
+  source:
+    chart: traefik
+    repoURL: https://helm.traefik.io/traefik
+    targetRevision: 10.20.1
+
+    helm:
+      releaseName: traefik
+
+      valuesObject:
+        providers:
+          kubernetesCRD:
+            enabled: true
+
+          kubernetesIngress:
+            enabled: true
+            publishedService:
+              enabled: true
+
+        ingressClass:
+          enabled: true
+          isDefaultClass: true
+
+        service:
+          type: NodePort
+          externalIPs:
+            - 192.168.115.193
+
+        logs:
+          general:
+            level: DEBUG
+          access:
+            enabled: true
+
+        # FIXME: Is this needed?
+        # FIXME: This is not working
+        tolerations:
+          - effect: NoSchedule
+            key: node-role.kubernetes.io/control-plane
+          - effect: NoSchedule
+            key: node.kubernetes.io/unschedulable
+
+        nodeSelector:
+          node-role.kubernetes.io/control-plane: "true"
+
+        requests:
+          cpu: 25m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          meomry: 384Mi
+
+        ports:
+          traefik:
+            expose: true
+            port: 9000
+          web:
+            hostPort: 80
+            redirectTo: websecure
+          websecure:
+            tls:
+              enabled: true
+            hostPort: 443
+
+        pilot:
+          enabled: false
+          dashboard: false
+
+        ingressRoute:
+          dashboard:
+            enabled: true
+
+        metrics:
+          prometheus:
+            enabled: true
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
