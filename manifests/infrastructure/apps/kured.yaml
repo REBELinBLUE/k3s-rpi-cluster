@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kured
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: kube-system
+    name: in-cluster
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+  source:
+    chart: kubereboot/kured
+    repoURL: https://kubereboot.github.io/charts
+    targetRevision: 1.20.0
+
+    helm:
+      releaseName: kured
+
+      valuesObject:
+        tolerations:
+          - effect: NoSchedule
+            key: node-role.kubernetes.io/control-plane
+
+        configuration:
+          period: 1h0m0s
+          prometheusUrl: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+          alertFilterRegexp: "^Reboot Required$"
+
+        service:
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/path: "/metrics"
+            prometheus.io/port: "8080"
+
+          metrics:
+            create: true
+
+#        extraEnvVars:
+#          - name: KURED_SLACK_HOOK_URL
+#            valueFrom:
+#              secretKeyRef:
+#                name: my-secret
+#                key: notify-url
+
