@@ -10,20 +10,24 @@ spec:
     namespace: monitoring
     name: in-cluster
 
-  source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 55.0.0
+  sources:
+    - chart: kube-prometheus-stack
+      repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: 55.0.0
 
-    helm:
-      releaseName: prometheus
-      valueFiles:
-        - manifests/infrastructure/values/prometheus/components.yaml
-        - manifests/infrastructure//values/prometheus/operator.yaml
-        - manifests/infrastructure/values/prometheus/alertmanager.yaml
-        - manifests/infrastructure/values/prometheus/prometheus.yaml
-        - manifests/infrastructure/values/prometheus/grafana.yaml
-        - manifests/infrastructure/values/prometheus/rules.yaml
+      helm:
+        releaseName: prometheus
+        valueFiles:
+          - $values/manifests/infrastructure/values/prometheus/components.yaml
+          - $values/manifests/infrastructure//values/prometheus/operator.yaml
+          - $values/manifests/infrastructure/values/prometheus/alertmanager.yaml
+          - $values/manifests/infrastructure/values/prometheus/prometheus.yaml
+          - $values/manifests/infrastructure/values/prometheus/grafana.yaml
+          - $values/manifests/infrastructure/values/prometheus/rules.yaml
+
+    - repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+      targetRevision: argo
+      ref: values
 
   syncPolicy:
     syncOptions:
