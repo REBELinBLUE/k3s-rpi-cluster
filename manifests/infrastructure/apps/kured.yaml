@@ -24,9 +24,9 @@ spec:
       releaseName: kured
 
       valuesObject:
-        tolerations:
-          - effect: NoSchedule
-            key: node-role.kubernetes.io/control-plane
+#        tolerations:
+#          - effect: NoSchedule
+#            key: node-role.kubernetes.io/control-plane
 
         configuration:
           period: 1h0m0s
