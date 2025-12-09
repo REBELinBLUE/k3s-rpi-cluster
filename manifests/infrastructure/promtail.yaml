@@ -1,0 +1,58 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: promtail
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: logging
+    name: in-cluster
+
+  source:
+    chart: promtail
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.15.3
+
+    helm:
+      releaseName: promtail
+
+      valuesObject:
+        pipelineStages:
+          - cri: { }
+
+        loki:
+          serviceName: loki
+          servicePort: 3100
+          serviceScheme: http
+
+        serviceMonitor:
+          enabled: true
+
+        volumes:
+          - name: containers
+            hostPath:
+              path: /var/log/containers
+          - name: pods
+            hostPath:
+              path: /var/log/pods
+
+        volumeMounts:
+          - name: containers
+            mountPath: /var/log/containers
+            readOnly: true
+          - name: pods
+            mountPath: /var/log/pods
+            readOnly: true
+
+        tolerations:
+          - effect: NoSchedule
+            key: node-role.kubernetes.io/control-plane
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
