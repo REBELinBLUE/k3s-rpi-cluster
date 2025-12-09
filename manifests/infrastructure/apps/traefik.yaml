@@ -19,14 +19,18 @@ spec:
         releaseName: traefik
 
         valuesObject:
+          additionalArguments:
+            - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
+
           providers:
             kubernetesCRD:
               enabled: true
 
             kubernetesIngress:
               enabled: true
-              publishedService:
-                enabled: true
+              # Does not work as using NodePort service rather than LoadBalancer
+              #publishedService:
+              #  enabled: true
 
           ingressClass:
             enabled: true
@@ -43,8 +47,6 @@ spec:
             access:
               enabled: true
 
-          # FIXME: Is this needed?
-          # FIXME: This is not working
           tolerations:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
