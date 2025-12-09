@@ -10,7 +10,7 @@ spec:
     namespace: cert-manager
     name: in-cluster
 
-  source:
+  sources:
     - chart: cert-manager
       repoURL: https://charts.jetstack.io
       targetRevision: v1.6.1

@@ -17,10 +17,10 @@ workers:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) workers.yaml
 
 # K3S setup and teardown
-install:
+cluster:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) install.yaml
 
-uninstall:
+reset:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) uninstall.yaml
 
 # Helpers
