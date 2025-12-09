@@ -250,7 +250,7 @@ spec:
           enabled: false
 
         grafana:
-          enabled: true
+          enabled: false # FIXME: Not the correct image for ARM64
 
           defaultDashboardsTimezone: Europe/London
 
