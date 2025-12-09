@@ -23,6 +23,11 @@ spec:
           enabled: false
 
         monitoring:
+          selfMonitoring:
+            enabled: false
+            grafanaAgent:
+              installOperator: false
+
           rules:
             enabled: true
 
