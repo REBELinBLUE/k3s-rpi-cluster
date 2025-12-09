@@ -18,12 +18,12 @@ spec:
     helm:
       releaseName: prometheus
       valueFiles:
-        - ../values/prometheus/components.yaml
-        - ../values/prometheus/operator.yaml
-        - ../values/prometheus/alertmanager.yaml
-        - ../values/prometheus/prometheus.yaml
-        - ../values/prometheus/grafana.yaml
-        - ../values/prometheus/rules.yaml
+        - manifests/infrastructure/values/prometheus/components.yaml
+        - manifests/infrastructure//values/prometheus/operator.yaml
+        - manifests/infrastructure/values/prometheus/alertmanager.yaml
+        - manifests/infrastructure/values/prometheus/prometheus.yaml
+        - manifests/infrastructure/values/prometheus/grafana.yaml
+        - manifests/infrastructure/values/prometheus/rules.yaml
 
   syncPolicy:
     syncOptions:
