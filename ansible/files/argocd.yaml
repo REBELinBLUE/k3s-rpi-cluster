@@ -21,7 +21,7 @@ spec:
         serviceMonitor:
           enabled: true
       ingress:
-        enabled: false
+        enabled: true
         annotations:
           #forecastle.stakater.com/expose: "true"
           #forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png

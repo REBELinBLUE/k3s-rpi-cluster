@@ -10,6 +10,13 @@ spec:
     namespace: kube-system
     name: in-cluster
 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated:
+      prune: true
+      selfHeal: true
+
   source:
     chart: metrics-server
     repoURL: https://kubernetes-sigs.github.io/metrics-server/
@@ -24,10 +31,3 @@ spec:
 
         serviceMonitor:
           enabled: false
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=false
-    automated:
-      prune: true
-      selfHeal: true

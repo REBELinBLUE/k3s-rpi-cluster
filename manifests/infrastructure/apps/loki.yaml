@@ -10,6 +10,13 @@ spec:
     namespace: logging
     name: in-cluster
 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
   source:
     chart: loki
     repoURL: https://grafana.github.io/helm-charts
@@ -33,10 +40,3 @@ spec:
 
           serviceMonitor:
             enabled: true
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true

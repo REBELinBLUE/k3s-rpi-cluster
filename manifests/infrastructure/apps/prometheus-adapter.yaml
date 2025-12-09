@@ -10,6 +10,13 @@ spec:
     namespace: monitoring
     name: in-cluster
 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
   source:
     chart: prometheus-adapter
     repoURL: https://prometheus-community.github.io/helm-charts
@@ -22,9 +29,3 @@ spec:
         prometheus:
           url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
 
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true

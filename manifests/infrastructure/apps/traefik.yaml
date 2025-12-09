@@ -10,6 +10,13 @@ spec:
     namespace: ingress
     name: in-cluster
 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
   sources:
     - chart: traefik
       repoURL: https://helm.traefik.io/traefik
@@ -18,17 +25,75 @@ spec:
       helm:
         releaseName: traefik
 
-        valuesFiles:
-          - $values/manifests/infrastructure/values/traefik.yaml
+        valuesObject:
+          additionalArguments:
+            - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
+
+          providers:
+            kubernetesCRD:
+              enabled: true
+
+            kubernetesIngress:
+              enabled: true
+              # Does not work as using NodePort service rather than LoadBalancer
+              #publishedService:
+              #  enabled: true
+
+          ingressClass:
+            enabled: true
+            isDefaultClass: true
+
+          service:
+            type: NodePort
+            externalIPs:
+              - 192.168.115.193
+
+          logs:
+            general:
+              level: DEBUG
+            access:
+              enabled: true
+
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
+            - effect: NoSchedule
+              key: node.kubernetes.io/unschedulable
+
+          nodeSelector:
+            node-role.kubernetes.io/control-plane: "true"
+
+          requests:
+            cpu: 25m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            meomry: 384Mi
+
+          ports:
+            traefik:
+              expose: true
+              port: 9000
+            web:
+              hostPort: 80
+              redirectTo: websecure
+            websecure:
+              tls:
+                enabled: true
+              hostPort: 443
+
+          pilot:
+            enabled: false
+            dashboard: false
+
+          ingressRoute:
+            dashboard:
+              enabled: true
+
+          metrics:
+            prometheus:
+              enabled: true
 
     - path: manifests/infrastructure/manifests/traefik/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
       targetRevision: argo
-      ref: values
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true

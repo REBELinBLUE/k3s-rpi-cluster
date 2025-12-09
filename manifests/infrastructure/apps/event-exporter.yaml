@@ -10,6 +10,13 @@ spec:
     namespace: monitoring
     name: in-cluster
 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
   source:
     chart: event-exporter
     repoURL: https://charts.bitnami.com/bitnami
@@ -31,10 +38,3 @@ spec:
 
           prometheusRule:
             enabled: true
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true

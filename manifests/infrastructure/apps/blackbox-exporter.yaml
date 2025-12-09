@@ -10,6 +10,13 @@ spec:
     namespace: monitoring
     name: in-cluster
 
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated:
+      prune: true
+      selfHeal: true
+
   source:
     chart: prometheus-blackbox-exporter
     repoURL: https://prometheus-community.github.io/helm-charts
@@ -67,10 +74,3 @@ spec:
 
         serviceMonitor:
           enabled: true
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=false
-    automated:
-      prune: true
-      selfHeal: true
