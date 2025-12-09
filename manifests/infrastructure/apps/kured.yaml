@@ -15,37 +15,40 @@ spec:
       prune: true
       selfHeal: true
 
-  source:
-    chart: kured
-    repoURL: https://kubereboot.github.io/charts
-    targetRevision: 5.10.0
+  sources:
+    - chart: kured
+      repoURL: https://kubereboot.github.io/charts
+      targetRevision: 5.10.0
 
-    helm:
-      releaseName: kured
+      helm:
+        releaseName: kured
 
-      valuesObject:
-#        tolerations:
-#          - effect: NoSchedule
-#            key: node-role.kubernetes.io/control-plane
+        valuesObject:
+  #        tolerations:
+  #          - effect: NoSchedule
+  #            key: node-role.kubernetes.io/control-plane
 
-        configuration:
-          period: 1h0m0s
-          prometheusUrl: http://prometheus-k8s.monitoring.svc.cluster.local:9090
-          alertFilterRegexp: "^Reboot Required$"
+          configuration:
+            period: 1h0m0s
+            prometheusUrl: http://prometheus-k8s.monitoring.svc.cluster.local:9090
+            alertFilterRegexp: "^Reboot Required$"
 
-        service:
-          annotations:
-            prometheus.io/scrape: "true"
-            prometheus.io/path: "/metrics"
-            prometheus.io/port: "8080"
+          service:
+            annotations:
+              prometheus.io/scrape: "true"
+              prometheus.io/path: "/metrics"
+              prometheus.io/port: "8080"
 
           metrics:
             create: true
 
-#        extraEnvVars:
-#          - name: KURED_SLACK_HOOK_URL
-#            valueFrom:
-#              secretKeyRef:
-#                name: my-secret
-#                key: notify-url
+          extraEnvVars:
+            - name: KURED_SLACK_HOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: kured
+                  key: KURED_SLACK_HOOK_URL
 
+    - path: manifests/infrastructure/manifests/kured/
+      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+      targetRevision: argo
