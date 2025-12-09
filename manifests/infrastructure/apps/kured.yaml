@@ -7,7 +7,7 @@ spec:
   project: default
 
   destination:
-    namespace: kube-system
+    namespace: kured
     name: in-cluster
 
   syncPolicy:
