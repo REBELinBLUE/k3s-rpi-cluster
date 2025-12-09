@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: traefik-dashboard
-  namespace: ingress
+  namespace: traefik
   annotations:
     forecastle.stakater.com/expose: "true"
     forecastle.stakater.com/icon: https://pbs.twimg.com/media/CcZdW37UcAA9DZz?format=png&name=4096x4096
