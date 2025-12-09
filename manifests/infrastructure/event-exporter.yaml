@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: event-exporter
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: monitoring
+    name: in-cluster
+
+  source:
+    chart: event-exporter
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 2.10.0
+
+    helm:
+      releaseName: event-exporter
+
+      valuesObject:
+        config:
+          logFormat: "json"
+          logLevel: "warn"
+
+        metrics:
+          enabled: true
+
+          serviceMonitor:
+            enabled: true
+
+          prometheusRule:
+            enabled: true
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
