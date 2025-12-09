@@ -7,18 +7,16 @@ spec:
   project: default
 
   destination:
-    namespace: kured
+    namespace: kube-system
     name: in-cluster
 
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       prune: true
       selfHeal: true
 
   source:
-    chart: kubereboot/kured
+    chart: kured
     repoURL: https://kubereboot.github.io/charts
     targetRevision: 5.10.0
 
