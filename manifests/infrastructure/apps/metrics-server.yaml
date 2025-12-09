@@ -11,8 +11,6 @@ spec:
     name: in-cluster
 
   syncPolicy:
-    syncOptions:
-      - CreateNamespace=false
     automated:
       prune: true
       selfHeal: true
