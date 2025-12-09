@@ -17,12 +17,14 @@ spec:
 
     helm:
       releaseName: cert-manager
-      installCRDs: true
 
-      prometheus:
-        enabled: true
-        servicemonitor:
+      valuesObject:
+        installCRDs: true
+
+        prometheus:
           enabled: true
+          servicemonitor:
+            enabled: true
 
   syncPolicy:
     syncOptions:
