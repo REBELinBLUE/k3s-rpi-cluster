@@ -1,0 +1,88 @@
+## Deploy a Prometheus instance
+##
+prometheus:
+  ingress:
+    enabled: true
+    annotations:
+      forecastle.stakater.com/expose: "true"
+      forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+      forecastle.stakater.com/appName: Prometheus
+      forecastle.stakater.com/group: Monitoring
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      #traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+    hosts:
+      - prometheus.cluster.rebelinblue.com
+    paths:
+      - /
+    pathType: ImplementationSpecific
+    tls:
+      - secretName: prometheus-tls
+        hosts:
+          - prometheus.cluster.rebelinblue.com
+
+  enabled: true
+
+  service:
+    type: ClusterIP
+
+  thanosService:
+    enabled: false
+
+  ## Configure pod disruption budgets for Prometheus
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
+
+  ## Settings affecting prometheusSpec
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
+  ##
+  prometheusSpec:
+    ## Number of replicas of each shard to deploy for a Prometheus deployment.
+    ## Number of replicas multiplied by shards is the total number of Pods created.
+    # replicas: 1
+    # shards: 1 # default
+
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+
+    priorityClassName: system-cluster-critical
+
+    containers:
+      - name: prometheus
+        startupProbe:
+          failureThreshold: 30 # default = 10
+
+    ## How long to retain metrics
+    ##
+    retention: 10d
+
+    # Scheduling
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: topology.kubernetes.io/zone
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app: prometheus
+
+    podAntiAffinity: "soft"
+    podAntiAffinityTopologyKey: kubernetes.io/hostname
+
+    ## Logging
+    logLevel: info
+    logFormat: logfmt
+
+    additionalRemoteWrite: [ ]
+
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: local-path # must match an actual StorageClass in the cluster, with a suitable fsType
+          accessModes: [ "ReadWriteOnce" ] # use ReadWriteOncePod if the cluster supports this
+          resources:
+            requests:
+              storage: 100Gi

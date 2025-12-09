@@ -1,0 +1,78 @@
+grafana:
+  enabled: false # FIXME: Not the correct image for ARM64
+
+  defaultDashboardsTimezone: Europe/London
+
+  sidecar:
+    datasources:
+      enabled: true
+      alertmanager:
+        enabled: true
+
+  persistence:
+    enabled: true
+    type: pvc
+    storageClassName: local-path
+    accessModes:
+      - ReadWriteOnce
+    size: 5Gi
+
+  ingress:
+    enabled: true
+    annotations:
+      forecastle.stakater.com/expose: "true"
+      forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/grafana.png
+      forecastle.stakater.com/appName: Grafana
+      forecastle.stakater.com/group: Monitoring
+      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      #traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+    hosts:
+      - grafana.cluster.rebelinblue.com
+    paths:
+      - /
+    pathType: ImplementationSpecific
+    tls:
+      - hosts:
+          - grafana.cluster.rebelinblue.com
+        secretName: grafana-tls
+
+  grafana.ini:
+    users:
+      auto_assign_org: true
+      auto_assign_org_role: Admin
+    auth:
+      disable_login_form: true
+      disable_signout_menu: true
+    auth.anonymous:
+      enabled: true
+      org_role: Admin
+    auth.basic:
+      enabled: false
+    auth.proxy:
+      enabled: false
+      header_name: X-Forwarded-User
+      header_property: email
+      auto_sign_up: true
+    alerting:
+      enabled: false
+    unified_alerting:
+      enabled: false
+    analytics:
+      check_for_updates: false
+
+  additionalDataSources:
+    - name: loki
+      access: proxy
+      basicAuth: false
+      editable: false
+      jsonData:
+        tlsSkipVerify: true
+        maxLine: 1000
+        httpHeaderName1: "X-Scope-OrgID"
+        secureJsonData:
+          httpHeaderValue1: "pi-cluster"
+      orgId: 1
+      type: loki
+      url: http://loki-gateway.logging.svc
+      version: 1
