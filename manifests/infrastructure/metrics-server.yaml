@@ -18,11 +18,12 @@ spec:
     helm:
       releaseName: metrics-server
 
-      metrics:
-        enabled: true
+      valuesObject:
+        metrics:
+          enabled: true
 
-      serviceMonitor:
-        enabled: false
+        serviceMonitor:
+          enabled: false
 
   syncPolicy:
     syncOptions:
