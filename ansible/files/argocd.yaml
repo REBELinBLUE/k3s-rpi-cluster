@@ -15,6 +15,10 @@ spec:
   valuesContent: |-
     global:
       domain: argocd.cluster.rebelinblue.com
+    # FIXME: Remove this? https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd#ssl-passthrough
+    configs:
+      params:
+        server.insecure: true
     server:
       metrics:
         enabled: true
@@ -22,6 +26,8 @@ spec:
           enabled: true
       ingress:
         enabled: true
+        ingressClassName: traefik
+        tls: true
         annotations:
           #forecastle.stakater.com/expose: "true"
           #forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
