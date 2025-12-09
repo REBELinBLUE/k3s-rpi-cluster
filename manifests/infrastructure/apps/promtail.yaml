@@ -10,45 +10,49 @@ spec:
     namespace: logging
     name: in-cluster
 
-  source:
-    chart: promtail
-    repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 6.15.3
+  sources:
+    - chart: promtail
+      repoURL: https://grafana.github.io/helm-charts
+      targetRevision: 6.15.3
 
-    helm:
-      releaseName: promtail
+      helm:
+        releaseName: promtail
 
-      valuesObject:
-        pipelineStages:
-          - cri: { }
+        valuesObject:
+          pipelineStages:
+            - cri: { }
 
-        loki:
-          serviceName: loki
-          servicePort: 3100
-          serviceScheme: http
+          loki:
+            serviceName: loki
+            servicePort: 3100
+            serviceScheme: http
 
-        serviceMonitor:
-          enabled: true
+          serviceMonitor:
+            enabled: true
 
-        volumes:
-          - name: containers
-            hostPath:
-              path: /var/log/containers
-          - name: pods
-            hostPath:
-              path: /var/log/pods
+          volumes:
+            - name: containers
+              hostPath:
+                path: /var/log/containers
+            - name: pods
+              hostPath:
+                path: /var/log/pods
 
-        volumeMounts:
-          - name: containers
-            mountPath: /var/log/containers
-            readOnly: true
-          - name: pods
-            mountPath: /var/log/pods
-            readOnly: true
+          volumeMounts:
+            - name: containers
+              mountPath: /var/log/containers
+              readOnly: true
+            - name: pods
+              mountPath: /var/log/pods
+              readOnly: true
 
-        tolerations:
-          - effect: NoSchedule
-            key: node-role.kubernetes.io/control-plane
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
+
+    - path: manifests/infrastructure/manifests/promtail/
+      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+      targetRevision: argo
 
   syncPolicy:
     syncOptions:

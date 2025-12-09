@@ -11,10 +11,6 @@ spec:
     name: in-cluster
 
   sources:
-    - path: manifests/infrastructure/manifests/traefik/
-      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-      targetRevision: argo
-
     - chart: traefik
       repoURL: https://helm.traefik.io/traefik
       targetRevision: 10.20.1
@@ -88,6 +84,10 @@ spec:
           metrics:
             prometheus:
               enabled: true
+
+    - path: manifests/infrastructure/manifests/traefik/
+      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
+      targetRevision: argo
 
   syncPolicy:
     syncOptions:
