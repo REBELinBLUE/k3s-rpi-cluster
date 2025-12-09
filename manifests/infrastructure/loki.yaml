@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: loki
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: logging
+    name: in-cluster
+
+  source:
+    chart: loki
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 5.39.0
+
+    helm:
+      releaseName: loki
+
+      valuesObject:
+        ingress:
+          enabled: false
+
+        monitoring:
+          rules:
+            enabled: true
+
+          serviceMonitor:
+            enabled: true
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
