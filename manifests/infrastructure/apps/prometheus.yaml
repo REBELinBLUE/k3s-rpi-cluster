@@ -93,7 +93,7 @@ spec:
               forecastle.stakater.com/group: Monitoring
               kubernetes.io/tls-acme: "true"
               cert-manager.io/cluster-issuer: letsencrypt-prod
-              traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+              #traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
             hosts:
               - prometheus.cluster.rebelinblue.com
             paths:
@@ -181,7 +181,7 @@ spec:
               forecastle.stakater.com/group: Monitoring
               kubernetes.io/tls-acme: "true"
               cert-manager.io/cluster-issuer: letsencrypt-prod
-              traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+              #traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
             hosts:
               - alertmanager.cluster.rebelinblue.com
             paths:
@@ -277,7 +277,7 @@ spec:
               forecastle.stakater.com/group: Monitoring
               kubernetes.io/tls-acme: "true"
               cert-manager.io/cluster-issuer: letsencrypt-prod
-              traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+              #traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
             hosts:
               - grafana.cluster.rebelinblue.com
             paths:
