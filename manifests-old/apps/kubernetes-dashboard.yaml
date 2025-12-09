@@ -43,7 +43,7 @@ spec:
           forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/kubernetes.png
           forecastle.stakater.com/appName: Dashboard
           forecastle.stakater.com/group: Infrastructure
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
 ---
 apiVersion: v1
 kind: ServiceAccount

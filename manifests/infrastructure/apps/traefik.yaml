@@ -7,7 +7,7 @@ spec:
   project: default
 
   destination:
-    namespace: traefik
+    namespace: ingress
     name: in-cluster
 
   sources:
