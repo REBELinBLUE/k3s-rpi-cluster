@@ -33,12 +33,13 @@ spec:
           serviceMonitor:
             enabled: true
 
-        storage:
-          bucketNames:
-            chunks: loki_chunks
-            ruler: loki_ruler
-            admin: loki_admin
-          type: filesystem
+        loki:
+          storage:
+            bucketNames:
+              chunks: loki_chunks
+              ruler: loki_ruler
+              admin: loki_admin
+            type: filesystem
 
         test:
           enabled: false
