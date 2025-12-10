@@ -58,3 +58,5 @@
   tasks:
     - name: Reboot control plane node
       ansible.builtin.reboot:
+
+# FIXME: Clean up local k3s_config and pub-sealed-secrets.pem
