@@ -20,23 +20,15 @@ spec:
   source:
     chart: loki
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 5.39.0 # TODO: Update
+    targetRevision: 6.48.0
 
     helm:
       releaseName: loki
 
       valuesObject:
-        ingress:
+        ingress: # fixme: enable this
           enabled: false
 
         monitoring:
-          selfMonitoring:
-            enabled: false
-            grafanaAgent:
-              installOperator: false
-
-          rules:
-            enabled: true
-
           serviceMonitor:
             enabled: true
