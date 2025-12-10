@@ -20,7 +20,7 @@ spec:
   sources:
     - chart: traefik
       repoURL: https://helm.traefik.io/traefik
-      targetRevision: 10.20.1
+      targetRevision: 37.4.0
 
       helm:
         releaseName: traefik
@@ -28,20 +28,6 @@ spec:
         valuesObject:
           additionalArguments:
             - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
-
-          providers:
-            kubernetesCRD:
-              enabled: true
-
-            kubernetesIngress:
-              enabled: true
-              # Does not work as using NodePort service rather than LoadBalancer
-              #publishedService:
-              #  enabled: true
-
-          ingressClass:
-            enabled: true
-            isDefaultClass: true
 
           service:
             type: NodePort
@@ -72,27 +58,22 @@ spec:
 
           ports:
             traefik:
-              expose: true
-              port: 9000
+              expose:
+                default: true
             web:
               hostPort: 80
-              redirectTo: websecure
+              redirections:
+                entryPoint:
+                  to: websecure
+                  scheme: https
+                  permanent: true
             websecure:
-              tls:
-                enabled: true
               hostPort: 443
-
-          pilot:
-            enabled: false
-            dashboard: false
-
-          ingressRoute:
-            dashboard:
-              enabled: true
 
           metrics:
             prometheus:
-              enabled: true
+              service:
+                enabled: true
 
     - path: manifests/infrastructure/manifests/traefik/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
