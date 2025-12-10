@@ -31,7 +31,7 @@ spec:
           configuration:
             period: 1h0m0s
             prometheusUrl: http://prometheus-k8s.monitoring.svc.cluster.local:9090
-            alertFilterRegexp: "^Reboot Required$"
+            alertFilterRegexp: "^Reboot Required$" # FIXME Is this needed?
 
           service:
             annotations:
