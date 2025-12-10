@@ -23,15 +23,15 @@ spec:
                 name: traefik
                 port:
                   number: 9000
-            path: /dashboard/
+            path: /dashboard
             pathType: ImplementationSpecific
-#          - backend:
-#              service:
-#                name: traefik
-#                port:
-#                  number: 9000
-#            path: /api
-#            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: traefik
+                port:
+                  number: 9000
+            path: /api
+            pathType: ImplementationSpecific
   tls:
     - hosts:
         - traefik.cluster.rebelinblue.com
