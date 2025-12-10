@@ -73,7 +73,7 @@ spec:
           persistence:
             storageClass: local-path
             enabled: true
-            size: 5Gi
+            size: 10Gi
 
         # Zero out replica counts of other deployment modes
         backend:
