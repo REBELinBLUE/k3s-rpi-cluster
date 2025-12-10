@@ -33,12 +33,12 @@ seal_secret() {
 
 # Seal kured secret
 seal_secret "kured" "kube-system" \
-  "$REPO_ROOT/manifests/infrastructure/manifests/kured/secrets.yaml" \
+  "$REPO_ROOT/manifests/infrastructure/manifests/kured/sealed-secrets.yaml" \
   "NOTIFY_URL=$SLACK_URL"
 
 # Seal traefik-forward-auth secret
 seal_secret "traefik-forward-auth" "ingress" \
-  "$REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/secrets.yaml" \
+  "$REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/sealed-secrets.yaml" \
   "CLIENT_ID=$OAUTH_CLIENT_ID" \
   "CLIENT_SECRET=$OAUTH_CLIENT_SECRET" \
   "SECRET=$OAUTH_SECRET"

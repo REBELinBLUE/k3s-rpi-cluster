@@ -59,4 +59,17 @@
     - name: Reboot control plane node
       ansible.builtin.reboot:
 
-# FIXME: Clean up local k3s_config and pub-sealed-secrets.pem
+- name: Clean up local k3s_config and sealed secrets key
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Remove local k3s kubeconfig
+      ansible.builtin.file:
+        path: ../k3s_config
+        state: absent
+
+    - name: Remove local sealed secrets public key
+      ansible.builtin.file:
+        path: ../pub-sealed-secrets.pem
+        state: absent
