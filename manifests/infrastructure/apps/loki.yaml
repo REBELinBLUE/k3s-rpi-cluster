@@ -18,7 +18,7 @@ spec:
       selfHeal: true
 
   source:
-    chart: loki-stack
+    chart: loki
     repoURL: https://grafana.github.io/helm-charts
     targetRevision: 6.48.0
 
