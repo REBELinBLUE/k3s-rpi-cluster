@@ -2,20 +2,43 @@
 
 set -euo pipefail
 
+# Ensure required environment variables are set
+: "${SLACK_URL:?Environment variable SLACK_URL must be set}"
+: "${OAUTH_CLIENT_ID:?Environment variable OAUTH_CLIENT_ID must be set}"
+: "${OAUTH_CLIENT_SECRET:?Environment variable OAUTH_CLIENT_SECRET must be set}"
+: "${OAUTH_SECRET:?Environment variable OAUTH_SECRET must be set}"
+
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
-kubeseal --kubeconfig="$REPO_ROOT/k3s_config" --controller-namespace kube-system --controller-name sealed-secrets-controller --fetch-cert > pub-sealed-secrets.pem
+kubeseal --kubeconfig="$REPO_ROOT/k3s_config" --fetch-cert > "$REPO_ROOT/pub-sealed-secrets.pem"
 
-kubectl --kubeconfig="$REPO_ROOT/k3s_config" create secret generic kured \
-  --namespace=kube-system \
-  --from-literal=NOTIFY_URL="$SLACK_URL" \
-  --dry-run=client -o yaml | \
-  kubeseal --kubeconfig="$REPO_ROOT/k3s_config" -o yaml > $REPO_ROOT/manifests/infrastructure/manifests/kured/secrets.yaml
+# Function to create and seal a secret
+seal_secret() {
+  local secret_name=$1
+  local namespace=$2
+  local output_file=$3
+  shift 3
+  local literals=("$@")
 
-kubectl --kubeconfig="$REPO_ROOT/k3s_config" create secret generic traefik-forward-auth \
-  --namespace=ingress \
-  --from-literal=CLIENT_ID="$OAUTH_CLIENT_ID" \
-  --from-literal=CLIENT_SECRET="$OAUTH_CLIENT_SECRET" \
-  --from-literal=SECRET="$OAUTH_SECRET" \
-  --dry-run=client -o yaml | \
-  kubeseal --kubeconfig="$REPO_ROOT/k3s_config" -o yaml > $REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/secrets.yaml
+  # Build kubectl create secret generic command dynamically
+  local cmd=(kubectl --kubeconfig="$REPO_ROOT/k3s_config" create secret generic "$secret_name" --namespace="$namespace" --dry-run=client -o yaml)
+
+  for literal in "${literals[@]}"; do
+    cmd+=(--from-literal="$literal")
+  done
+
+  # Execute and pipe to kubeseal
+  "${cmd[@]}" | kubeseal --kubeconfig="$REPO_ROOT/k3s_config" -o yaml > "$output_file"
+}
+
+# Seal kured secret
+seal_secret "kured" "kube-system" \
+  "$REPO_ROOT/manifests/infrastructure/manifests/kured/secrets.yaml" \
+  "NOTIFY_URL=$SLACK_URL"
+
+# Seal traefik-forward-auth secret
+seal_secret "traefik-forward-auth" "ingress" \
+  "$REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/secrets.yaml" \
+  "CLIENT_ID=$OAUTH_CLIENT_ID" \
+  "CLIENT_SECRET=$OAUTH_CLIENT_SECRET" \
+  "SECRET=$OAUTH_SECRET"
