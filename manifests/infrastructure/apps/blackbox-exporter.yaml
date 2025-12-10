@@ -52,6 +52,7 @@ spec:
 
         ingress:
           enabled: true
+          className: traefik
           annotations:
             forecastle.stakater.com/expose: "true"
             forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
