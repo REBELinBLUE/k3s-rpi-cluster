@@ -1,27 +1,27 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: traefik-mesh
-  namespace: argocd
-spec:
-  project: default
-
-  destination:
-    namespace: ingress
-    name: in-cluster
-
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
-    automated:
-      prune: true
-      selfHeal: true
-
-  source:
-    chart: traefik-mesh
-    repoURL: https://helm.traefik.io/traefik
-    targetRevision: 4.1.1
-
-    helm:
-      releaseName: traefik-mesh
-
+#apiVersion: argoproj.io/v1alpha1
+#kind: Application
+#metadata:
+#  name: traefik-mesh
+#  namespace: argocd
+#spec:
+#  project: default
+#
+#  destination:
+#    namespace: ingress
+#    name: in-cluster
+#
+#  syncPolicy:
+#    syncOptions:
+#      - CreateNamespace=true
+#    automated:
+#      prune: true
+#      selfHeal: true
+#
+#  source:
+#    chart: traefik-mesh
+#    repoURL: https://helm.traefik.io/traefik
+#    targetRevision: 4.1.1
+#
+#    helm:
+#      releaseName: traefik-mesh
+#
