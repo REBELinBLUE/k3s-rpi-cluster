@@ -27,7 +27,7 @@ spec:
 
         valuesObject:
           additionalArguments:
-            - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
+            - "--providers.kubernetesIngress.ingressEndpoint.ip=192.168.115.193"
 
           service:
             type: NodePort
