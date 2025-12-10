@@ -20,7 +20,7 @@ spec:
   source:
     chart: kube-prometheus-stack
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 55.0.0
+    targetRevision: 55.11.0
 
     helm:
       releaseName: prometheus
@@ -334,28 +334,28 @@ spec:
               url: http://loki-gateway.logging.svc
               version: 1
 
-#        additionalPrometheusRulesMap:
-#          alerting-rules:
-#            groups:
-#              - name: kubernetes-apps
-#                rules:
-#                  - alert: ScaleupFail
-#                    annotations:
-#                      description: Total number of NonReady pods has been high the last 30m; scaleup failure?
-#                    expr: sum (max by(namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace=~".*",phase=~"Pending|Unknown"})
-#                      * on(namespace, pod) group_left(owner_kind) max by(namespace, pod, owner_kind)
-#                      (kube_pod_owner{owner_kind!="Job"})) > 5
-#                    for: 30m
-#                    labels:
-#                      severity: warning
-#              - name: prometheus-stack
-#                rules:
-#                  - alert: PrometheusHighMemoryUsage
-#                    annotations:
-#                      description: Prometheus pods are using 90% of their memory requests. May be time to increase it?
-#                    expr: (avg(container_memory_working_set_bytes{container="prometheus",namespace="prometheus",pod=~"prometheus-kube-prometheus-stack-prom-prometheus-.*"}) /
-#                      avg(kube_pod_container_resource_requests{container="prometheus",namespace="prometheus",pod=~"prometheus-kube-prometheus-stack-prom-prometheus-.*",resource="memory",unit="byte"}))
-#                      * 100 > 90
-#                    for: 30m
-#                    labels:
-#                      severity: warning
+        additionalPrometheusRulesMap:
+          alerting-rules:
+            groups:
+              - name: kubernetes-apps
+                rules:
+                  - alert: ScaleupFail
+                    annotations:
+                      description: Total number of NonReady pods has been high the last 30m; scaleup failure?
+                    expr: sum (max by(namespace, pod) (kube_pod_status_phase{job="kube-state-metrics",namespace=~".*",phase=~"Pending|Unknown"})
+                      * on(namespace, pod) group_left(owner_kind) max by(namespace, pod, owner_kind)
+                      (kube_pod_owner{owner_kind!="Job"})) > 5
+                    for: 30m
+                    labels:
+                      severity: warning
+              - name: prometheus-stack
+                rules:
+                  - alert: PrometheusHighMemoryUsage
+                    annotations:
+                      description: Prometheus pods are using 90% of their memory requests. May be time to increase it?
+                    expr: (avg(container_memory_working_set_bytes{container="prometheus",namespace="prometheus",pod=~"prometheus-kube-prometheus-stack-prom-prometheus-.*"}) /
+                      avg(kube_pod_container_resource_requests{container="prometheus",namespace="prometheus",pod=~"prometheus-kube-prometheus-stack-prom-prometheus-.*",resource="memory",unit="byte"}))
+                      * 100 > 90
+                    for: 30m
+                    labels:
+                      severity: warning
