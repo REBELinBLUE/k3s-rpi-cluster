@@ -34,12 +34,18 @@ spec:
             enabled: true
 
         loki:
+          commonConfig:
+            replication_factor: 1
+
           storage:
             bucketNames:
               chunks: loki_chunks
               ruler: loki_ruler
               admin: loki_admin
             type: filesystem
+
+        singleBinary:
+          replicas: 1
 
         test:
           enabled: false
