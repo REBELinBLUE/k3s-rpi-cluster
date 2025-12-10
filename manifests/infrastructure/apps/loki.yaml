@@ -32,3 +32,6 @@ spec:
         monitoring:
           serviceMonitor:
             enabled: true
+
+        test:
+          enabled: false
