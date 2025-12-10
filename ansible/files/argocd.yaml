@@ -15,55 +15,50 @@ spec:
   valuesContent: |-
     global:
       domain: argocd.cluster.rebelinblue.com
-    # FIXME: Remove this? https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd#ssl-passthrough
-    configs:
-      params:
-        server.insecure: true
     server:
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
-      ingress:
-        enabled: false
-        ingressClassName: traefik
-        tls: true
-        annotations:
-          #forecastle.stakater.com/expose: "true"
-          #forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
-          #forecastle.stakater.com/appName: Prometheus
-          #forecastle.stakater.com/group: Monitoring
-          kubernetes.io/tls-acme: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-prod
-#---
-#apiVersion: helm.cattle.io/v1
-#kind: HelmChart
-#metadata:
-#  name: argoapps
-#  namespace: argocd
-#spec:
-#  repo: https://argoproj.github.io/argo-helm
-#  chart: argo-apps
-#  targetNamespace: argocd
-#  valuesContent: |-
-#    applications:
-#      infrastructure:
-#        namespace: argocd
-#        finalizers:
-#          - resources-finalizer.argocd.argoproj.io
-#        project: default
-#        destination:
-#          namespace: argocd
-#          name: in-cluster
-#        source:
-#          path: manifests/infrastructure
-#          repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-#          targetRevision: argo
-#        syncPolicy:
-#          automated:
-#            prune: true
-#            selfHeal: true
-
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`argocd.cluster.rebelinblue.com`)
+      priority: 10
+      services:
+        - name: argocd-server
+          port: 80
+    - kind: Rule
+      match: Host(`argocd.cluster.rebelinblue.com`) && Header(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argocd-server
+          port: 80
+          scheme: h2c
+  tls:
+    secretName: argocd-server-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  secretName: argocd-server-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - argocd.cluster.rebelinblue.com
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
