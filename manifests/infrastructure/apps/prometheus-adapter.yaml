@@ -20,12 +20,13 @@ spec:
   source:
     chart: prometheus-adapter
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 4.9.0
+    targetRevision: 5.2.0
 
     helm:
       releaseName: prometheus-adapter
 
       valuesObject:
         prometheus:
-          url: http://prometheus-kube-prometheus-prometheus.monitoring:9090
+          url: http://prometheus-kube-prometheus-prometheus.monitoring
+          port: 9090
 
