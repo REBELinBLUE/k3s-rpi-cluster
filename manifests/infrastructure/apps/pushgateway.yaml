@@ -20,7 +20,7 @@ spec:
   source:
     chart: prometheus-pushgateway
     repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 2.4.2
+    targetRevision: 3.6.0
 
     helm:
       releaseName: pushgateway
@@ -28,10 +28,6 @@ spec:
       valuesObject:
         extraArgs:
           - --web.enable-admin-api
-
-        service:
-          port: 9091
-          targetPort: metrics
 
         resources:
           limits:
