@@ -28,7 +28,7 @@ spec:
 
       helm:
         releaseName: cert-manager
-        valueObject:
+        valuesObject:
           crds:
             enabled: true
 

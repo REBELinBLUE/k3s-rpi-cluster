@@ -24,7 +24,7 @@ spec:
 
     helm:
       releaseName: prometheus
-      valueObject:
+      valuesObject:
         global:
           rbac:
             create: true
