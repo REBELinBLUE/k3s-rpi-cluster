@@ -55,16 +55,25 @@ spec:
             enable_api: true
 
           storage:
-            bucketNames:
-              chunks: loki_chunks
-              ruler: loki_ruler
-              admin: loki_admin
             type: filesystem
+            bucketNames:
+              chunks: "thisisafakebucket" # Helm chart is now mad when this isn't set
+              ruler: "thisisafakebucket"
+              admin: "thisisafakebucket"
+          commonStorageConfig:
+            type: filesystem
+          rulerConfig:
+            storage:
+              type: local
 
         deploymentMode: SingleBinary
 
         singleBinary:
           replicas: 1
+          persistence:
+            storageClass: local-path
+            enabled: true
+            size: 5Gi
 
         # Zero out replica counts of other deployment modes
         backend:
