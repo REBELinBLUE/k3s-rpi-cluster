@@ -58,11 +58,17 @@ spec:
             volume_enabled: true
           ruler:
             enable_api: true
+            storage:
+              type: local
           querier:
             # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
             max_concurrent: 4
           storage:
             type: filesystem
+            persistence:
+              storageClass: local-path
+              enabled: true
+              size: 10Gi
             bucketNames:
               chunks: "thisisafakebucket" # Helm chart is now mad when this isn't set
               ruler: "thisisafakebucket"
