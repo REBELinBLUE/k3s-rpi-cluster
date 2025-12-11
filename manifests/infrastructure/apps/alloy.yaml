@@ -47,12 +47,12 @@ spec:
 #          prometheusOperatorObjects:
 #            enabled: true
 
-#          podLogsViaKubernetesApi:
-#            enabled: true
-#            collector: alloy-logs
+          podLogsViaKubernetesApi:
+            enabled: true
+            collector: alloy-logs
 
           podLogs:
-            enabled: true
+            enabled: false
             gatherMethod: kubernetesApi
             collector: alloy-logs
             labelsToKeep: [ "app_kubernetes_io_name","container","instance","job","level","namespace","service_name","service_namespace","deployment_environment","deployment_environment_name" ]
