@@ -87,8 +87,6 @@ spec:
         chunksCache:
           # default is 500MB, with limited memory keep this smaller
           writebackSizeLimit: 10MB
-
-        resultsCache:
           resources:
             limits:
               memory: 1024Mi
