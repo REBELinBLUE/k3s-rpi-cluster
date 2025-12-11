@@ -14,12 +14,11 @@ spec:
   targetNamespace: argocd
   valuesContent: |-
     global:
+      domain: argocd.cluster.rebelinblue.com
       logging:
         format: json
         level: warn
     configs:
-      cm:
-        url: https://argocd.cluster.rebelinblue.com
       params:
         # Disable internal redirect to 443 as HTTPS is handled by the ingress controller and cert-manager
         # See https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v30
@@ -29,6 +28,13 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+    notifications:
+      enabled: true
+      notifiers:
+        service.slack: |
+          token: $slack-token
+      secret:
+        create: false
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
