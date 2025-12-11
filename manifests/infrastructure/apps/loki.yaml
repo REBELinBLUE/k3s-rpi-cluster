@@ -67,6 +67,8 @@ spec:
               chunks: "thisisafakebucket" # Helm chart is now mad when this isn't set
               ruler: "thisisafakebucket"
               admin: "thisisafakebucket"
+          commonStorageConfig:
+            type: filesystem
 
         deploymentMode: SingleBinary
         singleBinary:
