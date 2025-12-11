@@ -95,6 +95,13 @@ spec:
           # default is 500MB, with limited memory keep this smaller
           writebackSizeLimit: 10MB
 
+        resultsCache:
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              cpu: 500m
+              memory: 1024Mi
 
         # Zero out replica counts of other deployment modes
         backend:
