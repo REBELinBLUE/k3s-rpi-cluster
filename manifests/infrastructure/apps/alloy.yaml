@@ -24,3 +24,27 @@ spec:
 
       helm:
         releaseName: alloy
+
+        alloy:
+          mounts:
+            varlog: true
+
+        serviceMonitor:
+          enabled: true
+
+        ingress:
+          enabled: true
+          annotations:
+            forecastle.stakater.com/expose: "true"
+            forecastle.stakater.com/icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+            forecastle.stakater.com/appName: Dashboard
+            forecastle.stakater.com/group: Logging
+            kubernetes.io/tls-acme: "true"
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+            traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+          hosts:
+            - alloy.cluster.rebelinblue.com
+          tls:
+            - hosts:
+                - alloy.cluster.rebelinblue.com
+              secretName: alloy-tls
