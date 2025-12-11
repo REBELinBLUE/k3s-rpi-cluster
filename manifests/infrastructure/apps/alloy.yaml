@@ -44,8 +44,8 @@ spec:
           nodeLogs:
             enabled: false
 
-          prometheusOperatorObjects:
-            enabled: true
+#          prometheusOperatorObjects:
+#            enabled: true
 
 #          podLogsViaKubernetesApi:
 #            enabled: true
