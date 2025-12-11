@@ -61,9 +61,12 @@ spec:
           querier:
             # Default is 4, if you have enough memory and CPU you can increase, reduce if OOMing
             max_concurrent: 4
-
-        storage:
-          type: filesystem
+          storage:
+            type: filesystem
+            bucketNames:
+              chunks: "thisisafakebucket" # Helm chart is now mad when this isn't set
+              ruler: "thisisafakebucket"
+              admin: "thisisafakebucket"
 
         deploymentMode: SingleBinary
         singleBinary:
