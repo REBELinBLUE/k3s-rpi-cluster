@@ -26,9 +26,6 @@ spec:
       releaseName: loki
 
       valuesObject:
-        ingress: # fixme: enable this
-          enabled: false
-
         monitoring:
           serviceMonitor:
             enabled: true
@@ -69,10 +66,6 @@ spec:
               storageClass: local-path
               enabled: true
               size: 10Gi
-            bucketNames:
-              chunks: "thisisafakebucket" # Helm chart is now mad when this isn't set
-              ruler: "thisisafakebucket"
-              admin: "thisisafakebucket"
           commonStorageConfig:
             type: filesystem
 
