@@ -22,9 +22,8 @@ spec:
         url: https://argocd.cluster.rebelinblue.com
       params:
         # Disable internal redirect to 443 as HTTPS is handled by the ingress controller and cert-manager
-        # See https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v22
+        # See https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v30
         server.insecure: true
-        server.enable.proxy.extension: true
     server:
       metrics:
         enabled: true
