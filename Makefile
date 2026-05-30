@@ -4,9 +4,6 @@ ANSIBLE_DIR = ./ansible
 flash:
 	./scripts/flash.sh
 
-bootstrap:
-	./scripts/setup.sh
-
 secrets:
 	./scripts/update-sealed-secrets.sh
 

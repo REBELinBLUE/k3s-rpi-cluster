@@ -1,2 +1,2 @@
 [misc]
-disable = ["firmware"]
+disable = ["firmware", "self_update"]

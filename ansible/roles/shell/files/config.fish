@@ -1,5 +1,7 @@
 fish_add_path -p ~/.local/bin
 
+set -U fish_greeting ""
+
 export QUOTING_STYLE=literal
 
 eval (dircolors -c $HOME/.dircolors | sed 's/>&\/dev\/null$//')
