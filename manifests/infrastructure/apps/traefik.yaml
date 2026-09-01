@@ -34,9 +34,6 @@ spec:
                 hostname: "dmzjrebqnjm.d.firewalla.org"
                 ip: "192.168.115.193"
 
-          # additionalArguments:
-          #   - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
-
           service:
             type: NodePort
             externalIPs:
@@ -69,14 +66,15 @@ spec:
               expose:
                 default: true
             web:
-              hostPort: 80
-              redirections:
-                entryPoint:
-                  to: websecure
-                  scheme: https
-                  permanent: true
+              port: 80
+              http:
+                redirections:
+                  entryPoint:
+                    to: websecure
+                    scheme: https
+                    permanent: true
             websecure:
-              hostPort: 443
+              port: 443
 
           metrics:
             prometheus:
