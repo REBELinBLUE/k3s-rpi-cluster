@@ -25,9 +25,12 @@ spec:
         server.insecure: true
     server:
       metrics:
-        enabled: true
+        enabled: false
         serviceMonitor:
           enabled: true
+    service:
+      annotations:
+        - external-dns.kubernetes.io/hostname=argocd.cluster.rebelinblue.com.
     notifications:
       enabled: true
       notifiers:
