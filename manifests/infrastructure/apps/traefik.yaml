@@ -66,7 +66,8 @@ spec:
               expose:
                 default: true
             web:
-              port: 80
+              exposedPort: 80
+              port: 8000
               http:
                 redirections:
                   entryPoint:
@@ -74,7 +75,11 @@ spec:
                     scheme: https
                     permanent: true
             websecure:
-              port: 443
+              exposedPort: 443
+              port: 8443
+              http:
+                tls:
+                  enabled: true
 
           metrics:
             prometheus:
