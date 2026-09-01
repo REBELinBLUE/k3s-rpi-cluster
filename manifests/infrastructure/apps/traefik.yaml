@@ -34,7 +34,6 @@ spec:
                 hostname: "dmzjrebqnjm.d.firewalla.org"
                 ip: "192.168.115.193"
 
-
           service:
             type: NodePort
             externalIPs:
@@ -66,7 +65,7 @@ spec:
                 default: true
             web:
               exposedPort: 80
-              port: 8000
+              port: 80
               http:
                 redirections:
                   entryPoint:
@@ -75,7 +74,7 @@ spec:
                     permanent: true
             websecure:
               exposedPort: 443
-              port: 8443
+              port: 443
               http:
                 tls:
                   enabled: true
