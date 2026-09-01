@@ -32,6 +32,7 @@ spec:
                 enabled: false
               ingressEndpoint:
                 hostname: "dmzjrebqnjm.d.firewalla.org"
+                ip: "192.168.115.193"
 
           # additionalArguments:
           #   - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
