@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: longhorn
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+  sources:
+    - chart: longhorn
+      repoURL: https://charts.longhorn.io
+      targetRevision: 1.12.1
+
+      helm:
+        releaseName: longhorn
+        valuesObject:
+          preUpgradeChecker:
+            jobEnabled: false
