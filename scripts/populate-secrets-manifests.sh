@@ -7,6 +7,7 @@ set -euo pipefail
 : "${OAUTH_CLIENT_ID:?Environment variable OAUTH_CLIENT_ID must be set}"
 : "${OAUTH_CLIENT_SECRET:?Environment variable OAUTH_CLIENT_SECRET must be set}"
 : "${OAUTH_SECRET:?Environment variable OAUTH_SECRET must be set}"
+: "${LINODE_TOKEN:?Environment variable LINODE_TOKEN must be set}"
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
@@ -32,9 +33,9 @@ seal_secret() {
 }
 
 # Seal kured secret
-seal_secret "kured" "kube-system" \
-  "$REPO_ROOT/manifests/infrastructure/manifests/kured/sealed-secrets.yaml" \
-  "NOTIFY_URL=$SLACK_URL"
+# seal_secret "kured" "kube-system" \
+#   "$REPO_ROOT/manifests/infrastructure/manifests/kured/sealed-secrets.yaml" \
+#   "NOTIFY_URL=$SLACK_URL"
 
 # Seal traefik-forward-auth secret
 seal_secret "traefik-forward-auth" "ingress" \
@@ -42,3 +43,7 @@ seal_secret "traefik-forward-auth" "ingress" \
   "CLIENT_ID=$OAUTH_CLIENT_ID" \
   "CLIENT_SECRET=$OAUTH_CLIENT_SECRET" \
   "SECRET=$OAUTH_SECRET"
+
+seal_secret "linode" "external-dns" \
+  "$REPO_ROOT/manifests/infrastructure/manifests/external-dns/sealed-secrets.yaml" \
+  "LINODE_TOKEN=$LINODE_TOKEN"
