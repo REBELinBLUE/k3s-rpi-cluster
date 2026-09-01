@@ -97,18 +97,17 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - argocd.cluster.rebelinblue.com
-
----
-apiVersion: externaldns.k8s.io/v1alpha1
-kind: DNSEndpoint
-metadata:
-  name: argocd-server
-  namespace: argocd
-spec:
-  endpoints:
-  - dnsName: argocd.cluster.rebelinblue.com
-    recordTTL: 300
-    recordType: CNAME
+# ---
+# apiVersion: externaldns.k8s.io/v1alpha1
+# kind: DNSEndpoint
+# metadata:
+#   name: argocd-server
+#   namespace: argocd
+# spec:
+#   endpoints:
+#   - dnsName: argocd.cluster.rebelinblue.com
+#     recordTTL: 300
+#     recordType: CNAME
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
