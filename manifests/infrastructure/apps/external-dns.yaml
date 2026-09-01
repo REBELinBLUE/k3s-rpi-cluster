@@ -30,8 +30,7 @@ spec:
           domainFilters:
             - cluster.rebelinblue.com
 
-          provider:
-            name: linode
+          provider: linode # FIXME: Shouldn't this be provider.name
 
           logLevel: debug
 
