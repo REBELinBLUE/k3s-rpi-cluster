@@ -30,7 +30,8 @@ spec:
           domainFilters:
             - cluster.rebelinblue.com
 
-          provider: linode
+          provider:
+            name: linode
 
           logLevel: debug
 
