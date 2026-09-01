@@ -34,6 +34,9 @@ spec:
 
           logLevel: debug
 
+          managedRecordTypes:
+            - CNAME
+
           extraArgs:
             - --default-targets=dmzjrebqnjm.d.firewalla.org
 
