@@ -4,9 +4,9 @@ set -euo pipefail
 
 # Ensure required environment variables are set
 : "${SLACK_URL:?Environment variable SLACK_URL must be set}"
-: "${OAUTH_CLIENT_ID:?Environment variable OAUTH_CLIENT_ID must be set}"
-: "${OAUTH_CLIENT_SECRET:?Environment variable OAUTH_CLIENT_SECRET must be set}"
-: "${OAUTH_SECRET:?Environment variable OAUTH_SECRET must be set}"
+: "${GOOGLE_OAUTH_CLIENT_ID:?Environment variable GOOGLE_OAUTH_CLIENT_ID must be set}"
+: "${GOOGLE_OAUTH_CLIENT_SECRET:?Environment variable GOOGLE_OAUTH_CLIENT_SECRET must be set}"
+: "${GOOGLE_OAUTH_SECRET:?Environment variable GOOGLE_OAUTH_SECRET must be set}"
 : "${LINODE_TOKEN:?Environment variable LINODE_TOKEN must be set}"
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
@@ -40,9 +40,9 @@ seal_secret() {
 # Seal traefik-forward-auth secret
 seal_secret "traefik-forward-auth" "ingress" \
   "$REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/sealed-secrets.yaml" \
-  "CLIENT_ID=$OAUTH_CLIENT_ID" \
-  "CLIENT_SECRET=$OAUTH_CLIENT_SECRET" \
-  "SECRET=$OAUTH_SECRET"
+  "CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID" \
+  "CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET" \
+  "SECRET=$GOOGLE_OAUTH_SECRET"
 
 seal_secret "linode" "external-dns" \
   "$REPO_ROOT/manifests/infrastructure/manifests/external-dns/sealed-secrets.yaml" \
