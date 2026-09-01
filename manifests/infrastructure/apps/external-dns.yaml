@@ -29,11 +29,11 @@ spec:
 
           domainFilters:
             - cluster.rebelinblue.com
+          
+          managedRecordTypes:
+            - CNAME
 
           provider: linode # FIXME: Shouldn't this be provider.name
-
-          managedRecordTypes: 
-            - CNAME
 
           env:
             - name: LINODE_TOKEN
