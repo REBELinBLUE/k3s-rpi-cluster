@@ -33,7 +33,8 @@ spec:
           managedRecordTypes:
             - CNAME
 
-          provider: linode # FIXME: Shouldn't this be provider.name
+          provider:
+            name: linode
 
           env:
             - name: LINODE_TOKEN
