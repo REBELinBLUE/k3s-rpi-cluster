@@ -17,9 +17,9 @@ spec:
       prune: true
       selfHeal: true
 
-  info:
-    - name: 'Example:'
-      value: 'https://example.com'
+  # info:
+  #   - name: 'Example:'
+  #     value: 'https://example.com'
 
   sources:
     - chart: cert-manager
