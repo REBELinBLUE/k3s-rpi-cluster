@@ -26,21 +26,16 @@ spec:
         releaseName: external-dns
         valuesObject:
           policy: sync
+
           domainFilters:
             - cluster.rebelinblue.com
-          provider:
-            name: linode
+
+          provider: linode
+
           env:
             - name: LINODE_TOKEN
               value: "b148e05b3eb12a844ead87c949fe28d8742b6f2bdd9fde3a22742a55bc0e07bf"
 
-
-        #        args:
-        # - --source=service # ingress is also possible
-        # - --policy=upsert-only # prevents ExternalDNS from deleting any records, set --policy=sync to enable full synchronization (including deletions)
-        # - --domain-filter=example.com # (optional) limit to only example.com domains; change to match the zone created above.
-        # - --provider=linode
-        # env:
-          # - name: LINODE_TOKEN
-          #   value: "YOUR_LINODE_API_KEY"
+          serviceMonitor:
+            enabled: false
 
