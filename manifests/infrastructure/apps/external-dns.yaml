@@ -34,6 +34,8 @@ spec:
 
           provider: linode
 
+          logLevel: debug
+
           env:
             - name: LINODE_TOKEN
               valueFrom:
