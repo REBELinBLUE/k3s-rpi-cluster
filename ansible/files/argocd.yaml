@@ -24,9 +24,6 @@ spec:
         # See https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v30
         server.insecure: true
     server:
-      service:
-        annotations:
-          external-dns.kubernetes.io/hostname: argocd.cluster.rebelinblue.com.
       metrics:
         enabled: false
         serviceMonitor:
@@ -44,6 +41,8 @@ kind: IngressRoute
 metadata:
   name: argocd-server
   namespace: argocd
+  annotations:
+    external-dns.kubernetes.io/hostname: argocd.cluster.rebelinblue.com
 spec:
   entryPoints:
     - websecure

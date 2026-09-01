@@ -36,6 +36,11 @@ spec:
 
           logLevel: debug
 
+          source: 
+            - traefik-proxy
+            - ingress
+            - service
+
           env:
             - name: LINODE_TOKEN
               valueFrom:
