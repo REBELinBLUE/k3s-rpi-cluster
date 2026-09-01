@@ -30,6 +30,8 @@ spec:
             kubernetesIngress:
               publishedService:
                 enabled: false
+              ingressEndpoint:
+                hostname: "dmzjrebqnjm.d.firewalla.org"
 
           additionalArguments:
             - "--providers.kubernetesingress.ingressendpoint.ip=192.168.115.193"
