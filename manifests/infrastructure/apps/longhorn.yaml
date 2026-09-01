@@ -30,5 +30,5 @@ spec:
 
     - path: manifests/infrastructure/manifests/longhorn/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-      targetRevision: argo
+      targetRevision: main
 
