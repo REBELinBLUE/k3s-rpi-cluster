@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus-operator-crds
+  namespace: monitoring
+  annotations:
+    argocd.argoproj.io/sync-wave: "-10"
+spec:
+  project: default
+
+  destination:
+    namespace: prometheus-operator-crds
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+  sources:
+    - chart: prometheus-operator-crds
+      repoURL: https://prometheus-community.github.io/helm-charts
+      targetRevision: 28.0.1
+
+      helm:
+        releaseName: prometheus-operator-crds
+
