@@ -27,6 +27,8 @@ spec:
         valuesObject:
           policy: sync
 
+          # FIXME: https://github.com/kubernetes-sigs/external-dns/blob/master/docs/sources/traefik-proxy.md
+
           domainFilters:
             - cluster.rebelinblue.com
 
