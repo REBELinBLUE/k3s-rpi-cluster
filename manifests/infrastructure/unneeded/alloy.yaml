@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: alloy
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: logging
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+  sources:
+    - chart: k8s-monitoring
+      repoURL: https://grafana.github.io/helm-charts
+      targetRevision: 3.6.2
+
+      helm:
+        releaseName: alloy
+
+        valuesObject:
+          cluster:
+            name: k3s
+
+          destinations:
+            - name: loki
+              type: loki
+              url: http://loki-gateway.logging.svc.cluster.local/loki/api/v1/push
+
+          clusterEvents:
+            enabled: true
+            collector: alloy-logs
+
+          nodeLogs:
+            enabled: false
+
+          prometheusOperatorObjects:
+            enabled: true
+
+          podLogsViaKubernetesApi:
+            enabled: true
+            collector: alloy-logs
+
+          # Collectors
+          alloy-singleton:
+            enabled: false
+
+          alloy-metrics:
+            enabled: false
+
+          alloy-logs:
+            enabled: true
+            alloy:
+              mounts:
+                varlog: false
+                dockercontainers: false
+              clustering:
+                enabled: true
+
+          alloy-profiles:
+            enabled: false
+
+          alloy-receiver:
+            enabled: false
