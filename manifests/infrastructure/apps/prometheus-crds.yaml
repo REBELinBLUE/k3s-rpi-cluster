@@ -9,7 +9,7 @@ spec:
   project: default
 
   destination:
-    namespace: prometheus-operator-crds
+    namespace: monitoring
     name: in-cluster
 
   syncPolicy:
