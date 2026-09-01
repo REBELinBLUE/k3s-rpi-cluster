@@ -1,0 +1,75 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blackbox-exporter
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: monitoring
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    automated:
+      prune: true
+      selfHeal: true
+
+  source:
+    chart: prometheus-blackbox-exporter
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 11.6.1
+
+    helm:
+      releaseName: blackbox-exporter
+
+      valuesObject:
+        config:
+          modules:
+            http_2xx:
+              prober: http
+              timeout: 5s
+              http:
+                follow_redirects: true
+                preferred_ip_protocol: ip4
+                valid_http_versions:
+                  - HTTP/1.1
+                  - HTTP/2
+                valid_status_codes:
+                  - 200
+                  - 401
+                  - 403
+
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+
+        ingress:
+          enabled: true
+          className: traefik
+          annotations:
+            forecastle.stakater.com/expose: "true"
+            forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+            forecastle.stakater.com/appName: Blackbox Exporter
+            forecastle.stakater.com/group: Monitoring
+            kubernetes.io/tls-acme: "true"
+            cert-manager.io/cluster-issuer: letsencrypt-prod
+            traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+          hosts:
+            - host: blackbox.cluster.rebelinblue.com
+              paths:
+                - path: /
+                  pathType: ImplementationSpecific
+          tls:
+            - secretName: blackbox-exporter-tls
+              hosts:
+                - blackbox.cluster.rebelinblue.com
+
+        serviceMonitor:
+          enabled: true
