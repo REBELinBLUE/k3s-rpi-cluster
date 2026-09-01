@@ -35,7 +35,7 @@ spec:
           logLevel: debug
 
           extraArgs:
-            - --default-targets=dmzjrebqnjm.d.firewalla.org
+            - --default-targets=://dmzjrebqnjm.d.firewalla.org.
 
           env:
             - name: LINODE_TOKEN
