@@ -32,7 +32,7 @@ spec:
             name: linode
           env:
             - name: LINODE_TOKEN
-              value: "YOUR_LINODE_API_KEY"
+              value: "b148e05b3eb12a844ead87c949fe28d8742b6f2bdd9fde3a22742a55bc0e07bf"
 
 
         #        args:
