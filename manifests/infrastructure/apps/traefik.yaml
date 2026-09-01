@@ -39,11 +39,8 @@ spec:
             externalIPs:
               - 192.168.115.193
 
-          logs:
-            general:
-              level: INFO
-            access:
-              enabled: true
+          accessLog:
+            enabled: true
 
           tolerations:
             - effect: NoSchedule
@@ -54,12 +51,13 @@ spec:
           nodeSelector:
             node-role.kubernetes.io/control-plane: "true"
 
-          requests:
-            cpu: 25m
-            memory: 128Mi
-          limits:
-            cpu: 200m
-            meomry: 384Mi
+          resources:
+            requests:
+              cpu: 25m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              meomry: 384Mi
 
           ports:
             traefik:
