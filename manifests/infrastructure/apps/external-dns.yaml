@@ -35,6 +35,8 @@ spec:
 
           logLevel: debug
 
+          txtOwnerId: rpi-cluster-external-dns
+
           extraArgs:
             - --default-targets=dmzjrebqnjm.d.firewalla.org.
 
