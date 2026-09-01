@@ -36,7 +36,6 @@ spec:
 
           extraArgs:
             - --default-targets=://dmzjrebqnjm.d.firewalla.org.
-            - --force-default-targets
 
           env:
             - name: LINODE_TOKEN
