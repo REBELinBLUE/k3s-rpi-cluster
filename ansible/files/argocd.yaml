@@ -12,6 +12,7 @@ spec:
   repo: https://argoproj.github.io/argo-helm
   chart: argo-cd
   targetNamespace: argocd
+  version: 10.6.3
   valuesContent: |-
     global:
       domain: argocd.cluster.rebelinblue.com
