@@ -25,6 +25,9 @@ spec:
       helm:
         releaseName: longhorn
         valuesObject:
+          defaultSettings:
+            concurrentReplicaRebuildPerNodeLimit: 1
+
           persistence:
             defaultClassReplicaCount: 2
             defaultDataLocality: "best-effort"

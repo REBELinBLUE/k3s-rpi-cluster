@@ -17,6 +17,7 @@
     name:
       - net-tools
       - libraspberrypi-bin
+      - nfs-common
     state: present
 
 - name: Install additional packages
