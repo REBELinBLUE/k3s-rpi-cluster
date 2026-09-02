@@ -34,7 +34,7 @@ spec:
             - CNAME
 
           logLevel: debug
-          
+
           provider:
             name: linode
 
@@ -42,6 +42,7 @@ spec:
             - traefik-proxy
             - ingress
             - service
+            - crds
 
           env:
             - name: LINODE_TOKEN
