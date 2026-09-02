@@ -54,7 +54,7 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/tls-acme: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-prod
+          cert-manager.io/cluster-issuer: letsencrypt-staging
         className: traefik
         hosts:
         - host: launchpad.cluster.rebelinblue.com

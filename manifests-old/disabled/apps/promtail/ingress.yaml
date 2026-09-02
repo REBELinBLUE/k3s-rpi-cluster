@@ -12,7 +12,7 @@ metadata:
     forecastle.stakater.com/appName: Dashboard
     forecastle.stakater.com/group: Logging
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-staging
     traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
 spec:
   ingressClassName: traefik

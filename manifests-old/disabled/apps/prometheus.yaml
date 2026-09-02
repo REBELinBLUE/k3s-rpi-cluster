@@ -98,7 +98,7 @@ spec:
 #              forecastle.stakater.com/appName: Prometheus
 #              forecastle.stakater.com/group: Monitoring
 #              kubernetes.io/tls-acme: "true"
-#              cert-manager.io/cluster-issuer: letsencrypt-prod
+#              cert-manager.io/cluster-issuer: letsencrypt-staging
 #              traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
 #            hosts:
 #              - prometheus.cluster.rebelinblue.com
@@ -186,7 +186,7 @@ spec:
 #              forecastle.stakater.com/appName: Alert Manager
 #              forecastle.stakater.com/group: Monitoring
 #              kubernetes.io/tls-acme: "true"
-#              cert-manager.io/cluster-issuer: letsencrypt-prod
+#              cert-manager.io/cluster-issuer: letsencrypt-staging
 #              traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
 #            hosts:
 #              - alertmanager.cluster.rebelinblue.com
@@ -282,7 +282,7 @@ spec:
 #              forecastle.stakater.com/appName: Grafana
 #              forecastle.stakater.com/group: Monitoring
 #              kubernetes.io/tls-acme: "true"
-#              cert-manager.io/cluster-issuer: letsencrypt-prod
+#              cert-manager.io/cluster-issuer: letsencrypt-staging
 #              traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
 #            hosts:
 #              - grafana.cluster.rebelinblue.com

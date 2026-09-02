@@ -47,7 +47,7 @@ metadata:
     forecastle.stakater.com/appName: ArgoCD
     forecastle.stakater.com/group: Infrastructure
     kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   ingressClassName: traefik
   rules:

@@ -59,7 +59,7 @@ spec:
             forecastle.stakater.com/appName: Blackbox Exporter
             forecastle.stakater.com/group: Monitoring
             kubernetes.io/tls-acme: "true"
-            cert-manager.io/cluster-issuer: letsencrypt-prod
+            cert-manager.io/cluster-issuer: letsencrypt-staging
             traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
           hosts:
             - host: blackbox.cluster.rebelinblue.com
