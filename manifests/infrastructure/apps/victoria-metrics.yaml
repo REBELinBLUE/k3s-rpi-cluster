@@ -47,20 +47,20 @@ spec:
           # VictoriaMetrics
           vmsingle:
             enabled: true
-            # ingress:
-            #   enabled: false
-            #   ingressClassName: traefik
-            #   annotations:
-            #     kubernetes.io/tls-acme: "true"
-            #     cert-manager.io/cluster-issuer: letsencrypt-staging
-            #     traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
-            #   hosts:
-            #     - vm.cluster.rebelinblue.com
-            #   path: /
-            #   tls:
-            #     - secretName: vm-ingress-tls
-            #       hosts:
-            #         - vm.cluster.rebelinblue.com
+            ingress:
+              enabled: true
+              ingressClassName: traefik
+              annotations:
+                kubernetes.io/tls-acme: "true"
+                cert-manager.io/cluster-issuer: letsencrypt-staging
+                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+              hosts:
+                - metrics.cluster.rebelinblue.com
+              path: /
+              tls:
+                - secretName: metrics-ingress-tls
+                  hosts:
+                    - metrics.cluster.rebelinblue.com
 
           # VictoriaTraces
           vtsingle:
@@ -73,12 +73,13 @@ spec:
                 cert-manager.io/cluster-issuer: letsencrypt-staging
                 traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
               hosts:
-                - vm.cluster.rebelinblue.com
+                - traces.cluster.rebelinblue.com
               path: /
+              #path: /select/vmui/
               tls:
-                - secretName: vm-ingress-tls
+                - secretName: traces-ingress-tls
                   hosts:
-                    - vm.cluster.rebelinblue.com
+                    - traces.cluster.rebelinblue.com
             spec:
               retentionPeriod: 3d
               storage:
@@ -108,12 +109,13 @@ spec:
                 cert-manager.io/cluster-issuer: letsencrypt-staging
                 traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
               hosts:
-                - vm.cluster.rebelinblue.com
-              path: /select/vmui/
+                - logs.cluster.rebelinblue.com
+              #path: /select/vmui/
+              path: /
               tls:
-                - secretName: vm-ingress-tls
+                - secretName: logs-ingress-tls
                   hosts:
-                    - vm.cluster.rebelinblue.com
+                    - logs.cluster.rebelinblue.com
             spec:
               retentionPeriod: 30d
               storage:
