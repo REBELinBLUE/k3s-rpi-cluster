@@ -42,7 +42,7 @@ spec:
             - traefik-proxy
             - ingress
             - service
-            - crds
+            - crd
 
           env:
             - name: LINODE_TOKEN
