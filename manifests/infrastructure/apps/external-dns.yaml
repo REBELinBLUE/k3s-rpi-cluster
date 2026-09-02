@@ -41,6 +41,14 @@ spec:
             - ingress
             - service
 
+          resources:
+            requests:
+              cpu: 5m
+              memory: 10Mi
+            limits:
+              cpu: 10m
+              memory: 16Mi
+
           env:
             - name: LINODE_TOKEN
               valueFrom:
