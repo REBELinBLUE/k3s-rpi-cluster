@@ -121,6 +121,13 @@ spec:
                   hosts:
                     - logs.cluster.rebelinblue.com
             spec:
+              resources:
+                requests:
+                  memory: 64Mi
+                  cpu: 250m
+                limits:
+                  memory: 128Mi
+                  cpu: 500m
               retentionPeriod: 30d
               storage:
                 resources:

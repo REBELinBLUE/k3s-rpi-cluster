@@ -60,21 +60,21 @@ spec:
       replicas: 1
       resources:
         requests:
-          cpu: 50m
-          memory: 64Mi
-        limits:
-          cpu: 300m
+          cpu: 200m
           memory: 256Mi
+        limits:
+          cpu: 500m
+          memory: 384Mi
 
     server:
       replicas: 1
       resources:
         requests:
-          cpu: 50m
-          memory: 64Mi
-        limits:
-          cpu: 200m
+          cpu: 100m
           memory: 128Mi
+        limits:
+          cpu: 300m
+          memory: 256Mi
       metrics:
         enabled: true
         serviceMonitor:
