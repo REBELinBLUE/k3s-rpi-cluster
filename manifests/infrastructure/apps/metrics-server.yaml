@@ -24,6 +24,8 @@ spec:
       releaseName: metrics-server
 
       valuesObject:
+        # FIXME: Resources
+        
         metrics:
           enabled: true
 

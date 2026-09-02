@@ -31,8 +31,8 @@ spec:
               publishedService:
                 enabled: false
               ingressEndpoint:
-                hostname: "dmzjrebqnjm.d.firewalla.org"
-                ip: "192.168.115.193"
+                hostname: dmzjrebqnjm.d.firewalla.org
+                ip: 192.168.115.193
 
           service:
             spec:
@@ -78,7 +78,7 @@ spec:
           metrics:
             prometheus:
               service:
-                enabled: false
+                enabled: true
 
     - path: manifests/infrastructure/manifests/traefik/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
