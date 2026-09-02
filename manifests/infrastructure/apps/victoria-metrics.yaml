@@ -35,6 +35,12 @@ spec:
         releaseName: vm
         argocdReleaseOverride: victoria-metrics
 
+        vlagent:
+          enabled: true
+          spec:
+            k8sCollector:
+              enabled: true
+
         vlsingle:
           enabled: true
           spec:
