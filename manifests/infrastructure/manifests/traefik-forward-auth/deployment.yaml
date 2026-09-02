@@ -19,6 +19,13 @@ spec:
       containers:
         - image: thomseddon/traefik-forward-auth:2.2.0-arm
           name: traefik-forward-auth
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 20m
+              memory: 25Mi
           ports:
             - containerPort: 4181
               protocol: TCP
