@@ -26,6 +26,7 @@ spec:
 
       helm:
         releaseName: prometheus-operator-crds
+
         valuesObject:
           crds:
             annotations:
