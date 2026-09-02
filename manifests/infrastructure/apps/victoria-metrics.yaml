@@ -67,7 +67,7 @@ spec:
                 traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
               hosts:
                 - traces.cluster.rebelinblue.com
-              path: /select/vmui/
+              path: /
               tls:
                 - secretName: traces-ingress-tls
                   hosts:
@@ -98,7 +98,7 @@ spec:
                 traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
               hosts:
                 - logs.cluster.rebelinblue.com
-              path: /select/vmui/
+              path: /
               tls:
                 - secretName: logs-ingress-tls
                   hosts:
