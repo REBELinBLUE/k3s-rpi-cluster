@@ -40,7 +40,7 @@
         - /etc/containerd
         - /etc/docker
         - /opt/local-path-provisioner
-        # fixme: need longhorn path
+        - /var/lib/longhorn
 
 - name: Reboot cluster worker nodes
   hosts: workers
