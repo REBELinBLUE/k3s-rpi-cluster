@@ -26,4 +26,10 @@ spec:
 
       helm:
         releaseName: prometheus-operator-crds
+        valuesObject:
+          crds:
+            annotations:
+              argocd.argoproj.io/sync-options: "ServerSideApply=true"
+
+
 
