@@ -118,7 +118,7 @@ spec:
                     storage: 10Gi
 
           alertmanager:
-            enabled: false
+            enabled: true
             ingress:
               enabled: true
               ingressClassName: traefik
