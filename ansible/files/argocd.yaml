@@ -46,7 +46,10 @@ spec:
           memory: 128Mi
         limits:
           cpu: 400m
-          memory: 384Mi
+          memory: 512Mi
+
+    applicationSet:
+      enabled: false
 
     repoServer:
       replicas: 1
@@ -73,7 +76,7 @@ spec:
           enabled: true
 
     notifications:
-      enabled: true
+      enabled: false
       notifiers:
         service.slack: |
           token: $slack-token
