@@ -23,7 +23,7 @@
       args:
         creates: /usr/local/bin/k3s
       environment:
-        INSTALL_K3S_EXEC: "--tls-san cluster.lan --disable metrics-server --disable traefik --disable local-storage --disable servicelb"
+        INSTALL_K3S_EXEC: "--tls-san cluster.lan --disable metrics-server --disable traefik --disable servicelb" #  --disable local-storage 
 
     - name: Copy argocd manifest
       become: true
