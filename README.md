@@ -2,6 +2,8 @@
 
 Build a [Kubernetes](https://kubernetes.io/) ([K3s](https://github.com/rancher/k3s)) cluster with Raspberry Pis, using [Anisble](https://www.ansible.com) to bootstrap the machines, and utilizing [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) for managing cluster state.
 
+Do not expect the git history for this repository to be clean and tidy.
+
 ![Raspberry Pi Kubernetes Cluster](./images/cluster.jpg)
 
 ## Prerequisites:
