@@ -28,8 +28,13 @@ spec:
         releaseName: prometheus-operator-crds
 
         valuesObject:
+          crds:
+            annotations:
+              argocd.argoproj.io/sync-options: ServerSideApply=true
+              foo: bar
           annotations:
-            argocd.argoproj.io/sync-options: "ServerSideApply=true"
+            argocd.argoproj.io/sync-options: ServerSideApply=true
+            bar: baz
 
 
 
