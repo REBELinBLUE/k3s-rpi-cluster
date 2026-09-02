@@ -33,8 +33,6 @@ spec:
           managedRecordTypes:
             - CNAME
 
-          logLevel: debug
-
           provider:
             name: linode
 
