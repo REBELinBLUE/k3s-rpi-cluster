@@ -33,28 +33,30 @@ spec:
 
       helm:
         releaseName: vm
-        argocdReleaseOverride: victoria-metrics
 
-        vlagent:
-          enabled: true
-          spec:
-            k8sCollector:
-              enabled: true
+        valuesObject:
+          argocdReleaseOverride: victoria-metrics
 
-        vlsingle:
-          enabled: true
-          spec:
-            retentionPeriod: 30d
-            storage:
-              resources:
-                requests:
-                  storage: 10Gi
+          vlagent:
+            enabled: true
+            spec:
+              k8sCollector:
+                enabled: true
 
-        grafana:
-          plugins:
-            - victoriametrics-metrics-datasource
-            - victoriametrics-logs-datasource
+          vlsingle:
+            enabled: true
+            spec:
+              retentionPeriod: 30d
+              storage:
+                resources:
+                  requests:
+                    storage: 10Gi
 
-        defaultDashboards:
-          annotations:
-            argocd.argoproj.io/sync-options: ServerSideApply=true
+          grafana:
+            plugins:
+              - victoriametrics-metrics-datasource
+              - victoriametrics-logs-datasource
+
+          defaultDashboards:
+            annotations:
+              argocd.argoproj.io/sync-options: ServerSideApply=true
