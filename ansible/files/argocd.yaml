@@ -93,9 +93,13 @@ kind: IngressRoute
 metadata:
   name: argocd-server
   namespace: argocd
+  annotations:
+    external-dns.kubernetes.io/hostname: argocd.cluster.rebelinblue.com
+    external-dns.alpha.kubernetes.io/hostname: argocd.cluster.rebelinblue.com
 spec:
   entryPoints:
     - websecure
+    - web
   routes:
     - kind: Rule
       match: Host(`argocd.cluster.rebelinblue.com`)
