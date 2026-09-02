@@ -25,6 +25,10 @@ spec:
       helm:
         releaseName: longhorn
         valuesObject:
+          persistence:
+            defaultClassReplicaCount: 2
+            defaultDataLocality: "best-effort"
+
           preUpgradeChecker:
             jobEnabled: false
 
