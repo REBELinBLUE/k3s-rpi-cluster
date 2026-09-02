@@ -14,20 +14,76 @@ spec:
   targetNamespace: argocd
   valuesContent: |-
     global:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 256Mi
+
       domain: argocd.cluster.rebelinblue.com
       logging:
         format: json
         level: warn
+
     configs:
       params:
         # Disable internal redirect to 443 as HTTPS is handled by the ingress controller and cert-manager
         # See https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#traefik-v30
         server.insecure: true
+
+    dex:
+      enabled: false
+
+    redis:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+
+    controller:
+      replicas: 1
+      # Slows down background processing to prevent CPU spikes
+      statusProcessors: 2
+      operationProcessors: 1
+      # Stops Argo CD from querying the Git repo every 3 minutes
+      timeoutReconciliation: 600s 
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 400m
+          memory: 384Mi
+
+    repoServer:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 300m
+          memory: 256Mi
+
     server:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: 200m
+          memory: 128Mi
       metrics:
         enabled: false
         serviceMonitor:
           enabled: true
+
     notifications:
       enabled: true
       notifiers:
