@@ -44,10 +44,6 @@ spec:
           cpu: 100m
           memory: 64Mi
 
-    configs:
-      cm:
-        "timeout.reconciliation": 600s
-
     controller:
       resources:
         requests:
