@@ -37,23 +37,9 @@ spec:
         valuesObject:
           argocdReleaseOverride: victoria-metrics
 
-          # # VictoriaLogs Agent
+          # VictoriaLogs Agent
           vlagent:
             enabled: true
-            ingress:
-              enabled: true
-              ingressClassName: traefik
-              annotations:
-                kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
-              hosts:
-                - vm.cluster.rebelinblue.com
-              path: /
-              tls:
-                - secretName: vm-ingress-tls
-                  hosts:
-                    - vm.cluster.rebelinblue.com
             spec:
               k8sCollector:
                 enabled: true
@@ -62,7 +48,7 @@ spec:
           vtsingle:
             enabled: true
             ingress:
-              enabled: false
+              enabled: true
               ingressClassName: traefik
               annotations:
                 kubernetes.io/tls-acme: "true"
