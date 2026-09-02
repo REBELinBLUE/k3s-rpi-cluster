@@ -37,13 +37,6 @@ spec:
         valuesObject:
           argocdReleaseOverride: victoria-metrics
 
-          # VictoriaLogs Agent
-          vlagent:
-            enabled: true
-            spec:
-              k8sCollector:
-                enabled: true
-
           # VictoriaMetrics
           vmsingle:
             enabled: true
@@ -64,7 +57,7 @@ spec:
 
           # VictoriaTraces
           vtsingle:
-            enabled: true
+            enabled: false
             ingress:
               enabled: true
               ingressClassName: traefik
@@ -86,26 +79,16 @@ spec:
                   requests:
                     storage: 10Gi
 
-          alertmanager:
-            enabled: true
-            ingress:
-              enabled: true
-              ingressClassName: traefik
-              annotations:
-                kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
-              hosts:
-                - alertmanager.cluster.rebelinblue.com
-              path: /
-              tls:
-                - secretName: alertmanager-ingress-tls
-                  hosts:
-                    - alertmanager.cluster.rebelinblue.com
+          # VictoriaLogs Agent
+          vlagent:
+            enabled: false
+            spec:
+              k8sCollector:
+                enabled: true
 
           # VictoriaLogs
           vlsingle:
-            enabled: true
+            enabled: false
             ingress:
               enabled: true
               ingressClassName: traefik
@@ -134,7 +117,25 @@ spec:
                   requests:
                     storage: 10Gi
 
+          alertmanager:
+            enabled: false
+            ingress:
+              enabled: true
+              ingressClassName: traefik
+              annotations:
+                kubernetes.io/tls-acme: "true"
+                cert-manager.io/cluster-issuer: letsencrypt-staging
+                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+              hosts:
+                - alertmanager.cluster.rebelinblue.com
+              path: /
+              tls:
+                - secretName: alertmanager-ingress-tls
+                  hosts:
+                    - alertmanager.cluster.rebelinblue.com
+
           grafana:
+            eanbled: false
             ingress:
               enabled: true
               annotations:
