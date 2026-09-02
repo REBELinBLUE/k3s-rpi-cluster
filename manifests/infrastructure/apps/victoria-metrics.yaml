@@ -43,6 +43,15 @@ spec:
               k8sCollector:
                 enabled: true
 
+          vtsingle:
+            enabled: true
+            spec:
+              retentionPeriod: 3d
+              storage:
+                resources:
+                  requests:
+                    storage: 10Gi
+
           vlsingle:
             enabled: true
             spec:
