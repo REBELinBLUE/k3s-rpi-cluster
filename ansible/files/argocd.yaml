@@ -23,9 +23,6 @@ spec:
       - effect: NoSchedule
         key: node.kubernetes.io/unschedulable
 
-      nodeSelector:
-        node-role.kubernetes.io/control-plane: "true"
-
     configs:
       params:
         # Disable internal redirect to 443 as HTTPS is handled by the ingress controller and cert-manager
