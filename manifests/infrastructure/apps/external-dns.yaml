@@ -36,6 +36,11 @@ spec:
           provider:
             name: linode
 
+          sources: 
+            - traefik-proxy
+            - ingress
+            - service
+
           env:
             - name: LINODE_TOKEN
               valueFrom:
