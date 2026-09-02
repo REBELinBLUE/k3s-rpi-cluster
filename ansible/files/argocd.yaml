@@ -57,11 +57,11 @@ spec:
       replicas: 1
       resources:
         requests:
-          cpu: 200m
+          cpu: 500m
           memory: 256Mi
         limits:
-          cpu: 500m
-          memory: 384Mi
+          cpu: 750m
+          memory: 512Mi
 
     server:
       replicas: 1
