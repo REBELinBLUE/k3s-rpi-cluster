@@ -90,18 +90,7 @@ spec:
           enabled: true
 
     notifications:
-      enabled: true
-      metrics:
-        enabled: true
-        serviceMonitor:
-          enabled: true
-      notifiers:
-        service.slack: |
-          token: $slack-token
-      secret:
-        create: true
-        items:
-          slack-token: xoxb-45148463796-11972036848658-t6jCpMtt0kXiieGEuIq3kNyL
+      enabled: false
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -151,8 +140,6 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-  annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: k8s-events
 
 spec:
   project: default
