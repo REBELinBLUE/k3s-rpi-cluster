@@ -94,7 +94,6 @@ metadata:
   name: argocd-server
   namespace: argocd
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: argocd.cluster.rebelinblue.com
     external-dns.alpha.kubernetes.io/target: dmzjrebqnjm.d.firewalla.org
 spec:
   entryPoints:
