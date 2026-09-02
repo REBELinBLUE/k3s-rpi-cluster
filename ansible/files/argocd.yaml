@@ -14,14 +14,6 @@ spec:
   targetNamespace: argocd
   valuesContent: |-
     global:
-      resources:
-        requests:
-          cpu: 50m
-          memory: 64Mi
-        limits:
-          cpu: 200m
-          memory: 256Mi
-
       domain: argocd.cluster.rebelinblue.com
       logging:
         format: json
@@ -45,13 +37,11 @@ spec:
           cpu: 100m
           memory: 64Mi
 
+    configs:
+      cm:
+        "timeout.reconciliation": 600s
+
     controller:
-      replicas: 1
-      # Slows down background processing to prevent CPU spikes
-      statusProcessors: 2
-      operationProcessors: 1
-      # Stops Argo CD from querying the Git repo every 3 minutes
-      timeoutReconciliation: 600s 
       resources:
         requests:
           cpu: 100m
@@ -80,7 +70,7 @@ spec:
           cpu: 200m
           memory: 128Mi
       metrics:
-        enabled: false
+        enabled: true
         serviceMonitor:
           enabled: true
 
