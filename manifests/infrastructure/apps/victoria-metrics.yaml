@@ -24,4 +24,5 @@ spec:
 
       helm:
         releaseName: victoria-metrics
+        argocdReleaseOverride: victoria-metrics
 
