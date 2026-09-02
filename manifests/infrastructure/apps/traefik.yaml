@@ -75,6 +75,7 @@ spec:
             websecure:
               hostPort: 443
 
+          # FIXME: Double check this
           metrics:
             prometheus:
               service:

@@ -25,12 +25,20 @@
       environment:
         INSTALL_K3S_EXEC: "--tls-san cluster.lan --disable metrics-server --disable traefik --disable servicelb --disable local-storage"
 
-    - name: Copy argocd manifest
+    - name: Copy ArgoCD manifest
       become: true
       ansible.builtin.copy:
         src: files/argocd.yaml
         dest: /var/lib/rancher/k3s/server/manifests/argocd.yaml
         mode: "0600"
+
+    - name: Copy CRDs manifest
+      become: true
+      ansible.builtin.copy:
+        src: files/crds.yaml
+        dest: /var/lib/rancher/k3s/server/manifests/crds.yaml
+        mode: "0600"
+
 
     - name: Read the node token
       become: true
