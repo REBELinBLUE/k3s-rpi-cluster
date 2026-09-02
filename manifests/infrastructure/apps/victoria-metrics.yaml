@@ -50,6 +50,11 @@ spec:
                 requests:
                   storage: 10Gi
 
+        grafana:
+          plugins:
+            - victoriametrics-metrics-datasource
+            - victoriametrics-logs-datasource
+
         defaultDashboards:
           annotations:
             argocd.argoproj.io/sync-options: ServerSideApply=true
