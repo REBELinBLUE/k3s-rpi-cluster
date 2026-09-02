@@ -143,29 +143,29 @@ spec:
                 hosts:
                   - grafana.cluster.rebelinblue.com
 
-          grafana.ini:
-            users:
-              auto_assign_org: true
-              auto_assign_org_role: Admin
-            auth:
-              disable_login_form: true
-              disable_signout_menu: true
-            auth.anonymous:
-              enabled: true
-              org_role: Admin
-            auth.basic:
-              enabled: false
-            auth.proxy:
-              enabled: false
-              header_name: X-Forwarded-User
-              header_property: email
-              auto_sign_up: true
-            alerting:
-              enabled: false
-            unified_alerting:
-              enabled: false
-            analytics:
-              check_for_updates: false
+            grafana.ini:
+              users:
+                auto_assign_org: true
+                auto_assign_org_role: Admin
+              auth:
+                disable_login_form: true
+                disable_signout_menu: true
+              auth.anonymous:
+                enabled: true
+                org_role: Admin
+              auth.basic:
+                enabled: false
+              auth.proxy:
+                enabled: false
+                header_name: X-Forwarded-User
+                header_property: email
+                auto_sign_up: true
+              alerting:
+                enabled: false
+              unified_alerting:
+                enabled: false
+              analytics:
+                check_for_updates: false
 
             plugins:
               - victoriametrics-metrics-datasource
