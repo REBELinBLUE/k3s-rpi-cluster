@@ -135,7 +135,7 @@ spec:
                     - alertmanager.cluster.rebelinblue.com
 
           grafana:
-            eanbled: false
+            enabled: true
             ingress:
               enabled: true
               annotations:
