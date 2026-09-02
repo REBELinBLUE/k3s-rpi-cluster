@@ -133,7 +133,6 @@ spec:
               annotations:
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: letsencrypt-staging
-              labels: {}
               path: /
               pathType: Prefix
             hosts:
