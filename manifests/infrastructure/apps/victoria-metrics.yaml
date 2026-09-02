@@ -135,12 +135,12 @@ spec:
                 cert-manager.io/cluster-issuer: letsencrypt-staging
               path: /
               pathType: Prefix
-            hosts:
-              - grafana.cluster.rebelinblue.com
-            tls:
-             - secretName: grafana-tls
-               hosts:
-                 - grafana.cluster.rebelinblue.com
+              hosts:
+                - grafana.cluster.rebelinblue.com
+              tls:
+              - secretName: grafana-tls
+                hosts:
+                  - grafana.cluster.rebelinblue.com
 
             plugins:
               - victoriametrics-metrics-datasource
