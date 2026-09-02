@@ -79,16 +79,16 @@ spec:
                   requests:
                     storage: 10Gi
 
-          # VictoriaLogs Agent
+          # VictoriaLogs Collector
           vlagent:
-            enabled: false
+            enabled: true
             spec:
               k8sCollector:
                 enabled: true
 
-          # VictoriaLogs
+          # VictoriaLogs Storage
           vlsingle:
-            enabled: false
+            enabled: true
             ingress:
               enabled: true
               ingressClassName: traefik
