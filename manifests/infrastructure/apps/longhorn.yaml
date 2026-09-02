@@ -31,6 +31,15 @@ spec:
           longhornUI:
             replicas: 1
 
+          longhornManager:
+            resources:
+              requests:
+                cpu: 250m
+                memory: 128Mi
+              limits:
+                cpu: 500m
+                memory: 256Mi
+
           persistence:
             defaultClassReplicaCount: 2
             defaultDataLocality: "best-effort"
