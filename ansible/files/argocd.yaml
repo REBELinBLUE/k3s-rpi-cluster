@@ -17,6 +17,15 @@ spec:
     global:
       domain: argocd.cluster.rebelinblue.com
 
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+      - effect: NoSchedule
+        key: node.kubernetes.io/unschedulable
+
+      nodeSelector:
+        node-role.kubernetes.io/control-plane: "true"
+
     configs:
       params:
         # Disable internal redirect to 443 as HTTPS is handled by the ingress controller and cert-manager
@@ -42,11 +51,11 @@ spec:
     controller:
       resources:
         requests:
-          cpu: 100m
-          memory: 128Mi
-        limits:
-          cpu: 400m
+          cpu: 250m
           memory: 512Mi
+        limits:
+          cpu: 500m
+          memory: 1024Mi
 
     applicationSet:
       replicas: 0
