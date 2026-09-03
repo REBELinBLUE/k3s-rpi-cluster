@@ -14,18 +14,18 @@
 
 - name: Ensure ~/.config/fish/ directory exists
   ansible.builtin.file:
-    path: /home/{{ ansible_user }}/.config/fish/
+    path: ~/.config/fish/
     state: directory
     mode: "0700"
 
 - name: Copy fish shell configuration
   ansible.builtin.copy:
     src: files/config.fish
-    dest: /home/{{ ansible_user }}/.config/fish/config.fish
+    dest: ~/.config/fish/config.fish
     mode: "0600"
 
 - name: Copy dircolors configuration
   ansible.builtin.copy:
     src: files/dircolors
-    dest: /home/{{ ansible_user }}/.dircolors
+    dest: ~/.dircolors
     mode: "0600"

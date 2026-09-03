@@ -93,3 +93,17 @@
         src: files/crds.yaml
         dest: /var/lib/rancher/k3s/server/manifests/crds.yaml
         mode: "0600"
+
+    - name: Wait for ArgoCD initial admin password
+      become: true
+      register: argocd_admin_secret
+      changed_when: false
+      until: argocd_admin_secret.rc == 0
+      retries: 30
+      delay: 10
+      ansible.builtin.command: >-
+        kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath={.data.password}
+
+    - name: Print ArgoCD initial admin password
+      ansible.builtin.debug:
+        msg: "ArgoCD initial admin password: {{ argocd_admin_secret.stdout | b64decode }}"

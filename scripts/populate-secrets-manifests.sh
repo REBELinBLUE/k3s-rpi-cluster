@@ -11,6 +11,8 @@ set -euo pipefail
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
+kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n kube-system rollout status deployment/sealed-secrets-controller --timeout=300s
+
 kubeseal --kubeconfig="$REPO_ROOT/k3s_config" --fetch-cert > "$REPO_ROOT/pub-sealed-secrets.pem"
 
 # Function to create and seal a secret

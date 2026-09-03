@@ -4,8 +4,12 @@ set -euo pipefail
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
+echo "Waiting for argocd-server to be available..."
+kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n argocd rollout status deployment/argocd-server --timeout=300s
+
 PWD=$(kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
 
+echo ""
 echo "ArgoCD initial admin password: $PWD"
 echo ""
 echo "Forwarding ArgoCD server to http://localhost:8090"

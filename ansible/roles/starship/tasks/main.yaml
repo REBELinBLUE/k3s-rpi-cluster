@@ -42,5 +42,5 @@
 - name: Copy starship prompt configuration
   ansible.builtin.copy:
     src: files/starship.toml
-    dest: /home/{{ ansible_user }}/.config/starship.toml
+    dest: ~/.config/starship.toml
     mode: "0600"

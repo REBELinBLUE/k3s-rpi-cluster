@@ -41,14 +41,14 @@
 
 - name: Ensure ~/.config/topgrade.d/ directory exists
   ansible.builtin.file:
-    path: /home/{{ ansible_user }}/.config/topgrade.d/
+    path: ~/.config/topgrade.d/
     state: directory
     mode: "0700"
 
 - name: Copy Topgrade configuration
   ansible.builtin.copy:
     src: files/topgrade.toml
-    dest: /home/{{ ansible_user }}/.config/topgrade.d/topgrade.toml
+    dest: ~/.config/topgrade.d/topgrade.toml
     mode: "0600"
 
 - name: Run Topgrade

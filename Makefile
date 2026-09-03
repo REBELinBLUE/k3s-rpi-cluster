@@ -7,6 +7,9 @@ flash:
 secrets:
 	./scripts/update-sealed-secrets.sh
 
+argo:
+	./scripts/proxy-argo.sh
+
 # Initial setup
 master:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) master.yaml
