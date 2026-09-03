@@ -43,4 +43,4 @@
   ansible.builtin.copy:
     src: files/starship.toml
     dest: /home/{{ ansible_user }}/.config/starship.toml
-    mode: "0644"
+    mode: "0600"
