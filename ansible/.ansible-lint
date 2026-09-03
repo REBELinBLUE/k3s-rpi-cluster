@@ -1,2 +1,5 @@
 ---
 profile: production
+exclude_paths:
+  - files/
+  - roles/*/files/
