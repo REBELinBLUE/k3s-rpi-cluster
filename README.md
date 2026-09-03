@@ -60,26 +60,26 @@ Do not expect the git history for this repository to be clean and tidy.
 3. Edit `~/.ssh/config` on the local machine to include the following (see [REBELinBLUE/dotfiles](https://github.com/REBELinBLUE/dotfiles/blob/master/files/.ssh/config.d/004-cluster.config))
 ```
 Host master
-    Hostname master.local # Or the IP address
+    Hostname cluster.lan # Or the IP address
     User ubuntu
 
 Host node-1
     Hostname 10.0.0.2
     ForwardAgent yes
     User ubuntu
-    ProxyCommand ssh -A master -W %h:%p
+    ProxyJump master
 
 Host node-2
     Hostname 10.0.0.3
     ForwardAgent yes
     User ubuntu
-    ProxyCommand ssh -A master -W %h:%p
+    ProxyJump master
 
 Host node-3
     Hostname 10.0.0.4
     ForwardAgent yes
     User ubuntu
-    ProxyCommand ssh -A master -W %h:%p
+    ProxyJump master
 ```
 4. Plug in the master RPI and let it boot
 5. Run `make master` to set up the master

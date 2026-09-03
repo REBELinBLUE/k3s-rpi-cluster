@@ -24,9 +24,9 @@
     owner: root
 
 - name: Reboot if config has changed
-  become: true
   when: not config_bak.stat.exists
-  ansible.builtin.reboot:
-
-- name: Waiting for server to come back
-  ansible.builtin.wait_for_connection:
+  become: true
+  block:
+    - name: Include reboot role
+      ansible.builtin.include_role:
+        name: reboot
