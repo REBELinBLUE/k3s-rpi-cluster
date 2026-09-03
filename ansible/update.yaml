@@ -1,0 +1,17 @@
+---
+
+- name: Update worker nodes
+  hosts: workers
+  gather_facts: false
+
+  roles:
+    - topgrade
+    - reboot
+
+- name: Update master node
+  hosts: controlplane
+  gather_facts: false
+
+  roles:
+    - topgrade
+    - reboot

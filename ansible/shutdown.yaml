@@ -2,6 +2,7 @@
 - name: Shutdown cluster worker nodes
   hosts: workers
   become: true
+  serial: 1
   gather_facts: false
   ignore_unreachable: true
 

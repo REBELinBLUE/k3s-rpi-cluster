@@ -4,15 +4,13 @@
   become: true
   gather_facts: false
 
-  tasks:
-    - name: Reboot worker node
-      ansible.builtin.reboot:
+  roles:
+    - reboot
 
 - name: Reboot cluster control plane nodes
   hosts: controlplane
   become: true
   gather_facts: false
 
-  tasks:
-    - name: Reboot control plane node
-      ansible.builtin.reboot:
+  roles:
+    - reboot

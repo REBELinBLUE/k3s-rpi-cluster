@@ -28,6 +28,9 @@ config:
 reboot:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) reboot.yaml
 
+update:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) update.yaml
+
 shutdown:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) shutdown.yaml
 

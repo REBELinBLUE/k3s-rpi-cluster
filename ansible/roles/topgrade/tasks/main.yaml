@@ -45,8 +45,13 @@
     state: directory
     mode: "0755"
 
-- name: Copy topgrade configuration
+- name: Copy Topgrade configuration
   ansible.builtin.copy:
     src: files/topgrade.toml
     dest: /home/{{ ansible_user }}/.config/topgrade.d/topgrade.toml
     mode: "0644"
+
+- name: Run Topgrade
+  ansible.builtin.command:
+    cmd: topgrade --yes
+  changed_when: true 

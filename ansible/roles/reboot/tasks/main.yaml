@@ -1,0 +1,6 @@
+---
+- name: Reboot host
+  ansible.builtin.reboot:
+
+- name: Waiting for host to come back
+  ansible.builtin.wait_for_connection:
