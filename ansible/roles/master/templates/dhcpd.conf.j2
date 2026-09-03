@@ -12,10 +12,10 @@ subnet 10.0.0.0 netmask 255.255.255.0 {
 	option routers 10.0.0.1;
 }
 
-{% for host in master_dhcp_hosts %}
-host {{ host.hostname }} {
-	hardware ethernet {{ host.mac }};
-	fixed-address {{ host.ip }};
+{% for host in groups['workers'] %}
+host {{ host }} {
+	hardware ethernet {{ hostvars[host].mac_address }};
+	fixed-address {{ hostvars[host].cluster_ip }};
 }
 
 {% endfor %}

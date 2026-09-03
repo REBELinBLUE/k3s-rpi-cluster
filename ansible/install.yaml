@@ -72,7 +72,7 @@
       args:
         creates: /usr/local/bin/k3s
       environment:
-        K3S_URL: "https://10.0.0.1:6443"
+        K3S_URL: "https://{{ hostvars[groups['controlplane'][0]].cluster_ip }}:6443"
         K3S_TOKEN: "{{ hostvars[groups['controlplane'][0]].k3s_node_token }}"
 
 - name: Bootstrap cluster

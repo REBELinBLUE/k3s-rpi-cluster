@@ -8,6 +8,15 @@ all:
     controlplane:
       hosts:
         master:
+          cluster_ip: 10.0.0.1
     workers:
       hosts:
-        node-[1:3]:
+        node-1:
+          cluster_ip: 10.0.0.2
+          mac_address: dc:a6:32:67:77:3e
+        node-2:
+          cluster_ip: 10.0.0.3
+          mac_address: dc:a6:32:67:76:b8
+        node-3:
+          cluster_ip: 10.0.0.4
+          mac_address: dc:a6:32:67:77:06

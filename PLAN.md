@@ -36,17 +36,6 @@ The workers play has both `serial: 1` and `ignore_unreachable: true`; the contro
 - `master.yaml`: drop `vars: {config_master: true}` from the `config` role entry (wifi stays enabled by default).
 - `workers.yaml`: add `vars: {config_disable_wifi: true}` to the `config` role entry.
 
-## Single source of truth for node topology
-
-The same 4 IPs (and MACs) live in three places that can drift independently: `roles/hosts/defaults/main.yaml` (hostname+IP), `roles/master/defaults/main.yaml` (hostname+IP+MAC), and a hardcoded `K3S_URL: "https://10.0.0.1:6443"` string in `install.yaml`.
-
-**Change (inventory host_vars, not `group_vars/`):**
-- `inventory.yaml`: add `ansible_host` (all 4 hosts) and `mac_address` (workers) using the real current values from the two defaults files.
-- Delete `roles/hosts/defaults/main.yaml`; rewrite `roles/hosts/tasks/main.yaml` to loop over `groups['all']` using `hostvars[item].ansible_host`.
-- Delete `roles/master/defaults/main.yaml`; rewrite `roles/master/templates/dhcpd.conf.j2` to loop over `groups['workers']` using `hostvars[host].ansible_host`/`mac_address`.
-- `install.yaml`: replace the hardcoded `K3S_URL` IP with `hostvars[groups['controlplane'][0]].ansible_host`.
-
-**Why inventory host_vars, not a `group_vars/`/`host_vars/` tree:** per-node IP/MAC is exactly what inventory variables are for, and `inventory.yaml` is already the one file touched when adding/removing a node. A whole new directory convention is more ceremony than 4 static hosts warrant.
 
 ## Stop hardcoding `/home/{{ ansible_user }}`
 

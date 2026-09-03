@@ -3,7 +3,7 @@
   become: true
   ansible.builtin.lineinfile:
     path: /etc/hosts
-    regexp: "^{{ item.ip }}\\s+{{ item.hostname }}"
-    line: "{{ item.ip }}\t{{ item.hostname }}"
+    regexp: "^{{ hostvars[item].cluster_ip }}\\s+{{ item }}"
+    line: "{{ hostvars[item].cluster_ip }}\t{{ item }}"
     state: present
-  loop: "{{ hosts_list }}"
+  loop: "{{ groups['all'] }}"
