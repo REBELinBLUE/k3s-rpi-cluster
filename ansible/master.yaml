@@ -6,8 +6,6 @@
   roles:
     - role: cleanup
     - role: config
-      vars:
-        config_master: true
     - role: packages
       vars:
         packages_additional:

@@ -14,16 +14,11 @@
     mode: "0644"
     owner: root
 
-- name: Select config file
-  when: not config_bak.stat.exists
-  ansible.builtin.set_fact:
-    config_to_use: "{{ 'master-config.txt' if config_master else 'workers-config.txt' }}"
-
-- name: Copy correct config file
+- name: Copy config file
   become: true
   when: not config_bak.stat.exists
-  ansible.builtin.copy:
-    src: "files/{{ config_to_use }}"
+  ansible.builtin.template:
+    src: config.txt.j2
     dest: "/boot/firmware/config.txt"
     mode: "0644"
     owner: root

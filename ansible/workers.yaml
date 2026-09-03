@@ -6,6 +6,8 @@
   roles:
     - role: cleanup
     - role: config
+      vars:
+        config_disable_wifi: true
     - role: packages
       vars:
         packages_additional:

@@ -16,8 +16,8 @@ enable_uart=0
 dtparam=audio=off
 
 # Disable WiFi and BlueTooth (Do not disable Wifi on Master)
-dtoverlay=pi3-disable-wifi
-dtoverlay=pi3-disable-bt
+{% if config_disable_wifi %}dtoverlay=pi3-disable-wifi
+{% endif %}dtoverlay=pi3-disable-bt
 
 # Change the temperatures the PoE fan comes on
 dtoverlay=rpi-poe

@@ -1,2 +1,2 @@
 ---
-config_master: false
+config_disable_wifi: false
