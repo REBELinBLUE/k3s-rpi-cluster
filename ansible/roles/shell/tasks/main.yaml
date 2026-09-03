@@ -22,10 +22,10 @@
   ansible.builtin.copy:
     src: files/config.fish
     dest: /home/{{ ansible_user }}/.config/fish/config.fish
-    mode: "0644"
+    mode: "0600"
 
 - name: Copy dircolors configuration
   ansible.builtin.copy:
     src: files/dircolors
     dest: /home/{{ ansible_user }}/.dircolors
-    mode: "0644"
+    mode: "0600"
