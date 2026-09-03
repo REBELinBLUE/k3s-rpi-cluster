@@ -22,9 +22,6 @@ reset:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) uninstall.yaml
 
 # Helpers
-config:
-	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) get-config.yaml
-
 reboot:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) reboot.yaml
 
