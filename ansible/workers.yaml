@@ -4,14 +4,14 @@
   gather_facts: false
 
   roles:
-    - cleanup
-    - config
+    - role: cleanup
+    - role: config
     - role: packages
       vars:
         packages_additional:
           - rfkill
-    - hosts
-    - cgroups
-    - shell
-    - topgrade
-    - starship
+    - role: hosts
+    - role: cgroups
+    - role: shell
+    - role: topgrade
+    - role: starship

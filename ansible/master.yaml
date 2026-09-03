@@ -4,7 +4,7 @@
   gather_facts: false
 
   roles:
-    - cleanup
+    - role: cleanup
     - role: config
       vars:
         config_master: true
@@ -13,9 +13,9 @@
         packages_additional:
           - isc-dhcp-server
           - iptables
-    - master
-    - hosts
-    - cgroups
-    - shell
-    - topgrade
-    - starship
+    - role: master
+    - role: hosts
+    - role: cgroups
+    - role: shell
+    - role: topgrade
+    - role: starship

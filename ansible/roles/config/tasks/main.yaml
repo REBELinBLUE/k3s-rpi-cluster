@@ -11,7 +11,7 @@
     remote_src: true
     src: /boot/firmware/config.txt
     dest: /boot/firmware/config.txt.bak
-    mode: "0755"
+    mode: "0644"
     owner: root
 
 - name: Select config file
@@ -25,7 +25,7 @@
   ansible.builtin.copy:
     src: "files/{{ config_to_use }}"
     dest: "/boot/firmware/config.txt"
-    mode: "0755"
+    mode: "0644"
     owner: root
 
 - name: Reboot if config has changed

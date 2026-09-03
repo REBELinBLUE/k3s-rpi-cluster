@@ -1,2 +1,0 @@
-roles/master/tasks/main.yaml syntax-check[unknown-module] skip
-shutdown.yaml syntax-check[unknown-module] skip

@@ -35,4 +35,4 @@ shutdown:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) shutdown.yaml
 
 lint:
-	cd $(ANSIBLE_DIR) && ansible-lint
+	cd $(ANSIBLE_DIR) && ansible-galaxy collection install -r requirements.yml && ansible-lint

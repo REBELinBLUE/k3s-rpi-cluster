@@ -19,7 +19,7 @@
     remote_src: true
     src: /boot/firmware/cmdline.txt
     dest: /boot/firmware/cmdline.txt.bak
-    mode: "0755"
+    mode: "0644"
 
 - name: Add required cgroup flags to cmdline
   become: true

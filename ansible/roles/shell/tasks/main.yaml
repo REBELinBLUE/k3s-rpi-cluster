@@ -16,7 +16,7 @@
   ansible.builtin.file:
     path: /home/{{ ansible_user }}/.config/fish/
     state: directory
-    mode: "0755"
+    mode: "0644"
 
 - name: Copy fish shell configuration
   ansible.builtin.copy:

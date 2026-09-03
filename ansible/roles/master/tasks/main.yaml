@@ -17,13 +17,13 @@
 
 - name: Enable and start isc-dhcp-server service
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: isc-dhcp-server.service
     enabled: true
     state: started
 
 - name: Ensure /usr/local/sbin directory exists
-  file:
+  ansible.builtin.file:
     path: /usr/local/sbin
     state: directory
     mode: "0755"
@@ -44,11 +44,13 @@
 
 - name: Reload systemd daemon
   become: true
-  command: systemctl daemon-reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+  changed_when: false
 
 - name: Enable NAT service
   become: true
-  systemd:
+  ansible.builtin.systemd:
     name: enable_nat.service
     enabled: true
     state: started

@@ -1,22 +1,43 @@
 ---
-# Available in apt in 25.04
 - name: Check if Starship binary exists
   register: starship_bin
   ansible.builtin.stat:
     path: /usr/local/bin/starship
 
-- name: Download Starship install script
-  when: not starship_bin.stat.exists
-  ansible.builtin.get_url:
-    url: https://starship.rs/install.sh
-    dest: /tmp/starship_install.sh
-    mode: "0755"
+- name: Check Starship version
+  when: starship_bin.stat.exists
+  ansible.builtin.command: /usr/local/bin/starship --version
+  register: starship_current_version
+  ignore_errors: true
+  changed_when: false
 
-- name: Run Starship installer
+- name: Determine if Starship should be installed/updated
+  ansible.builtin.set_fact:
+    starship_needs_install: "{{ not starship_bin.stat.exists or (starship_current_version.stdout.split(' ')[1] != starship_version) }}"
+
+- name: Download latest Starship release
+  when: starship_needs_install
+  ansible.builtin.get_url:
+    url: "https://github.com/starship/starship/releases/download/v{{ starship_version }}/starship-aarch64-unknown-linux-musl.tar.gz"
+    dest: /tmp/starship.tar.gz
+    checksum: "{{ starship_checksum }}"
+    mode: "0600"
+
+- name: Unzip Starship
   become: true
-  ansible.builtin.command: /tmp/starship_install.sh --yes
-  args:
-    creates: /usr/local/bin/starship
+  when: starship_needs_install
+  ansible.builtin.unarchive:
+    src: /tmp/starship.tar.gz
+    dest: /usr/local/bin/
+    remote_src: true
+
+- name: Ensure Starship binary is executable
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/bin/starship
+    mode: "0755"
+    owner: root
+    group: root
 
 - name: Copy starship prompt configuration
   ansible.builtin.copy:
