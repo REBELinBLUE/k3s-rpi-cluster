@@ -25,6 +25,19 @@
       environment:
         INSTALL_K3S_EXEC: "--tls-san cluster.lan --disable metrics-server --disable traefik --disable servicelb --disable local-storage"
 
+    - name: Read kubeconfig
+      become: true
+      register: k3s_config_raw
+      ansible.builtin.slurp:
+        src: /etc/rancher/k3s/k3s.yaml
+
+    - name: Write updated kubeconfig to localhost
+      delegate_to: localhost
+      ansible.builtin.copy:
+        dest: ../k3s_config
+        content: "{{ k3s_config_raw.content | b64decode | regex_replace('https://127\\.0\\.0\\.1', 'https://cluster.lan') | regex_replace('default', 'pi') }}"
+        mode: "0600"
+
     - name: Read the node token
       become: true
       ansible.builtin.slurp:

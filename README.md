@@ -85,6 +85,7 @@ Host node-3
 5. Run `make master` to set up the master
 6. Plug in the 3 remaining nodes and let them boot
 7. Run `make workers` to set up the worker nodes
-8. Run `make cluster` to set up K3s, this will install ArgoCD which will then install the content of the cluster.
-9. Once master has finished you can run `make config` to retrieve the kubeconfig. Use `kubectl --kubeconfig=k3s_config get nodes` to see that the nodes have been provisioned.
+8. Run `make cluster` to set up K3s, this will copy the kubeconfig locally, you can use `kubectl --kubeconfig=k3s_config get nodes` to see that the nodes have been provisioned. 
+9. Once the cluster has been started, ArgoCD will been installed and this with then install the content of the cluster.
 10. Run `./scripts/get-argo-token.sh` to get the ArgoCD initial admin password, then access the ArgoCD UI at `http://localhost:8090` with username `admin` and the retrieved password.
+11. Once `sealed-secret-controller` has started run `make secrets` to update sealed secrets so the remaining applications can start
