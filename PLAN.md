@@ -18,12 +18,6 @@ The workers play has both `serial: 1` and `ignore_unreachable: true`; the contro
 
 **Why not handlers:** `master.yaml`/`workers.yaml` run all their roles in a single play, and handlers only flush at end-of-play by default — a notified reboot from `config`/`cgroups` would be deferred until every later role (`packages`, `master`, `hosts`, `shell`, `topgrade`, `starship`) had already run against a stale, un-rebooted kernel/cmdline. `include_role` preserves today's correct "reboot immediately, then continue" ordering and introduces no new pattern (handlers aren't used anywhere else in this repo).
 
-## CI for `ansible-lint`
-
-`ansible-lint` is configured (`.ansible-lint` sets the strict `production` profile) but only runs manually via `make lint` — nothing stops a failing commit from landing. Net-new infra (repo has zero CI today).
-
-**Change:** add `.github/workflows/ansible-lint.yml` — on push/PR touching `ansible/**`: checkout, set up Python, `pip install ansible-lint`, `ansible-galaxy collection install -r ansible/requirements.yml`, run `ansible-lint` from `ansible/`.
-
 ## Out of scope (not planned)
 
 - `meta/main.yml` Galaxy metadata for any role — these roles are never published/shared.
