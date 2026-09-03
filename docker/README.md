@@ -26,28 +26,3 @@ docker build -f Dockerfile \
 
 docker push rebelinblue/kubeview-arm
 ```
-
-## Velero FS Freeze
-
-```bash
-cd velero-fsfreeze
-
-docker build -f Dockerfile \
-    -t rebelinblue/velero-fsfreeze:0.0.1 \
-    -t rebelinblue/velero-fsfreeze:latest .
-
-docker push rebelinblue/velero-fsfreeze
-```
-
-## Velero AWS Plug-in
-
-```bash
-cd velero-plugin-for-aws
-
-docker build -f Dockerfile \
-    --build-arg VELERO_AWS_PLUGIN_VERSION="v1.5.0" \
-    -t rebelinblue/velero-plugin-for-aws:1.5.0 \
-    -t rebelinblue/velero-plugin-for-aws:latest .
-
-docker push rebelinblue/velero-plugin-for-aws
-```
