@@ -1,5 +1,4 @@
 ---
-
 - name: Update worker nodes
   hosts: workers
   gather_facts: false

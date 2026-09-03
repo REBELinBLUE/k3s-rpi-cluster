@@ -54,4 +54,4 @@
 - name: Run Topgrade
   ansible.builtin.command:
     cmd: topgrade --yes
-  changed_when: true 
+  changed_when: true
