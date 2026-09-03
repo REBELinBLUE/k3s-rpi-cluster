@@ -57,7 +57,7 @@ Do not expect the git history for this repository to be clean and tidy.
 
 1. Ensure that [Raspberry Pi Imager](https://www.raspberrypi.com/software/) is installed
 2. Run `make flash` to flash the SSD drive for each RPI using RPI Imager. It will flash with `Ubuntu Server 24.04.3 LTS (64-bit)` and copy the `network-config` & `user-data` relevant to the node to the SSD.
-3. Edit `~/.ssh/config` on the local machine to include the following
+3. Edit `~/.ssh/config` on the local machine to include the following (see [REBELinBLUE/dotfiles](https://github.com/REBELinBLUE/dotfiles/blob/master/files/.ssh/config.d/004-cluster.config))
 ```
 Host master
     Hostname master.local # Or the IP address
