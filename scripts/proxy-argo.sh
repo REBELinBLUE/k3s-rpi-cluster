@@ -14,4 +14,6 @@ echo "ArgoCD initial admin password: $PWD"
 echo ""
 echo "Forwarding ArgoCD server to http://localhost:8090"
 
+open http://localhost:8090
+
 kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n argocd port-forward service/argocd-server 8090:80
