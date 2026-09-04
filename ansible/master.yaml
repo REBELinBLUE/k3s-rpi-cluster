@@ -15,5 +15,6 @@
     - role: hosts
     - role: cgroups
     - role: shell
+    # TODO: Not sure topgrade is necessary
     - role: topgrade
     - role: starship

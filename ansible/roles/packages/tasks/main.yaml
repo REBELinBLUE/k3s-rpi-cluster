@@ -1,4 +1,23 @@
 ---
+- name: Check if snapd is installed
+  ansible.builtin.command: snap list
+  register: snap_list
+  changed_when: false
+  failed_when: false
+
+- name: Remove snapd
+  become: true
+  ansible.builtin.command: snap remove snapd
+  when: snap_list.rc == 0
+
+- name: Purge snapd package
+  become: true
+  ansible.builtin.apt:
+    name: snapd
+    state: absent
+    purge: true
+    autoremove: true
+
 - name: Update apt cache
   become: true
   ansible.builtin.apt:
