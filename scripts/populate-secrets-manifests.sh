@@ -11,6 +11,11 @@ set -euo pipefail
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
+until kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n kube-system get deployment/sealed-secrets-controller &>/dev/null; do
+  echo "Waiting for sealed-secrets-controller deployment to exist..."
+  sleep 5
+done
+
 kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n kube-system rollout status deployment/sealed-secrets-controller --timeout=300s
 
 kubeseal --kubeconfig="$REPO_ROOT/k3s_config" --fetch-cert > "$REPO_ROOT/pub-sealed-secrets.pem"

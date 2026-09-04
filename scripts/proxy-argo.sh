@@ -4,6 +4,11 @@ set -euo pipefail
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
+until kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n argocd get deployment/argocd-server &>/dev/null; do
+  echo "Waiting for argocd-server deployment to exist..."
+  sleep 5
+done
+
 echo "Waiting for argocd-server to be available..."
 kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n argocd rollout status deployment/argocd-server --timeout=300s
 
