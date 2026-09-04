@@ -43,11 +43,11 @@ spec:
 
           resources:
             requests:
-              cpu: 30m
-              memory: 48Mi
-            limits:
               cpu: 60m
-              memory: 75Mi
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 96Mi
 
           env:
             - name: LINODE_TOKEN

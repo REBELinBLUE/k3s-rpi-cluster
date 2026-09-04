@@ -34,11 +34,11 @@ spec:
 
           resources:
             requests:
-              cpu: 30m
-              memory: 32Mi
-            limits:
-              cpu: 50m
+              cpu: 60m
               memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 96Mi
 
     - path: manifests/infrastructure/manifests/cert-manager-webhook-linode/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
