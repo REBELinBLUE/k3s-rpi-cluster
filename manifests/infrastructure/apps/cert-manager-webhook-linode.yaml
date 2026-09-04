@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager-webhook-linode
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: cert-manager
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+  # info:
+  #   - name: 'Example:'
+  #     value: 'https://example.com'
+
+  sources:
+    - path: deploy/cert-manager-webhook-linode/
+      repoURL: https://github.com/linode/cert-manager-webhook-linode
+      targetRevision: v0.4.1
+
+      helm:
+        releaseName: cert-manager-webhook-linode
+        valuesObject:

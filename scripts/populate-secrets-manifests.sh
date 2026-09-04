@@ -54,3 +54,7 @@ seal_secret "traefik-forward-auth" "ingress" \
 seal_secret "linode" "external-dns" \
   "$REPO_ROOT/manifests/infrastructure/manifests/external-dns/sealed-secrets.yaml" \
   "LINODE_TOKEN=$LINODE_TOKEN"
+
+seal_secret "linode-credentials" "cert-manager" \
+  "$REPO_ROOT/manifests/infrastructure/manifests/cert-manager-webhook-linode/sealed-secrets.yaml" \
+  "token=$LINODE_TOKEN"

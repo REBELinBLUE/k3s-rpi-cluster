@@ -10,6 +10,10 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-staging
     solvers:
+      - dns01:
+          webhook:
+            solverName: linode
+            groupName: cluster.rebelinblue.com
       - http01:
           ingress:
             class: traefik
@@ -25,6 +29,10 @@ spec:
     privateKeySecretRef:
       name: letsencrypt
     solvers:
+      - dns01:
+          webhook:
+            solverName: linode
+            groupName: cluster.rebelinblue.com
       - http01:
           ingress:
             class: traefik
