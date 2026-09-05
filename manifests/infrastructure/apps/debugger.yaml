@@ -6,6 +6,8 @@ metadata:
 spec:
   project: default
 
+  # Move to apps not infrastructure, along with podinfo
+
   destination:
     namespace: kube-system
     name: in-cluster
