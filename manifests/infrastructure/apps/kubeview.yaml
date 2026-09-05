@@ -26,6 +26,8 @@ spec:
         releaseName: kubeview
 
         valuesObject:
+          debug: true
+          
           tolerations:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
