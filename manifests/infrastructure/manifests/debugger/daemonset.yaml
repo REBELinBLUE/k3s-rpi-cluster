@@ -23,7 +23,7 @@ spec:
           operator: Exists
       containers:
         - name: utils
-          image: rebelinblue/utils:0.1
+          image: rebelinblue/utils:latest
           imagePullPolicy: Always
           securityContext:
             privileged: true
