@@ -27,7 +27,7 @@ spec:
 
         valuesObject:
           debug: true
-          
+
           tolerations:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
@@ -44,4 +44,4 @@ spec:
             annotations:
               kubernetes.io/tls-acme: "true"
               cert-manager.io/cluster-issuer: letsencrypt-staging
-              traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+              traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd

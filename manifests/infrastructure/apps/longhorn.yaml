@@ -62,4 +62,4 @@ spec:
               forecastle.stakater.com/group: Infrastructure
               kubernetes.io/tls-acme: "true"
               cert-manager.io/cluster-issuer: letsencrypt-staging
-              traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+              traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd

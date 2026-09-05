@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: traefik-forward-auth
-  namespace: ingress
+  namespace: traefik
   labels:
     app: traefik-forward-auth
 spec:

@@ -7,7 +7,7 @@ spec:
   project: default
 
   destination:
-    namespace: ingress
+    namespace: traefik
     name: in-cluster
 
   syncPolicy:

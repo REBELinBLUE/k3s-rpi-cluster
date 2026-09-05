@@ -46,7 +46,7 @@ spec:
               annotations:
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - metrics.cluster.rebelinblue.com
               path: /
@@ -64,7 +64,7 @@ spec:
               annotations:
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - traces.cluster.rebelinblue.com
               path: /
@@ -100,7 +100,7 @@ spec:
               annotations:
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - logs.cluster.rebelinblue.com
               path: /
@@ -130,7 +130,7 @@ spec:
               annotations:
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - alertmanager.cluster.rebelinblue.com
               path: /
@@ -146,7 +146,7 @@ spec:
               annotations:
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: letsencrypt-staging
-                traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               path: /
               pathType: Prefix
               hosts:

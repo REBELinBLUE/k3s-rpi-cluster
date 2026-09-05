@@ -13,7 +13,7 @@ metadata:
     forecastle.stakater.com/group: Logging
     kubernetes.io/tls-acme: "true"
     cert-manager.io/cluster-issuer: letsencrypt-staging
-    traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:

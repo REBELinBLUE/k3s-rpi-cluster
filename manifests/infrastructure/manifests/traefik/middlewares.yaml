@@ -3,7 +3,7 @@ apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: forward-auth
-  namespace: ingress
+  namespace: traefik
 spec:
   forwardAuth:
     address: http://traefik-forward-auth.ingress.svc

@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: traefik-forward-auth
-  namespace: ingress
+  namespace: traefik
 spec:
   selector:
     app: traefik-forward-auth

@@ -7,7 +7,7 @@ spec:
   project: default
 
   destination:
-    namespace: traefik-forward-auth
+    namespace: traefik
     name: in-cluster
 
   syncPolicy:
