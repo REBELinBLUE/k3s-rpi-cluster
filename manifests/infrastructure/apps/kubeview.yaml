@@ -24,7 +24,7 @@ spec:
 
     - path: deploy/helm/kubeview/
       repoURL: https://github.com/rebelinblue/kubeview/
-      targetRevision: main #2.2.0
+      targetRevision: probe-values #2.2.0
 
       helm:
         releaseName: kubeview
