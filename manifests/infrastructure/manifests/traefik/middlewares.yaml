@@ -6,7 +6,7 @@ metadata:
   namespace: traefik
 spec:
   forwardAuth:
-    address: http://traefik-forward-auth.ingress.svc
+    address: http://traefik-forward-auth.traefik.svc
     authResponseHeaders:
       - X-Forwarded-User
 

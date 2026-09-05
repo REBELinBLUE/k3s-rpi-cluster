@@ -7,7 +7,7 @@ spec:
   project: default
 
   destination:
-    namespace: kubeview
+    namespace: kube-system
     name: in-cluster
 
   syncPolicy:
@@ -18,16 +18,14 @@ spec:
       selfHeal: true
 
   sources:
-    - path: deploy/helm/kubeview/
-      repoURL: https://github.com/benc-uk/kubeview/
+    - chart: kubeview
+      repoURL: https://code.benco.io/kubeview/deploy/helm
       targetRevision: 2.2.0
 
       helm:
         releaseName: kubeview
 
         valuesObject:
-          debug: true
-
           tolerations:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
