@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubeview
+  namespace: kubeview
+spec:
+  project: default
+
+  destination:
+    namespace: kubeview
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+  sources:
+    - path: deploy/helm/kubeview/
+      repoURL: https://github.com/benc-uk/kubeview/
+      targetRevision: 2.2.0
+
+      helm:
+        releaseName: kubeview
+
+        valuesObject:
+          ingress:
+            enabled: true
+            host: kubeview.cluster.rebelinblue.com
+            tlsSecretName: kubeview-tls
+            className: traefik
+            annotations:
+              kubernetes.io/tls-acme: "true"
+              cert-manager.io/cluster-issuer: letsencrypt-staging
+              traefik.ingress.kubernetes.io/router.middlewares: ingress-forward-auth@kubernetescrd
