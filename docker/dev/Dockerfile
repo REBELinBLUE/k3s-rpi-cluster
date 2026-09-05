@@ -1,8 +1,8 @@
-FROM debian:10-slim
+FROM debian:12-slim
 
 WORKDIR /root
 
-RUN echo 'deb http://deb.debian.org/debian buster-backports main' > /etc/apt/sources.list.d/backports.list
+#RUN echo 'deb http://deb.debian.org/debian buster-backports main' > /etc/apt/sources.list.d/backports.list
 
 RUN apt-get update -qq && \
     apt-get install -y apt-transport-https \
@@ -24,7 +24,7 @@ RUN apt-get update -qq && \
                        traceroute \
                        iputils-ping \
                        net-tools \
-                       netcat \
+                       netcat-openbsd \
                        iproute2 \
                        strace \
                        telnet \

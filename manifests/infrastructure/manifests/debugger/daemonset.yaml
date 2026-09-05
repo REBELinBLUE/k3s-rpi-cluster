@@ -18,16 +18,18 @@ spec:
       hostIPC: true
       hostNetwork: true
       tolerations:
-      - operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+          operator: Exists
       containers:
-      - name: utils
-        image: rebelinblue/utils:0.1
-        imagePullPolicy: Always
-        securityContext:
-          privileged: true
-        volumeMounts:
-          - name: host
-            mountPath: /host
+        - name: utils
+          image: rebelinblue/utils:0.1
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: host
+              mountPath: /host
       volumes:
         - name: host
           hostPath:
