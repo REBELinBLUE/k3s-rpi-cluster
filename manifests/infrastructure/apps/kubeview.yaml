@@ -7,7 +7,7 @@ spec:
   project: default
 
   destination:
-    namespace: kube-system
+    namespace: kubeview
     name: in-cluster
 
   syncPolicy:
@@ -18,8 +18,8 @@ spec:
       selfHeal: true
 
   sources:
-    - chart: kubeview
-      repoURL: https://code.benco.io/kubeview/deploy/helm
+    - path: deploy/helm/kubeview/
+      repoURL: https://github.com/benc-uk/kubeview/
       targetRevision: 2.2.0
 
       helm:
