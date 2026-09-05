@@ -18,14 +18,25 @@ spec:
       selfHeal: true
 
   sources:
+    # - chart: kubeview
+    #   repoURL: https://code.benco.io/kubeview/deploy/helm
+    #   targetRevision: 2.0.6
+
     - path: deploy/helm/kubeview/
-      repoURL: https://github.com/benc-uk/kubeview/
-      targetRevision: 2.2.0
+      repoURL: https://github.com/rebelinblue/kubeview/
+      targetRevision: main #2.2.0
 
       helm:
         releaseName: kubeview
 
         valuesObject:
+
+          livenessProbe:
+            initialDelaySeconds: 30
+
+          readinessProbe:
+            initialDelaySeconds: 30
+
           tolerations:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
