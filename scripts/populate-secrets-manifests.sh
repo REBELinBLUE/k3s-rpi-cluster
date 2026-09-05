@@ -11,14 +11,19 @@ set -euo pipefail
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
-until kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n kube-system get deployment/sealed-secrets-controller &>/dev/null; do
+until kubectl --context pi -n kube-system get deployment/sealed-secrets-controller &>/dev/null; do
   echo "Waiting for sealed-secrets-controller deployment to exist..."
   sleep 5
 done
 
-kubectl --kubeconfig="$REPO_ROOT/k3s_config" -n kube-system rollout status deployment/sealed-secrets-controller --timeout=300s
+kubectl --context pi -n kube-system rollout status deployment/sealed-secrets-controller --timeout=300s
 
-kubeseal --kubeconfig="$REPO_ROOT/k3s_config" --fetch-cert > "$REPO_ROOT/pub-sealed-secrets.pem"
+# Backup keys
+#kubectl --context pi get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > sealed-secrets-key-backup.yaml
+
+# Decrypt
+#kubeseal --context pi < "manifests/infrastructure/manifests/external-dns/sealed-secrets.yaml" --recovery-unseal --recovery-private-key sealed-secrets-key-backup.yaml -o yaml
+
 
 # Function to create and seal a secret
 seal_secret() {
@@ -29,14 +34,14 @@ seal_secret() {
   local literals=("$@")
 
   # Build kubectl create secret generic command dynamically
-  local cmd=(kubectl --kubeconfig="$REPO_ROOT/k3s_config" create secret generic "$secret_name" --namespace="$namespace" --dry-run=client -o yaml)
+  local cmd=(kubectl --context pi create secret generic "$secret_name" --namespace="$namespace" --dry-run=client -o yaml)
 
   for literal in "${literals[@]}"; do
     cmd+=(--from-literal="$literal")
   done
 
   # Execute and pipe to kubeseal
-  "${cmd[@]}" | kubeseal --kubeconfig="$REPO_ROOT/k3s_config" -o yaml > "$output_file"
+  "${cmd[@]}" | kubeseal --context pi -o yaml > "$output_file"
 }
 
 # Seal kured secret
@@ -45,7 +50,7 @@ seal_secret() {
 #   "NOTIFY_URL=$SLACK_URL"
 
 # Seal traefik-forward-auth secret
-seal_secret "traefik-forward-auth" "ingress" \
+seal_secret "traefik-forward-auth" "traefik" \
   "$REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/sealed-secrets.yaml" \
   "CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID" \
   "CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET" \

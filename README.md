@@ -55,7 +55,7 @@ Do not expect the git history for this repository to be clean and tidy.
 
 # Bootstrapping the cluster
 
-1. Ensure that [Raspberry Pi Imager](https://www.raspberrypi.com/software/) is installed
+1. Ensure that [Raspberry Pi Imager](https://www.raspberrypi.com/software/) is installed along with `kubectl` and `kubecm`
 2. Run `make flash` to flash the SSD drive for each RPI using RPI Imager. It will flash with `Ubuntu Server 24.04.3 LTS (64-bit)` and copy the `network-config` & `user-data` relevant to the node to the SSD.
 3. Edit `~/.ssh/config` on the local machine to include the following (see [REBELinBLUE/dotfiles](https://github.com/REBELinBLUE/dotfiles/blob/master/files/.ssh/config.d/004-cluster.config))
 ```
@@ -85,7 +85,7 @@ Host node-3
 5. Run `make master` to set up the master
 6. Plug in the 3 remaining nodes and let them boot
 7. Run `make workers` to set up the worker nodes
-8. Run `make cluster` to set up K3s, this will copy the kubeconfig locally, you can use `kubectl --kubeconfig=k3s_config get nodes` to see that the nodes have been provisioned. 
+8. Run `make cluster` to set up K3s, this will copy the merge the kubeconfig locally and set the context to `pi`, you can use `kubectl get nodes` to see that the nodes have been provisioned. 
 9. Once the cluster has been started, ArgoCD will been installed and this with then install the content of the cluster.
 10. Run `make argo` to get the ArgoCD initial admin password, then access the ArgoCD UI at `http://localhost:8090` with username `admin` and the retrieved password.
 11. Run `make secrets` to update sealed secrets so the remaining applications can start

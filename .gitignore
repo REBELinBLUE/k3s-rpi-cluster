@@ -1,4 +1,2 @@
 ansible/.ansible/
-
-k3s_config
-pub-sealed-secrets.pem
+sealed-secrets-key-backup.yaml

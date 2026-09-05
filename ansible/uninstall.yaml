@@ -56,17 +56,17 @@
   roles:
     - reboot
 
-- name: Clean up local k3s_config and sealed secrets key
+- name: Clean up local kubeconfig
   hosts: localhost
   gather_facts: false
   connection: local
   tasks:
-    - name: Remove local k3s kubeconfig
-      ansible.builtin.file:
-        path: ../k3s_config
-        state: absent
+    - name: Remove pi context from local kube config
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - kubectl config unset current-context
+        - kubectl config delete-cluster pi
+        - kubectl config delete-user pi
+        - kubectl config delete-context pi
+      failed_when: false
 
-    - name: Remove local sealed secrets public key
-      ansible.builtin.file:
-        path: ../pub-sealed-secrets.pem
-        state: absent

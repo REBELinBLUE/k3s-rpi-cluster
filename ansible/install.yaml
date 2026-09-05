@@ -31,12 +31,47 @@
       ansible.builtin.slurp:
         src: /etc/rancher/k3s/k3s.yaml
 
-    - name: Write updated kubeconfig to localhost
+    - name: Create temp file for kubeconfig
+      delegate_to: localhost
+      register: k3s_config_tempfile
+      ansible.builtin.tempfile:
+        state: file
+        suffix: k3s_config
+
+    - name: Write updated kubeconfig to temp file
       delegate_to: localhost
       ansible.builtin.copy:
-        dest: ../k3s_config
+        dest: "{{ k3s_config_tempfile.path }}"
         content: "{{ k3s_config_raw.content | b64decode | regex_replace('https://127\\.0\\.0\\.1', 'https://cluster.lan') | regex_replace('default', 'pi') }}"
         mode: "0600"
+
+    - name: Back up local kubeconfig
+      delegate_to: localhost
+      ansible.builtin.copy:
+        src: ~/.kube/config
+        dest: ~/.kube/config.bak
+        remote_src: true
+        mode: "0600"
+      ignore_errors: true
+
+    - name: Ensure local kubeconfig exists
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: ~/.kube/config
+        state: touch
+        mode: "0600"
+        access_time: preserve
+        modification_time: preserve
+
+    - name: Merge kubeconfig into local kube config
+      delegate_to: localhost
+      ansible.builtin.command: kubecm add -f {{ k3s_config_tempfile.path }} --create --cover
+
+    - name: Delete temp kubeconfig file
+      delegate_to: localhost
+      ansible.builtin.file:
+        path: "{{ k3s_config_tempfile.path }}"
+        state: absent
 
     - name: Read the node token
       become: true
