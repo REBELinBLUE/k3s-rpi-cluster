@@ -26,6 +26,14 @@ spec:
         releaseName: kubeview
 
         valuesObject:
+          tolerations:
+            - effect: NoSchedule
+              key: node-role.kubernetes.io/control-plane
+              operator: Exists
+
+          nodeSelector:
+            node-role.kubernetes.io/control-plane: "true"
+
           ingress:
             enabled: true
             host: kubeview.cluster.rebelinblue.com
