@@ -5,12 +5,9 @@ global:
   repoURL: https://example.com
   targetRevision: foo
   manifestsPath: gitops/manifests
+
   firewallaAddress: dmzjrebqnjm.d.firewalla.org
   certManagerIssuer: letsencrypt-staging
-
-# Which set of templates to render: "infrastructure", "apps" or "bootstrap"
-# Always passed in as a helm parameter by the calling Application.
-group: ""
 
 # Per-app enable/disable switch, keyed by Application metadata.name.
 apps:
@@ -40,6 +37,10 @@ apps:
     enabled: false
   local-path-provisioner:
     enabled: false
+
+# Which set of templates to render: "infrastructure", "apps" or "bootstrap"
+# Always passed in as a helm parameter by the calling Application.
+group: ""
 
 # Per-app overrides, e.g.:
 # overrides:
