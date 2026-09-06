@@ -20,6 +20,10 @@ spec:
       parameters:
         - name: group
           value: apps
+        - name: global.repoURL
+          value: $ARGOCD_APP_SOURCE_REPO_URL
+        - name: global.targetRevision
+          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
 
   syncPolicy:
     automated:
