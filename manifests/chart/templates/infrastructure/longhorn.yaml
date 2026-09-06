@@ -1,3 +1,4 @@
+{{- if eq .Values.group "infrastructure" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -61,5 +62,6 @@ spec:
               forecastle.stakater.com/appName: Longhorn
               forecastle.stakater.com/group: Infrastructure
               kubernetes.io/tls-acme: "true"
-              cert-manager.io/cluster-issuer: letsencrypt-staging
+              cert-manager.io/cluster-issuer: {{ include "cluster-apps.certManagerIssuer" (dict "appName" "longhorn" "root" $) }}
               traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+{{- end }}

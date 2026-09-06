@@ -1,3 +1,4 @@
+{{- if eq .Values.group "apps" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -52,5 +53,6 @@ spec:
             className: traefik
             annotations:
               kubernetes.io/tls-acme: "true"
-              cert-manager.io/cluster-issuer: letsencrypt-staging
+              cert-manager.io/cluster-issuer: {{ include "cluster-apps.certManagerIssuer" (dict "appName" "kubeview" "root" $) }}
               traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+{{- end }}

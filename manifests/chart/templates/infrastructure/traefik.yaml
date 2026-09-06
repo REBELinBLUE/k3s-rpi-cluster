@@ -1,3 +1,4 @@
+{{- if eq .Values.group "infrastructure" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -31,7 +32,7 @@ spec:
               publishedService:
                 enabled: false
               ingressEndpoint:
-                hostname: dmzjrebqnjm.d.firewalla.org
+                hostname: {{ .Values.global.firewallaAddress }}
                 ip: 192.168.115.193
 
           service:
@@ -81,5 +82,6 @@ spec:
                 enabled: true
 
     - path: manifests/infrastructure/manifests/traefik/
-      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-      targetRevision: main
+      repoURL: {{ .Values.global.repoURL }}
+      targetRevision: {{ .Values.global.targetRevision }}
+{{- end }}

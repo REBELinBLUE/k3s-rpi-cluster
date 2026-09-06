@@ -1,3 +1,4 @@
+{{- if eq .Values.group "apps" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -24,3 +25,4 @@ spec:
 
       helm:
         releaseName: podinfo
+{{- end }}

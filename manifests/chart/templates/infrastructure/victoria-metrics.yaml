@@ -1,3 +1,5 @@
+{{- if eq .Values.group "infrastructure" }}
+{{- $issuer := include "cluster-apps.certManagerIssuer" (dict "appName" "victoria-metrics" "root" $) }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -45,7 +47,7 @@ spec:
               ingressClassName: traefik
               annotations:
                 kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
+                cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - metrics.cluster.rebelinblue.com
@@ -63,7 +65,7 @@ spec:
               ingressClassName: traefik
               annotations:
                 kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
+                cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - traces.cluster.rebelinblue.com
@@ -99,7 +101,7 @@ spec:
               ingressClassName: traefik
               annotations:
                 kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
+                cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - logs.cluster.rebelinblue.com
@@ -129,7 +131,7 @@ spec:
               ingressClassName: traefik
               annotations:
                 kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
+                cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               hosts:
                 - alertmanager.cluster.rebelinblue.com
@@ -145,7 +147,7 @@ spec:
               enabled: true
               annotations:
                 kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
+                cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               path: /
               pathType: Prefix
@@ -187,3 +189,4 @@ spec:
           defaultDashboards:
             annotations:
               argocd.argoproj.io/sync-options: ServerSideApply=true
+{{- end }}

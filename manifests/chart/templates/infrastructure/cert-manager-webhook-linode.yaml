@@ -1,3 +1,4 @@
+{{- if eq .Values.group "infrastructure" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -41,6 +42,6 @@ spec:
               memory: 96Mi
 
     - path: manifests/infrastructure/manifests/cert-manager-webhook-linode/
-      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-      targetRevision: main
-
+      repoURL: {{ .Values.global.repoURL }}
+      targetRevision: {{ .Values.global.targetRevision }}
+{{- end }}
