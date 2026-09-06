@@ -41,7 +41,7 @@ spec:
               cpu: 100m
               memory: 96Mi
 
-    - path: manifests/infrastructure/manifests/cert-manager-webhook-linode/
+    - path: gitops/manifests/cert-manager-webhook-linode/
       repoURL: {{ .Values.global.repoURL }}
       targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}

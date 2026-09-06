@@ -17,7 +17,7 @@ spec:
       prune: true
       selfHeal: true
   sources:
-    - path: manifests/infrastructure/manifests/debugger/
+    - path: gitops/manifests/debugger/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
       targetRevision: main
 

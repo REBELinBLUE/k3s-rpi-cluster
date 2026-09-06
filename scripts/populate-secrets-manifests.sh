@@ -22,7 +22,7 @@ kubectl --context pi -n kube-system rollout status deployment/sealed-secrets-con
 #kubectl --context pi get secret -n kube-system -l sealedsecrets.bitnami.com/sealed-secrets-key -o yaml > sealed-secrets-key-backup.yaml
 
 # Decrypt
-#kubeseal --context pi < "manifests/infrastructure/manifests/external-dns/sealed-secrets.yaml" --recovery-unseal --recovery-private-key sealed-secrets-key-backup.yaml -o yaml
+#kubeseal --context pi < "gitops/manifests/external-dns/sealed-secrets.yaml" --recovery-unseal --recovery-private-key sealed-secrets-key-backup.yaml -o yaml
 
 
 # Function to create and seal a secret
@@ -46,20 +46,20 @@ seal_secret() {
 
 # Seal kured secret
 # seal_secret "kured" "kube-system" \
-#   "$REPO_ROOT/manifests/infrastructure/manifests/kured/sealed-secrets.yaml" \
+#   "$REPO_ROOT/gitops/manifests/kured/sealed-secrets.yaml" \
 #   "NOTIFY_URL=$SLACK_URL"
 
 # Seal traefik-forward-auth secret
 seal_secret "traefik-forward-auth" "traefik" \
-  "$REPO_ROOT/manifests/infrastructure/manifests/traefik-forward-auth/sealed-secrets.yaml" \
+  "$REPO_ROOT/gitops/manifests/traefik-forward-auth/sealed-secrets.yaml" \
   "CLIENT_ID=$GOOGLE_OAUTH_CLIENT_ID" \
   "CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET" \
   "SECRET=$GOOGLE_OAUTH_SECRET"
 
 seal_secret "linode" "external-dns" \
-  "$REPO_ROOT/manifests/infrastructure/manifests/external-dns/sealed-secrets.yaml" \
+  "$REPO_ROOT/gitops/manifests/external-dns/sealed-secrets.yaml" \
   "LINODE_TOKEN=$LINODE_TOKEN"
 
 seal_secret "linode-credentials" "cert-manager" \
-  "$REPO_ROOT/manifests/infrastructure/manifests/cert-manager-webhook-linode/sealed-secrets.yaml" \
+  "$REPO_ROOT/gitops/manifests/cert-manager-webhook-linode/sealed-secrets.yaml" \
   "token=$LINODE_TOKEN"

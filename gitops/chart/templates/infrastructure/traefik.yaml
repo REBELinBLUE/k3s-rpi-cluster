@@ -81,7 +81,7 @@ spec:
               service:
                 enabled: true
 
-    - path: manifests/infrastructure/manifests/traefik/
+    - path: gitops/manifests/traefik/
       repoURL: {{ .Values.global.repoURL }}
       targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}

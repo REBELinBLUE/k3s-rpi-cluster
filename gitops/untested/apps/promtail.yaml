@@ -57,6 +57,6 @@ spec:
             - effect: NoSchedule
               key: node-role.kubernetes.io/control-plane
 
-    - path: manifests/infrastructure/manifests/promtail/
+    - path: gitops/manifests/promtail/
       repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
       targetRevision: main

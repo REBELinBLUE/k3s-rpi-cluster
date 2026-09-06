@@ -13,7 +13,7 @@ spec:
     name: in-cluster
 
   source:
-    path: manifests/chart
+    path: gitops/chart
     repoURL: {{ .Values.global.repoURL }}
     targetRevision: {{ .Values.global.targetRevision }}
     helm:

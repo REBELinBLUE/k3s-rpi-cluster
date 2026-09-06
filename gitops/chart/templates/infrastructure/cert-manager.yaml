@@ -73,7 +73,7 @@ spec:
                 cpu: 50m
                 memory: 32Mi
 
-    - path: manifests/infrastructure/manifests/cert-manager/
+    - path: gitops/manifests/cert-manager/
       repoURL: {{ .Values.global.repoURL }}
       targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}

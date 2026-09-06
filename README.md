@@ -21,7 +21,7 @@ Do not expect the git history for this repository to be clean and tidy.
 │   # Docker builds for ARM devices
 ├── ./docker
 │   # ArgoCD will deploy from this directory
-├── ./manifests
+├── ./gitops
 │   # Scripts and config for setting up the Raspberry Pis
 └── ./scripts
     │  # Cloud-init config for Raspberry Pi Imager

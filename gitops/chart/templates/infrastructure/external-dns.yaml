@@ -60,7 +60,7 @@ spec:
           serviceMonitor:
             enabled: true
 
-    - path: manifests/infrastructure/manifests/external-dns/
+    - path: gitops/manifests/external-dns/
       repoURL: {{ .Values.global.repoURL }}
       targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}
