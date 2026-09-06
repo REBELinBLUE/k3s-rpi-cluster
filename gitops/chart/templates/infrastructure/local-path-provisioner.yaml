@@ -1,8 +1,9 @@
-{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" "local-path-provisioner" "root" $)) "true") }}
+{{- $appName := "local-path-provisioner" -}}
+{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" $appName "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: local-path-provisioner
+  name: {{ $appName }}
   namespace: argocd
 spec:
   project: default
@@ -20,7 +21,7 @@ spec:
 
   # fixme: convert to helm chart
   source:
-    path: gitops/manifests/local-path-provisioner/
+    path: {{ .Values.global.manifestsPath }}/{{ $appName }}/
     repoURL: {{ .Values.global.repoURL }}
     targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}

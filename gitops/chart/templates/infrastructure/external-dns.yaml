@@ -1,8 +1,9 @@
-{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" "external-dns" "root" $)) "true") }}
+{{- $appName := "external-dns" -}}
+{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" $appName "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-dns
+  name: {{ $appName }}
   namespace: argocd
 spec:
   project: default
@@ -60,7 +61,7 @@ spec:
           serviceMonitor:
             enabled: true
 
-    - path: gitops/manifests/external-dns/
+    - path: {{ .Values.global.manifestsPath }}/{{ $appName }}/
       repoURL: {{ .Values.global.repoURL }}
       targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}

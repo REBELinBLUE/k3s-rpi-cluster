@@ -4,6 +4,7 @@ global:
   # These are only used for local `helm template`/`helm lint`.
   repoURL: https://example.com
   targetRevision: foo
+  manifestsPath: gitops/manifests
   firewallaAddress: dmzjrebqnjm.d.firewalla.org
   certManagerIssuer: letsencrypt-staging
 

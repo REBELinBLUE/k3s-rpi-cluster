@@ -1,8 +1,9 @@
-{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" "traefik-forward-auth" "root" $)) "true") }}
+{{- $appName := "traefik-forward-auth" -}}
+{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" $appName "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik-forward-auth
+  name: {{ $appName }}
   namespace: argocd
 spec:
   project: default
@@ -19,7 +20,7 @@ spec:
       selfHeal: true
 
   source:
-    path: gitops/manifests/traefik-forward-auth/
+    path: {{ .Values.global.manifestsPath }}/{{ $appName }}/
     repoURL: {{ .Values.global.repoURL }}
     targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}

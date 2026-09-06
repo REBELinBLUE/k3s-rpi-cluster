@@ -1,8 +1,9 @@
-{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" "cert-manager-webhook-linode" "root" $)) "true") }}
+{{- $appName := "cert-manager-webhook-linode" -}}
+{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" $appName "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cert-manager-webhook-linode
+  name: {{ $appName }}
   namespace: argocd
 spec:
   project: default
@@ -41,7 +42,7 @@ spec:
               cpu: 100m
               memory: 96Mi
 
-    - path: gitops/manifests/cert-manager-webhook-linode/
+    - path: {{ .Values.global.manifestsPath }}/{{ $appName }}/
       repoURL: {{ .Values.global.repoURL }}
       targetRevision: {{ .Values.global.targetRevision }}
 {{- end }}
