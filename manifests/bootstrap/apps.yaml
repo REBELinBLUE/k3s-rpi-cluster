@@ -12,7 +12,7 @@ spec:
     name: in-cluster
 
   source:
-    path: manifests/apps
+    path: manifests/apps/apps
     repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
     targetRevision: main
 

@@ -25,14 +25,23 @@
       environment:
         INSTALL_K3S_EXEC: "--node-taint node-role.kubernetes.io/control-plane:NoSchedule --tls-san cluster.lan --disable metrics-server --disable traefik --disable servicelb --disable local-storage"
 
+    - name: Check if pi context already exists locally
+      delegate_to: localhost
+      register: pi_context_check
+      ansible.builtin.command: kubectl config get-contexts pi
+      failed_when: false
+      changed_when: false
+
     - name: Read kubeconfig
       become: true
+      when: pi_context_check.rc != 0
       register: k3s_config_raw
       ansible.builtin.slurp:
         src: /etc/rancher/k3s/k3s.yaml
 
     - name: Create temp file for kubeconfig
       delegate_to: localhost
+      when: pi_context_check.rc != 0
       register: k3s_config_tempfile
       ansible.builtin.tempfile:
         state: file
@@ -40,19 +49,11 @@
 
     - name: Write updated kubeconfig to temp file
       delegate_to: localhost
+      when: pi_context_check.rc != 0
       ansible.builtin.copy:
         dest: "{{ k3s_config_tempfile.path }}"
         content: "{{ k3s_config_raw.content | b64decode | regex_replace('https://127\\.0\\.0\\.1', 'https://cluster.lan') | regex_replace('default', 'pi') }}"
         mode: "0600"
-
-    - name: Back up local kubeconfig
-      delegate_to: localhost
-      ansible.builtin.copy:
-        src: ~/.kube/config
-        dest: ~/.kube/config.bak
-        remote_src: true
-        mode: "0600"
-      ignore_errors: true
 
     - name: Ensure local kubeconfig exists
       delegate_to: localhost
@@ -63,12 +64,23 @@
         access_time: preserve
         modification_time: preserve
 
-    - name: Merge kubeconfig into local kube config
+    - name: Back up local kubeconfig
       delegate_to: localhost
+      when: pi_context_check.rc != 0
+      ansible.builtin.copy:
+        src: ~/.kube/config
+        dest: ~/.kube/config.bak
+        remote_src: true
+        mode: "0600"
+
+    - name: Merge kubeconfig into local kubeconfig
+      delegate_to: localhost
+      when: pi_context_check.rc != 0
       ansible.builtin.command: kubecm add -f {{ k3s_config_tempfile.path }} --create --cover
 
     - name: Delete temp kubeconfig file
       delegate_to: localhost
+      when: pi_context_check.rc != 0
       ansible.builtin.file:
         path: "{{ k3s_config_tempfile.path }}"
         state: absent
