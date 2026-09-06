@@ -8,6 +8,31 @@ global:
 # Always passed in as a helm parameter by the calling Application.
 group: ""
 
+# Per-app enable/disable switch, keyed by Application metadata.name.
+apps:
+  cert-manager-webhook-linode:
+    enabled: true
+  cert-manager:
+    enabled: true
+  external-dns:
+    enabled: true
+  longhorn:
+    enabled: true
+  metrics-server:
+    enabled: true
+  sealed-secrets-controller:
+    enabled: true
+  traefik-forward-auth:
+    enabled: true
+  traefik:
+    enabled: true
+  victoria-metrics:
+    enabled: true
+  kubeview:
+    enabled: true
+  podinfo:
+    enabled: true
+
 # Per-app overrides, e.g.:
 # overrides:
 #   kubernetes-dashboard:

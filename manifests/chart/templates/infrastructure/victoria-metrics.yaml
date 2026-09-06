@@ -1,4 +1,4 @@
-{{- if eq .Values.group "infrastructure" }}
+{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" "victoria-metrics" "root" $)) "true") }}
 {{- $issuer := include "cluster-apps.certManagerIssuer" (dict "appName" "victoria-metrics" "root" $) }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application

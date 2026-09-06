@@ -1,4 +1,4 @@
-{{- if eq .Values.group "apps" }}
+{{- if and (eq .Values.group "apps") (eq (include "cluster-apps.enabled" (dict "appName" "podinfo" "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
