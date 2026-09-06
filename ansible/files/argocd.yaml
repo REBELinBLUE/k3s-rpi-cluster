@@ -156,6 +156,12 @@ spec:
       parameters:
         - name: group
           value: bootstrap
+        # Inherit repoURL/targetRevision from this Application's own source,
+        # so they only ever need changing here.
+        - name: global.repoURL
+          value: $ARGOCD_APP_SOURCE_REPO_URL
+        - name: global.targetRevision
+          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
 
   syncPolicy:
     automated:
