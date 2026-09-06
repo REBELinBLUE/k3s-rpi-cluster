@@ -1,3 +1,4 @@
+{{- if eq .Values.group "bootstrap" }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -13,8 +14,8 @@ spec:
 
   source:
     path: manifests/chart
-    repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-    targetRevision: main
+    repoURL: {{ .Values.global.repoURL }}
+    targetRevision: {{ .Values.global.targetRevision }}
     helm:
       parameters:
         - name: group
@@ -24,3 +25,4 @@ spec:
     automated:
       prune: true
       selfHeal: true
+{{- end }}
