@@ -1,0 +1,42 @@
+{{- if eq .Values.group "bootstrap" }}
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+  namespace: argocd
+  annotations:
+    external-dns.alpha.kubernetes.io/target: {{ .Values.global.firewallaAddress }}
+spec:
+  entryPoints:
+    - websecure
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`argocd.cluster.rebelinblue.com`)
+      priority: 10
+      services:
+        - name: argocd-server
+          port: 80
+    - kind: Rule
+      match: Host(`argocd.cluster.rebelinblue.com`) && Header(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argocd-server
+          port: 80
+          scheme: h2c
+  tls:
+    secretName: argocd-server-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  secretName: argocd-server-tls
+  issuerRef:
+    name: {{ include "cluster-apps.certManagerIssuer" (dict "appName" "argocd" "root" $) }}
+    kind: ClusterIssuer
+  dnsNames:
+    - argocd.cluster.rebelinblue.com
+{{- end }}
