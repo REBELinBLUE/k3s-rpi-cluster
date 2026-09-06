@@ -9,12 +9,6 @@
       args:
         removes: /var/lib/rancher/k3s
 
-    - name: Remove node from cluster
-      delegate_to: "{{ groups['controlplane'][0] }}"
-      ansible.builtin.command: kubectl delete node {{ inventory_hostname }}
-      failed_when: false
-      changed_when: false
-
 - name: Uninstall K3s from control plane nodes
   hosts: controlplane
   gather_facts: false

@@ -1,32 +1,4 @@
 {{- if eq .Values.group "bootstrap" }}
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: argocd
-  namespace: argocd
-
-spec:
-  project: default
-
-  destination:
-    namespace: argocd
-    name: in-cluster
-
-  source:
-    path: gitops/chart
-    repoURL: {{ .Values.global.repoURL }}
-    targetRevision: {{ .Values.global.targetRevision }}
-    helm:
-      parameters:
-        - name: group
-          value: argocd
-
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-{{- end }}
-{{- if eq .Values.group "argocd" }}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
