@@ -5,6 +5,7 @@ metadata:
   name: argocd-server
   namespace: argocd
   annotations:
+    syncargocd.argoproj.io/sync-wave: "100"
     external-dns.alpha.kubernetes.io/target: {{ .Values.global.firewallaAddress }}
 spec:
   entryPoints:
@@ -32,6 +33,8 @@ kind: Certificate
 metadata:
   name: argocd-server
   namespace: argocd
+  annotations:
+    syncargocd.argoproj.io/sync-wave: "100"
 spec:
   secretName: argocd-server-tls
   issuerRef:
