@@ -1,6 +1,6 @@
 global:
   repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-  targetRevision: main
+  targetRevision: feature/argocd-apps-charts
   firewallaAddress: dmzjrebqnjm.d.firewalla.org
   certManagerIssuer: letsencrypt-staging
 
