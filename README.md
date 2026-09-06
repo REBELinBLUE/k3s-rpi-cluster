@@ -20,7 +20,7 @@ Do not expect the git history for this repository to be clean and tidy.
 ├── ./ansible
 │   # Docker builds for ARM devices
 ├── ./docker
-│   # Flux will scan and deploy from this directory
+│   # ArgoCD will deploy from this directory
 ├── ./manifests
 │   # Scripts and config for setting up the Raspberry Pis
 └── ./scripts
@@ -85,7 +85,7 @@ Host node-3
 5. Run `make master` to set up the master
 6. Plug in the 3 remaining nodes and let them boot
 7. Run `make workers` to set up the worker nodes
-8. Run `make cluster` to set up K3s, this will copy the merge the kubeconfig locally and set the context to `pi`, you can use `kubectl get nodes` to see that the nodes have been provisioned. 
+8. Run `make cluster` to set up K3s, this will copy and merge the kubeconfig locally and set the context to `pi`. 
 9. Once the cluster has been started, ArgoCD will been installed and this with then install the content of the cluster.
 10. Run `make argo` to get the ArgoCD initial admin password, then access the ArgoCD UI at `http://localhost:8090` with username `admin` and the retrieved password.
-11. Run `make secrets` to update sealed secrets so the remaining applications can start
+11. Run `make secrets` to update sealed secrets so the remaining applications can start. The secrets are sourced from a 1password environment.
