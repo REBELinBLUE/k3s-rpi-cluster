@@ -1,3 +1,4 @@
+{{- if and (eq .Values.group "apps") (eq (include "cluster-apps.enabled" (dict "appName" "debugger" "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -5,8 +6,6 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
-  # Move to apps not infrastructure, along with podinfo
 
   destination:
     namespace: kube-system
@@ -18,6 +17,6 @@ spec:
       selfHeal: true
   sources:
     - path: gitops/manifests/debugger/
-      repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-      targetRevision: main
-
+      repoURL: {{ .Values.global.repoURL }}
+      targetRevision: {{ .Values.global.targetRevision }}
+{{- end }}

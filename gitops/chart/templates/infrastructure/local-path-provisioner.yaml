@@ -1,3 +1,4 @@
+{{- if and (eq .Values.group "infrastructure") (eq (include "cluster-apps.enabled" (dict "appName" "local-path-provisioner" "root" $)) "true") }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -20,5 +21,6 @@ spec:
   # fixme: convert to helm chart
   source:
     path: gitops/manifests/local-path-provisioner/
-    repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
-    targetRevision: main
+    repoURL: {{ .Values.global.repoURL }}
+    targetRevision: {{ .Values.global.targetRevision }}
+{{- end }}

@@ -32,6 +32,10 @@ apps:
     enabled: true
   podinfo:
     enabled: true
+  debugger:
+    enabled: false
+  local-path-provisioner:
+    enabled: false
 
 # Per-app overrides, e.g.:
 # overrides:
