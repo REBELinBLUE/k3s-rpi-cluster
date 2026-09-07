@@ -22,4 +22,43 @@ spec:
     - chart: forecastle
       repoURL: https://stakater.github.io/stakater-charts/
       targetRevision: 2.1.1
-{{- end }}
+
+      helm:
+        releaseName: forecastle
+
+        valuesObject:
+          createCustomResource: true
+
+          config:
+            customApps: {}
+            headerBackground: null
+            headerForeground: null
+            instanceName: null
+            crdEnabled: true
+            namespaceSelector:
+              matchNames:
+                - logging
+                - monitoring
+                - apps
+                - ingress
+                - kube-system
+                - traefik
+                - longhorn
+            title: Launch Pad
+
+              ingress:
+            enabled: true
+            annotations:
+              kubernetes.io/tls-acme: "true"
+              cert-manager.io/cluster-issuer: letsencrypt-staging
+            className: traefik
+            hosts:
+            - host: launchpad.cluster.rebelinblue.com
+              paths:
+              - path: /
+                pathType: ImplementationSpecific
+            tls:
+            - hosts:
+              - launchpad.cluster.rebelinblue.com
+              secretName: forecastle-tls
+          {{- end }}
