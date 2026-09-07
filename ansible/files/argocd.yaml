@@ -112,25 +112,42 @@ spec:
     path: gitops/chart
 
     helm:
-      valuesObject:
-        group: bootstrap
+      parameters:
+        - name: group
+          value: bootstrap
+        - name: global.repoURL
+          value: $ARGOCD_APP_SOURCE_REPO_URL
+        - name: global.targetRevision
+          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
 
-        # Inherit repoURL/targetRevision from this Application's own source,
-        # so they only ever need changing here.
-        global:
-          repoURL: $ARGOCD_APP_SOURCE_REPO_URL
-          targetRevision: $ARGOCD_APP_SOURCE_TARGET_REVISION
-          ARGOCD_SERVER: $ARGOCD_SERVER
-          ARGOCD_AUTH_TOKEN: $ARGOCD_AUTH_TOKEN
-          ARGOCD_OPTS: $ARGOCD_OPTS
-          ARGOCD_CONFIG_DIR: $ARGOCD_CONFIG_DIR
-          ARGOCD_SERVER_NAME: $ARGOCD_SERVER_NAME
-          ARGOCD_REPO_SERVER_NAME: $ARGOCD_REPO_SERVER_NAME
-          ARGOCD_APPLICATION_CONTROLLER_NAME: $ARGOCD_APPLICATION_CONTROLLER_NAME
-          ARGOCD_REDIS_NAME: $ARGOCD_REDIS_NAME
-          ARGOCD_REDIS_HAPROXY_NAME: $ARGOCD_REDIS_HAPROXY_NAME
-          ARGOCD_REDIS_KEY_PREFIX: $ARGOCD_REDIS_KEY_PREFIX
-          ARGOCD_GRPC_KEEP_ALIVE_MIN: $ARGOCD_GRPC_KEEP_ALIVE_MIN
+
+        - name: vars.ARGOCD_APP_SOURCE_REPO_URL
+          value: $ARGOCD_APP_SOURCE_REPO_URL
+        - name: vars.ARGOCD_APP_SOURCE_TARGET_REVISION
+          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+        - name: global.ARGOCD_SERVER
+          value: $ARGOCD_SERVER
+        - name: global.ARGOCD_AUTH_TOKEN
+          value: $ARGOCD_AUTH_TOKEN
+        - name: global.ARGOCD_OPTS
+          value: $ARGOCD_OPTS
+        - name: global.ARGOCD_CONFIG_DIR
+          value: $ARGOCD_CONFIG_DIR
+        - name: global.ARGOCD_SERVER_NAME
+          value: $ARGOCD_SERVER_NAME
+        - name: global.ARGOCD_REPO_SERVER_NAME
+          value: $ARGOCD_REPO_SERVER_NAME
+        - name: global.ARGOCD_APPLICATION_CONTROLLER_NAME
+          value: $ARGOCD_APPLICATION_CONTROLLER_NAME
+        - name: global.ARGOCD_REDIS_NAME
+          value: $ARGOCD_REDIS_NAME
+        - name: global.ARGOCD_REDIS_HAPROXY_NAME
+          value: $ARGOCD_REDIS_HAPROXY_NAME
+        - name: global.ARGOCD_REDIS_KEY_PREFIX
+          value: $ARGOCD_REDIS_KEY_PREFIX
+        - name: global.ARGOCD_GRPC_KEEP_ALIVE_MIN
+          value: $ARGOCD_GRPC_KEEP_ALIVE_MIN
+  
 
   syncPolicy:
     automated:
