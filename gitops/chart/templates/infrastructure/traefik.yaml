@@ -75,7 +75,12 @@ spec:
                     permanent: true
             websecure:
               hostPort: 443
-
+              
+          ingressRoute:
+            dashboard:
+              enabled: true
+              middlewares: ["traefik-forward-auth@kubernetescrd"]
+              
           # FIXME: Double check this
           metrics:
             prometheus:

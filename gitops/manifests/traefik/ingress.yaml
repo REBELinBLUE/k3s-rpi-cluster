@@ -1,39 +1,39 @@
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: traefik-dashboard
-  namespace: traefik
-  annotations:
-    forecastle.stakater.com/expose: "true"
-    forecastle.stakater.com/network-restricted: "true"
-    forecastle.stakater.com/icon: https://pbs.twimg.com/media/CcZdW37UcAA9DZz?format=png&name=4096x4096
-    forecastle.stakater.com/appName: Traefik
-    forecastle.stakater.com/group: Infrastructure
-    kubernetes.io/tls-acme: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-staging
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
-spec:
-  ingressClassName: traefik
-  rules:
-    - host: traefik.cluster.rebelinblue.com
-      http:
-       paths:
-          - backend:
-              service:
-                name: traefik
-                port:
-                  number: 9000
-            path: /dashboard
-            pathType: ImplementationSpecific
-          - backend:
-              service:
-                name: traefik
-                port:
-                  number: 9000
-            path: /api
-            pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - traefik.cluster.rebelinblue.com
-      secretName: traefik-tls
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: traefik-dashboard
+#   namespace: traefik
+#   annotations:
+#     forecastle.stakater.com/expose: "true"
+#     forecastle.stakater.com/network-restricted: "true"
+#     forecastle.stakater.com/icon: https://pbs.twimg.com/media/CcZdW37UcAA9DZz?format=png&name=4096x4096
+#     forecastle.stakater.com/appName: Traefik
+#     forecastle.stakater.com/group: Infrastructure
+#     kubernetes.io/tls-acme: "true"
+#     cert-manager.io/cluster-issuer: letsencrypt-staging
+#     traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
+# spec:
+#   ingressClassName: traefik
+#   rules:
+#     - host: traefik.cluster.rebelinblue.com
+#       http:
+#        paths:
+#           - backend:
+#               service:
+#                 name: traefik
+#                 port:
+#                   number: 9000
+#             path: /dashboard
+#             pathType: ImplementationSpecific
+#           - backend:
+#               service:
+#                 name: traefik
+#                 port:
+#                   number: 9000
+#             path: /api
+#             pathType: ImplementationSpecific
+#   tls:
+#     - hosts:
+#         - traefik.cluster.rebelinblue.com
+#       secretName: traefik-tls
