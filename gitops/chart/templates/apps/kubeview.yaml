@@ -59,6 +59,7 @@ spec:
             className: traefik
             annotations:
               forecastle.stakater.com/expose: "true"
+              forecastle.stakater.com/network-restricted: "true"
               forecastle.stakater.com/icon: https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/960px-Kubernetes_logo_without_workmark.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail
               forecastle.stakater.com/appName: Kubeview
               forecastle.stakater.com/group: Apps

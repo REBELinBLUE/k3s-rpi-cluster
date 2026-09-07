@@ -53,10 +53,9 @@ metadata:
 spec:
   name: ArgoCD
   group: CI/CD
-  icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/argo-cd.png
+  icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
   url: https://argocd.cluster.rebelinblue.com
-  # networkRestricted: false
+  networkRestricted: true
   # properties:
   #   Version: "1.0"
-  # instance: "" # Optional
 {{- end }}

@@ -59,6 +59,7 @@ spec:
             pathType: ImplementationSpecific
             annotations:
               forecastle.stakater.com/expose: "true"
+              forecastle.stakater.com/network-restricted: "true"
               forecastle.stakater.com/icon: https://longhorn.io/img/logos/longhorn-icon-white.png
               forecastle.stakater.com/appName: Longhorn
               forecastle.stakater.com/group: Infrastructure
