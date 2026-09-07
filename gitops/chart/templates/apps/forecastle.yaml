@@ -34,14 +34,7 @@ spec:
               customApps: {}
               crdEnabled: true
               namespaceSelector:
-                matchNames:
-                  - logging
-                  - monitoring
-                  - apps
-                  - ingress
-                  - kube-system
-                  - traefik
-                  - longhorn
+                any: true
 
             ingress:
               enabled: true
