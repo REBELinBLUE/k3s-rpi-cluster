@@ -47,6 +47,9 @@ spec:
               enabled: true
               ingressClassName: traefik
               annotations:
+                forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/appName: Victoria Metrics
+                forecastle.stakater.com/group: Monitoring
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
@@ -65,6 +68,9 @@ spec:
               enabled: true
               ingressClassName: traefik
               annotations:
+                forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/appName: Victoria Traces
+                forecastle.stakater.com/group: Monitoring
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
@@ -101,6 +107,9 @@ spec:
               enabled: true
               ingressClassName: traefik
               annotations:
+                forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/appName: Victoria Logs Storage
+                forecastle.stakater.com/group: Monitoring
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
@@ -131,6 +140,9 @@ spec:
               enabled: true
               ingressClassName: traefik
               annotations:
+                forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/appName: Alert Manager
+                forecastle.stakater.com/group: Monitoring
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
@@ -147,6 +159,9 @@ spec:
             ingress:
               enabled: true
               annotations:
+                forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/appName: Grafana
+                forecastle.stakater.com/group: Monitoring
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
