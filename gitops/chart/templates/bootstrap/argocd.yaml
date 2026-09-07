@@ -44,4 +44,19 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - argocd.cluster.rebelinblue.com
+---
+apiVersion: forecastle.stakater.com/v1alpha1
+kind: ForecastleApp
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  name: ArgoCD
+  group: CI/CD
+  icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/argo-cd.png
+  url: https://argocd.cluster.rebelinblue.com
+  # networkRestricted: false
+  # properties:
+  #   Version: "1.0"
+  # instance: "" # Optional
 {{- end }}

@@ -30,6 +30,7 @@ spec:
           forecastle:
             config:
               title: Launch Pad
+              crdEnabled: true
               customApps: {}
               namespaceSelector:
                 any: true

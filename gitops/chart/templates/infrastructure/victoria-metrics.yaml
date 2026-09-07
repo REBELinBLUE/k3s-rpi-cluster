@@ -141,8 +141,10 @@ spec:
               ingressClassName: traefik
               annotations:
                 forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/alert-manager.png
                 forecastle.stakater.com/appName: Alert Manager
                 forecastle.stakater.com/group: Monitoring
+                
                 kubernetes.io/tls-acme: "true"
                 cert-manager.io/cluster-issuer: {{ $issuer }}
                 traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
@@ -160,6 +162,7 @@ spec:
               enabled: true
               annotations:
                 forecastle.stakater.com/expose: "true"
+                forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/grafana.png
                 forecastle.stakater.com/appName: Grafana
                 forecastle.stakater.com/group: Monitoring
                 kubernetes.io/tls-acme: "true"
