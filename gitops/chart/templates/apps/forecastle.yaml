@@ -1,0 +1,25 @@
+{{- if and (eq .Values.group "apps") (eq (include "cluster-apps.enabled" (dict "appName" "forecastle" "root" $)) "true") }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: forecastle
+  namespace: argocd
+spec:
+  project: default
+
+  destination:
+    namespace: forecastle
+    name: in-cluster
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
+
+  sources:
+    - chart: forecastle
+      repoURL: https://stakater.github.io/stakater-charts/
+      targetRevision: 2.1.1
+{{- end }}

@@ -42,6 +42,7 @@ spec:
                 memory: 256Mi
 
           persistence:
+            defaultClass: true
             defaultClassReplicaCount: 2
             defaultDataLocality: "best-effort"
 

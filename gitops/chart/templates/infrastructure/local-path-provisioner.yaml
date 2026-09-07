@@ -19,7 +19,7 @@ spec:
       prune: true
       selfHeal: true
 
-  # fixme: convert to helm chart
+  # fixme: switch to helm chart
   source:
     path: {{ .Values.global.manifestsPath }}/{{ $appName }}/
     repoURL: {{ .Values.global.repoURL }}

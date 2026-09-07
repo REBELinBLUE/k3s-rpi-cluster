@@ -33,6 +33,8 @@ apps:
     enabled: true
   podinfo:
     enabled: true
+  forecastle:
+    enabled: true
   debugger:
     enabled: false
   local-path-provisioner:
