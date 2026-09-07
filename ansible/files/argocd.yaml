@@ -120,35 +120,6 @@ spec:
         - name: global.targetRevision
           value: $ARGOCD_APP_SOURCE_TARGET_REVISION
 
-
-        - name: vars.ARGOCD_APP_SOURCE_REPO_URL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
-        - name: vars.ARGOCD_APP_SOURCE_TARGET_REVISION
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
-        - name: global.ARGOCD_SERVER
-          value: $ARGOCD_SERVER
-        - name: global.ARGOCD_AUTH_TOKEN
-          value: $ARGOCD_AUTH_TOKEN
-        - name: global.ARGOCD_OPTS
-          value: $ARGOCD_OPTS
-        - name: global.ARGOCD_CONFIG_DIR
-          value: $ARGOCD_CONFIG_DIR
-        - name: global.ARGOCD_SERVER_NAME
-          value: $ARGOCD_SERVER_NAME
-        - name: global.ARGOCD_REPO_SERVER_NAME
-          value: $ARGOCD_REPO_SERVER_NAME
-        - name: global.ARGOCD_APPLICATION_CONTROLLER_NAME
-          value: $ARGOCD_APPLICATION_CONTROLLER_NAME
-        - name: global.ARGOCD_REDIS_NAME
-          value: $ARGOCD_REDIS_NAME
-        - name: global.ARGOCD_REDIS_HAPROXY_NAME
-          value: $ARGOCD_REDIS_HAPROXY_NAME
-        - name: global.ARGOCD_REDIS_KEY_PREFIX
-          value: $ARGOCD_REDIS_KEY_PREFIX
-        - name: global.ARGOCD_GRPC_KEEP_ALIVE_MIN
-          value: $ARGOCD_GRPC_KEEP_ALIVE_MIN
-  
-
   syncPolicy:
     automated:
       prune: true

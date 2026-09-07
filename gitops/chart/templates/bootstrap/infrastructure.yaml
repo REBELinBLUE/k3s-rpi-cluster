@@ -17,12 +17,13 @@ spec:
     path: gitops/chart
 
     helm:
-      valuesObject:
-        group: infrastructure
-
-        global:
-          repoURL: $ARGOCD_APP_SOURCE_REPO_URL
-          targetRevision: $ARGOCD_APP_SOURCE_TARGET_REVISION
+      parameters:
+        - name: group
+          value: infrastructure
+        - name: global.repoURL
+          value: $ARGOCD_APP_SOURCE_REPO_URL
+        - name: global.targetRevision
+          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
 
   syncPolicy:
     automated:

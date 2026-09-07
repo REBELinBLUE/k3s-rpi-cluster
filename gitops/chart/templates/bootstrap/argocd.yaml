@@ -44,24 +44,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - argocd.cluster.rebelinblue.com
----
-apiVersion: v1
-kind: Configmap
-metadata:
-  name: argocd-vars
-  namespace: argocd
-spec:
-  ARGOCD_APP_SOURCE_REPO_URL: {{ .Values.vars.ARGOCD_APP_SOURCE_REPO_URL }}
-  ARGOCD_APP_SOURCE_TARGET_REVISION: {{ .Values.vars.ARGOCD_APP_SOURCE_TARGET_REVISION }}
-  ARGOCD_SERVER: {{ .Values.vars.ARGOCD_SERVER }}
-  ARGOCD_AUTH_TOKEN: {{ .Values.vars.ARGOCD_AUTH_TOKEN }}
-  ARGOCD_OPTS: {{ .Values.vars.ARGOCD_OPTS }}
-  ARGOCD_CONFIG_DIR: {{ .Values.vars.ARGOCD_CONFIG_DIR }}
-  ARGOCD_SERVER_NAME: {{ .Values.vars.ARGOCD_SERVER_NAME }}
-  ARGOCD_REPO_SERVER_NAME: {{ .Values.vars.ARGOCD_REPO_SERVER_NAME }}
-  ARGOCD_APPLICATION_CONTROLLER_NAME: {{ .Values.vars.ARGOCD_APPLICATION_CONTROLLER_NAME }}
-  ARGOCD_REDIS_NAME: {{ .Values.vars.ARGOCD_REDIS_NAME }}
-  ARGOCD_REDIS_HAPROXY_NAME: {{ .Values.vars.ARGOCD_REDIS_HAPROXY_NAME }}
-  ARGOCD_REDIS_KEY_PREFIX: {{ .Values.vars.ARGOCD_REDIS_KEY_PREFIX }}
-  ARGOCD_GRPC_KEEP_ALIVE_MIN: {{ .Values.vars.ARGOCD_GRPC_KEEP_ALIVE_MIN }}
 {{- end }}
