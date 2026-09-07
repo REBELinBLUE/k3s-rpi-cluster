@@ -16,17 +16,18 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - RespectIgnoreDifferences=true
-    ignoreDifferences:
-      - kind: "Secret"
-        jsonPointers:
-          - /data/admin-password
-      - group: apps
-        kind: Deployment
-        jsonPointers:
-          - /spec/template/metadata/annotations/checksum~1secret
     automated:
       prune: true
       selfHeal: true
+
+  ignoreDifferences:
+    - kind: "Secret"
+      jsonPointers:
+        - /data/admin-password
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/template/metadata/annotations/checksum~1secret
 
   sources:
     - chart: victoria-metrics-k8s-stack

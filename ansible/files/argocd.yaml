@@ -99,7 +99,6 @@ metadata:
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-
 spec:
   project: default
 
@@ -108,25 +107,30 @@ spec:
     name: in-cluster
 
   source:
-    path: gitops/chart
     repoURL: https://github.com/REBELinBLUE/k3s-rpi-cluster
     targetRevision: feature/argocd-apps-chart
+    path: gitops/chart
+
     helm:
       valuesObject:
         group: bootstrap
-        
+
+        # Inherit repoURL/targetRevision from this Application's own source,
+        # so they only ever need changing here.
         global:
           repoURL: $ARGOCD_APP_SOURCE_REPO_URL
           targetRevision: $ARGOCD_APP_SOURCE_TARGET_REVISION
-      # parameters:
-      #   - name: group
-      #     value: bootstrap
-      #   # Inherit repoURL/targetRevision from this Application's own source,
-      #   # so they only ever need changing here.
-      #   - name: global.repoURL
-      #     value: $ARGOCD_APP_SOURCE_REPO_URL
-      #   - name: global.targetRevision
-      #     value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+          ARGOCD_SERVER: $ARGOCD_SERVER
+          ARGOCD_AUTH_TOKEN: $ARGOCD_AUTH_TOKEN
+          ARGOCD_OPTS: $ARGOCD_OPTS
+          ARGOCD_CONFIG_DIR: $ARGOCD_CONFIG_DIR
+          ARGOCD_SERVER_NAME: $ARGOCD_SERVER_NAME
+          ARGOCD_REPO_SERVER_NAME: $ARGOCD_REPO_SERVER_NAME
+          ARGOCD_APPLICATION_CONTROLLER_NAME: $ARGOCD_APPLICATION_CONTROLLER_NAME
+          ARGOCD_REDIS_NAME: $ARGOCD_REDIS_NAME
+          ARGOCD_REDIS_HAPROXY_NAME: $ARGOCD_REDIS_HAPROXY_NAME
+          ARGOCD_REDIS_KEY_PREFIX: $ARGOCD_REDIS_KEY_PREFIX
+          ARGOCD_GRPC_KEEP_ALIVE_MIN: $ARGOCD_GRPC_KEEP_ALIVE_MIN
 
   syncPolicy:
     automated:

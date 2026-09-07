@@ -4,7 +4,6 @@ kind: Application
 metadata:
   name: apps
   namespace: argocd
-
 spec:
   project: default
 
@@ -13,17 +12,17 @@ spec:
     name: in-cluster
 
   source:
-    path: gitops/chart
     repoURL: {{ .Values.global.repoURL }}
     targetRevision: {{ .Values.global.targetRevision }}
+    path: gitops/chart
+
     helm:
-      parameters:
-        - name: group
-          value: apps
-        - name: global.repoURL
-          value: $ARGOCD_APP_SOURCE_REPO_URL
-        - name: global.targetRevision
-          value: $ARGOCD_APP_SOURCE_TARGET_REVISION
+      valuesObject:
+        group: apps
+
+        global:
+          repoURL: $ARGOCD_APP_SOURCE_REPO_URL
+          targetRevision: $ARGOCD_APP_SOURCE_TARGET_REVISION
 
   syncPolicy:
     automated:
