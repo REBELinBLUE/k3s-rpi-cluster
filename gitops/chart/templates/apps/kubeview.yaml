@@ -32,6 +32,12 @@ spec:
 
         valuesObject:
 
+          loadBalancer:
+            enabled: false
+
+          nodePort:
+            enabled: false
+
           livenessProbe:
             initialDelaySeconds: 30
 
