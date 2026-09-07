@@ -27,12 +27,10 @@ spec:
         releaseName: forecastle
 
         valuesObject:
-
           forecastle:
             config:
               title: Launch Pad
               customApps: {}
-              crdEnabled: true
               namespaceSelector:
                 any: true
 
@@ -40,7 +38,8 @@ spec:
               enabled: true
               annotations:
                 kubernetes.io/tls-acme: "true"
-                cert-manager.io/cluster-issuer: letsencrypt-staging
+                cert-manager.io/cluster-issuer: {{ include "cluster-apps.certManagerIssuer" (dict "appName" "forecastle" "root" $) }}
+                traefik.ingress.kubernetes.io/router.middlewares: traefik-forward-auth@kubernetescrd
               className: traefik
               hosts:
               - host: launchpad.cluster.rebelinblue.com
