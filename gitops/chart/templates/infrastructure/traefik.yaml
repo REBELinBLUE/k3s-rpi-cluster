@@ -79,6 +79,10 @@ spec:
           ingressRoute:
             dashboard:
               enabled: true
+              annotations:
+                external-dns.alpha.kubernetes.io/target: {{ .Values.global.firewallaAddress }}
+              tls:
+                secretName: traefik-tls
               # middlewares:
               #   - name: traefik-forward-auth
               #     namespace: traefik
