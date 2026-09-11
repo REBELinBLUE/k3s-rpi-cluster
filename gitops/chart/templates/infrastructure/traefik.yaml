@@ -81,6 +81,7 @@ spec:
               enabled: true
               annotations:
                 external-dns.alpha.kubernetes.io/target: {{ .Values.global.firewallaAddress }}
+              matchRule: Host(`traefik.cluster.rebelinblue.com`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
               tls:
                 secretName: traefik-tls
               # middlewares:
