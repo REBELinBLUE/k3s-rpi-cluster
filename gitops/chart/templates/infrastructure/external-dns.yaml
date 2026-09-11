@@ -35,7 +35,7 @@ spec:
                 tag: 1.1.0
               env:
                 - name: FIREWALLA_HOST
-                  value: 192.168.115.1
+                  value: "192.168.115.1"
                 - name: FIREWALLA_PROVIDER_PORT
                   value: "8888"
                 - name: FIREWALLA_HEALTH_PORT
