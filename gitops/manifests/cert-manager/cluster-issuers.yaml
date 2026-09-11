@@ -14,9 +14,9 @@ spec:
           webhook:
             solverName: linode
             groupName: cluster.rebelinblue.com
-      - http01:
-          ingress:
-            class: traefik
+      # - http01:
+      #     ingress:
+      #       class: traefik
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -33,9 +33,9 @@ spec:
           webhook:
             solverName: linode
             groupName: cluster.rebelinblue.com
-      - http01:
-          ingress:
-            class: traefik
+      # - http01:
+      #     ingress:
+      #       class: traefik
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
