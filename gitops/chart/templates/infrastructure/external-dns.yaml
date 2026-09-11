@@ -35,22 +35,20 @@ spec:
                 tag: 1.1.0
               env:
                 - name: FIREWALLA_HOST
-                  value: "192.168.115.1"
+                  value: 192.168.115.1
                 - name: FIREWALLA_PROVIDER_PORT
-                  value: "8888"
+                  value: 8888
                 - name: FIREWALLA_HEALTH_PORT
-                  value: "8080"
+                  value: 8080
                 - name: WEBHOOK_PORT
-                  value: "8888"
+                  value: 8888
                 - name: METRICS_PORT
-                  value: "8080"
-                # - name: SHARED_SECRET # You can use a secret reference, must match Firewalla shared secret (recommended)
-                #   valueFrom:
-                #       secretKeyRef:
-                #         name: firewalla-webhook-secret
-                #         key: shared-secret
-                - name: SHARED_SECRET # Or manually set the shared secret (not recommended)
-                  value: "your-secure-shared-secret-here"
+                  value: 8080
+                - name: SHARED_SECRET
+                  valueFrom:
+                      secretKeyRef:
+                        name: external-dns
+                        key: FIREWALLA_SHARED_SECRET
               livenessProbe:
                 httpGet:
                   path: /health
@@ -90,7 +88,7 @@ spec:
             - name: LINODE_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: linode
+                  name: external-dns
                   key: LINODE_TOKEN
 
           serviceMonitor:
