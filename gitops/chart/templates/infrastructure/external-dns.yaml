@@ -37,13 +37,13 @@ spec:
                 - name: FIREWALLA_HOST
                   value: 192.168.115.1
                 - name: FIREWALLA_PROVIDER_PORT
-                  value: 8888
+                  value: "8888"
                 - name: FIREWALLA_HEALTH_PORT
-                  value: 8080
+                  value: "8080"
                 - name: WEBHOOK_PORT
-                  value: 8888
+                  value: "8888"
                 - name: METRICS_PORT
-                  value: 8080
+                  value: "8080"
                 - name: SHARED_SECRET
                   valueFrom:
                     secretKeyRef:
