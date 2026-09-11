@@ -62,8 +62,15 @@ spec:
                 initialDelaySeconds: 10
                 timeoutSeconds: 5
 
-
           policy: sync
+          txtOwnerId: rpi-k8s-cluster
+
+          # env:
+          #   - name: LINODE_TOKEN
+          #     valueFrom:
+          #       secretKeyRef:
+          #         name: external-dns
+          #         key: LINODE_TOKEN
 
           domainFilters:
             - cluster.rebelinblue.com
@@ -83,13 +90,6 @@ spec:
             limits:
               cpu: 300m
               memory: 128Mi
-
-          env:
-            - name: LINODE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: external-dns
-                  key: LINODE_TOKEN
 
           serviceMonitor:
             enabled: true
