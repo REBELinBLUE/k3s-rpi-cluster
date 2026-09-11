@@ -79,7 +79,8 @@ spec:
           ingressRoute:
             dashboard:
               enabled: true
-              middlewares: ["traefik-forward-auth@kubernetescrd"]
+              middlewares:
+                - traefik-forward-auth@kubernetescrd
               
           # FIXME: Double check this
           metrics:
