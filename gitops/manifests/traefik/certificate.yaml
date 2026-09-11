@@ -1,3 +1,4 @@
+---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -6,7 +7,7 @@ metadata:
 spec:
   secretName: argocd-server-tls
   issuerRef:
-    name: {{ include "cluster-apps.certManagerIssuer" (dict "appName" "traefik" "root" $) }}
+    name: letsencrypt-staging
     kind: ClusterIssuer
   dnsNames:
     - traefik.cluster.rebelinblue.com
