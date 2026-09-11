@@ -26,7 +26,7 @@
         removes: /var/lib/rancher/k3s
 
 - name: Clean up residual files
-  hosts: all
+  hosts: k3s_cluster
   gather_facts: false
   become: true
   tasks:

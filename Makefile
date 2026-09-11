@@ -11,6 +11,9 @@ argo:
 	./scripts/proxy-argo.sh
 
 # Initial setup
+firewalla:
+	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) firewalla.yaml
+
 master:
 	cd $(ANSIBLE_DIR) && ansible-playbook -i $(INVENTORY) master.yaml
 

@@ -1,0 +1,11 @@
+---
+- name: Test connection to firewalla
+  hosts: firewalla
+  gather_facts: false
+  tasks:
+    - name: Create external DNS domain filter
+      ansible.builtin.raw: test ! -d /opt/external-dns-firewalla-webhook && echo "cluster.rebelinblue.com,*.cluster.rebelinblue.com" > /tmp/external-dns-domain-filter
+
+    - name: Generate external DNS shared secret
+      ansible.builtin.raw: test ! -d /opt/external-dns-firewalla-webhook && openssl rand -hex 32 > /tmp/external-dns-shared-secret
+

@@ -5,18 +5,25 @@ all:
     ansible_python_interpreter: /usr/bin/python3
 
   children:
-    controlplane:
-      hosts:
-        master:
-          cluster_ip: 10.0.0.1
-    workers:
-      hosts:
-        node-1:
-          cluster_ip: 10.0.0.2
-          mac_address: dc:a6:32:67:77:3e
-        node-2:
-          cluster_ip: 10.0.0.3
-          mac_address: dc:a6:32:67:76:b8
-        node-3:
-          cluster_ip: 10.0.0.4
-          mac_address: dc:a6:32:67:77:06
+    k3s_cluster:
+      children:
+        controlplane:
+          hosts:
+            master:
+              cluster_ip: 10.0.0.1
+        workers:
+          hosts:
+            node-1:
+              cluster_ip: 10.0.0.2
+              mac_address: dc:a6:32:67:77:3e
+            node-2:
+              cluster_ip: 10.0.0.3
+              mac_address: dc:a6:32:67:76:b8
+            node-3:
+              cluster_ip: 10.0.0.4
+              mac_address: dc:a6:32:67:77:06
+  hosts:
+    firewalla:
+      ansible_host: fire.walla
+      ansible_user: pi
+      ansible_python_interpreter: /usr/bin/python3.8
