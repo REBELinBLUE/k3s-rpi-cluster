@@ -1,13 +1,13 @@
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: traefik
-  namespace: traefik
-spec:
-  secretName: argocd-server-tls
-  issuerRef:
-    name: letsencrypt-staging
-    kind: ClusterIssuer
-  dnsNames:
-    - traefik.cluster.rebelinblue.com
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: traefik
+#   namespace: traefik
+# spec:
+#   secretName: argocd-server-tls
+#   issuerRef:
+#     name: letsencrypt-staging
+#     kind: ClusterIssuer
+#   dnsNames:
+#     - traefik.cluster.rebelinblue.com
