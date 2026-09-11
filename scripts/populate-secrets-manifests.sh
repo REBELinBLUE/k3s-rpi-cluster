@@ -8,6 +8,7 @@ set -euo pipefail
 : "${GOOGLE_OAUTH_CLIENT_SECRET:?Environment variable GOOGLE_OAUTH_CLIENT_SECRET must be set}"
 : "${GOOGLE_OAUTH_SECRET:?Environment variable GOOGLE_OAUTH_SECRET must be set}"
 : "${LINODE_TOKEN:?Environment variable LINODE_TOKEN must be set}"
+: "${FIREWALLA_SHARED_SECRET:?Environment variable FIREWALLA_SHARED_SECRET must be set}"
 
 REPO_ROOT=$(git rev-parse --show-toplevel)
 
@@ -56,9 +57,10 @@ seal_secret "traefik-forward-auth" "traefik" \
   "CLIENT_SECRET=$GOOGLE_OAUTH_CLIENT_SECRET" \
   "SECRET=$GOOGLE_OAUTH_SECRET"
 
-seal_secret "linode" "external-dns" \
+seal_secret "external-dns" "external-dns" \
   "$REPO_ROOT/gitops/manifests/external-dns/sealed-secrets.yaml" \
-  "LINODE_TOKEN=$LINODE_TOKEN"
+  "LINODE_TOKEN=$LINODE_TOKEN" \
+  "FIREWALLA_SHARED_SECRET=$FIREWALLA_SHARED_SECRET"
 
 seal_secret "linode-credentials" "cert-manager" \
   "$REPO_ROOT/gitops/manifests/cert-manager-webhook-linode/sealed-secrets.yaml" \
