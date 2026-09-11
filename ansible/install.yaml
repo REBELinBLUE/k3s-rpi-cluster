@@ -23,7 +23,13 @@
       args:
         creates: /usr/local/bin/k3s
       environment:
-        INSTALL_K3S_EXEC: "--node-taint node-role.kubernetes.io/control-plane:NoSchedule --tls-san cluster.lan --disable metrics-server --disable traefik --disable servicelb --disable local-storage"
+        INSTALL_K3S_EXEC: >-
+          --node-taint node-role.kubernetes.io/control-plane:NoSchedule
+          --tls-san cluster.lan
+          --disable metrics-server
+          --disable traefik
+          --disable servicelb
+          --disable local-storage
 
     - name: Check if pi context already exists locally
       delegate_to: localhost
@@ -76,6 +82,7 @@
     - name: Merge kubeconfig into local kubeconfig
       delegate_to: localhost
       when: pi_context_check.rc != 0
+      changed_when: true
       ansible.builtin.command: kubecm add -f {{ k3s_config_tempfile.path }} --create --cover
 
     - name: Delete temp kubeconfig file
