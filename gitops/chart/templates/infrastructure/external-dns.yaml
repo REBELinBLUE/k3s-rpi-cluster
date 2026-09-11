@@ -46,9 +46,9 @@ spec:
                   value: 8080
                 - name: SHARED_SECRET
                   valueFrom:
-                      secretKeyRef:
-                        name: external-dns
-                        key: FIREWALLA_SHARED_SECRET
+                    secretKeyRef:
+                      name: external-dns
+                      key: FIREWALLA_SHARED_SECRET
               livenessProbe:
                 httpGet:
                   path: /health
