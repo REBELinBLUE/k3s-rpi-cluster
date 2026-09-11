@@ -80,8 +80,9 @@ spec:
             dashboard:
               enabled: true
               middlewares:
-                - traefik-forward-auth@kubernetescrd
-              
+                - name: traefik-forward-auth
+                  namespace: traefik
+
           # FIXME: Double check this
           metrics:
             prometheus:
