@@ -9,3 +9,14 @@
     - name: Generate external DNS shared secret
       ansible.builtin.raw: test ! -d /opt/external-dns-firewalla-webhook && openssl rand -hex 32 > /tmp/external-dns-shared-secret
 
+    - name: Read external DNS shared secret
+      ansible.builtin.raw: cat /tmp/external-dns-shared-secret
+      register: external_dns_shared_secret
+      changed_when: false
+
+    - name: Install external DNS Firewalla webhook
+      ansible.builtin.raw: test ! -d /opt/external-dns-firewalla-webhook && curl -fsSL https://raw.githubusercontent.com/TheOutdoorProgrammer/external-dns-firewalla-webhook/main/scripts/install.sh | bash
+
+    - name: Print external DNS shared secret
+      ansible.builtin.debug:
+        msg: "{{ external_dns_shared_secret.stdout }}"
