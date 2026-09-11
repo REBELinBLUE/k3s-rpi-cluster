@@ -79,9 +79,9 @@ spec:
           ingressRoute:
             dashboard:
               enabled: true
-              middlewares:
-                - name: traefik-forward-auth
-                  namespace: traefik
+              # middlewares:
+              #   - name: traefik-forward-auth
+              #     namespace: traefik
 
           # FIXME: Double check this
           metrics:
