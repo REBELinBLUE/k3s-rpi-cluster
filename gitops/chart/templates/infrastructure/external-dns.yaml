@@ -63,7 +63,7 @@ spec:
                 timeoutSeconds: 5
 
           policy: sync
-          txtOwnerId: rpi-k8s-cluster
+          txtOwnerId: rpi-k3s-cluster
 
           # env:
           #   - name: LINODE_TOKEN
